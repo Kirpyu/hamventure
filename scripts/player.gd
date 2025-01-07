@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 @export var speed = 100
-@export var grapple_speed = 0
+@export var grapple_speed = 5
 const JUMP_VELOCITY = -300.0
 
 @export var radius: float = 50
@@ -58,10 +58,20 @@ func _physics_process(delta):
 		animated_sprite.play("jump")
 	
 	# Apply movement
-	if direction:
-		velocity.x = direction * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
+	
+	if !grappled:
+		if direction:
+			velocity.x = direction * speed
+		else:
+			velocity.x = move_toward(velocity.x, 0, speed)
+	
+	if Input.is_action_just_pressed("move_right"):
+		if grappled and grapple_speed < 0:
+			grapple_speed *= -1
+			
+	if Input.is_action_just_pressed("move_left"):
+		if grappled and grapple_speed >= 0:
+			grapple_speed *= -1
 
 	move_and_slide()
 
