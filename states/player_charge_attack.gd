@@ -1,17 +1,11 @@
 extends State
-class_name PlayerFreefall
+class_name PlayerChargeAttack
 
 @export var animated_sprite : AnimatedSprite2D
 @export var player : CharacterBody2D
 
 func Enter():
-	player.speed = 100
-	
-func Exit():
-	pass
-	
-func Update(_delta:float):
-	pass
+	print("Charge Attack")
 	
 func Physics_Update(_delta:float):
-	animated_sprite.play("run")
+	Transitioned.emit(self, "PlayerGrapple")

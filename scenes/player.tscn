@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=34 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://b8cmjj8vq3r8d" path="res://assets/sprites/knight.png" id="1_p3dy5"]
@@ -6,6 +6,10 @@
 [ext_resource type="Script" path="res://states/player_move.gd" id="4_scvtl"]
 [ext_resource type="Script" path="res://states/player_idle.gd" id="5_2a7d5"]
 [ext_resource type="Script" path="res://states/player_jump.gd" id="6_544lc"]
+[ext_resource type="Script" path="res://states/player_quick_attack.gd" id="7_bp4dj"]
+[ext_resource type="Script" path="res://states/player_charge_attack.gd" id="8_yctwb"]
+[ext_resource type="Script" path="res://states/player_attack.gd" id="9_a4vn6"]
+[ext_resource type="Script" path="res://states/player_grapple.gd" id="10_byiok"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eq0sc"]
 atlas = ExtResource("1_p3dy5")
@@ -208,3 +212,28 @@ player = NodePath("../..")
 script = ExtResource("6_544lc")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 player = NodePath("../..")
+
+[node name="PlayerQuickAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "player")]
+script = ExtResource("7_bp4dj")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+player = NodePath("../..")
+
+[node name="PlayerChargeAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "player")]
+script = ExtResource("8_yctwb")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+player = NodePath("../..")
+
+[node name="PlayerAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "player")]
+script = ExtResource("9_a4vn6")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+player = NodePath("../..")
+
+[node name="PlayerGrapple" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "player")]
+script = ExtResource("10_byiok")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+player = NodePath("../..")
+
+[node name="AttackCD" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.4
+one_shot = true
