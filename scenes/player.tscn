@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=35 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://b8cmjj8vq3r8d" path="res://assets/sprites/knight.png" id="1_p3dy5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://states/player_charge_attack.gd" id="8_yctwb"]
 [ext_resource type="Script" path="res://states/player_attack.gd" id="9_a4vn6"]
 [ext_resource type="Script" path="res://states/player_grapple.gd" id="10_byiok"]
+[ext_resource type="Script" path="res://states/player_dash.gd" id="11_bnvse"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eq0sc"]
 atlas = ExtResource("1_p3dy5")
@@ -233,7 +234,17 @@ script = ExtResource("10_byiok")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 player = NodePath("../..")
 
+[node name="PlayerDash" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "player")]
+script = ExtResource("11_bnvse")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+player = NodePath("../..")
+
 [node name="AttackCD" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.4
+one_shot = true
+
+[node name="DashCD" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
 one_shot = true

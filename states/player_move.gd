@@ -7,6 +7,7 @@ class_name PlayerMove
 var jump_timer = 0;
 
 @onready var attack_cd : Timer = %AttackCD
+@onready var dash_cd : Timer = %DashCD
 
 func Enter():
 	player.speed = 100
@@ -32,6 +33,11 @@ func Physics_Update(_delta:float):
 	if Input.is_action_just_pressed("lmb") and attack_cd.is_stopped():
 		attack_cd.start()
 		Transitioned.emit(self, "PlayerAttack")
+	
+	if Input.is_action_just_pressed("shift"):
+		if dash_cd.is_stopped():
+			dash_cd.start()
+			Transitioned.emit(self, "PlayerDash")
 	
 	if Input.is_action_just_pressed("jump"):
 		if player.is_on_floor():
