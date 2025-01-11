@@ -9,21 +9,39 @@ const JUMP_VELOCITY = -300.0
 var angle : float = 0
 var grappled = false
 var direction = null;
-@onready var initial_pos = %Anchor
+@onready var anchor = %Anchor
 var grapple_angle : float
 
 var current_jump = 1
 var jump_count = 2
+var attack_hitboxes : Dictionary = {}
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animated_sprite = $AnimatedSprite2D
 
+func _ready() -> void:
+	for hitbox in %AttackBox.get_children():
+		attack_hitboxes[hitbox.name] = hitbox
+		
 func _physics_process(delta):
 	
-	grapple_angle = atan2(global_position.y - initial_pos.global_position.y, global_position.x - initial_pos.global_position.x)
+	grapple_angle = atan2(global_position.y - anchor.global_position.y, global_position.x - anchor.global_position.x)
 	direction = Input.get_axis("move_left","move_right")
 	move_and_slide()
+
+var attack_dir;
+func attack(dir: String):
+	if %ResetTimer.is_stopped():
+		attack_dir = dir
+		if attack_hitboxes[dir]:
+			attack_hitboxes[dir].set_deferred("disabled", false)		
+		else:
+			attack_hitboxes["Right"].set_deferred("disabled", false)
+		%ResetTimer.start()
+
+func _on_reset_timer_timeout() -> void:
+	attack_hitboxes[attack_dir].set_deferred("disabled", true)
 
 func circular_motion(delta):
 	angle += grapple_speed * delta
@@ -31,5 +49,5 @@ func circular_motion(delta):
 	var x_pos = cos(angle)
 	var y_pos = sin(angle)
 
-	position.x = radius * x_pos + initial_pos.global_position.x
-	position.y = radius * y_pos + initial_pos.global_position.y
+	position.x = radius * x_pos + anchor.global_position.x
+	position.y = radius * y_pos + anchor.global_position.y

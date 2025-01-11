@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=36 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://b8cmjj8vq3r8d" path="res://assets/sprites/knight.png" id="1_p3dy5"]
@@ -180,6 +180,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_bvcm0"]
 radius = 5.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0abg"]
+size = Vector2(24, 11)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
@@ -248,3 +251,35 @@ one_shot = true
 unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
+
+[node name="ResetTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+one_shot = true
+
+[node name="AttackBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Right" type="CollisionShape2D" parent="AttackBox"]
+position = Vector2(18, -6)
+shape = SubResource("RectangleShape2D_a0abg")
+disabled = true
+
+[node name="Up" type="CollisionShape2D" parent="AttackBox"]
+position = Vector2(0, -24)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_a0abg")
+disabled = true
+
+[node name="Down" type="CollisionShape2D" parent="AttackBox"]
+position = Vector2(0, 12)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_a0abg")
+disabled = true
+
+[node name="Left" type="CollisionShape2D" parent="AttackBox"]
+position = Vector2(-18, -6)
+shape = SubResource("RectangleShape2D_a0abg")
+disabled = true
+
+[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
