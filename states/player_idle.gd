@@ -7,9 +7,9 @@ class_name PlayerIdle
 
 func Enter():
 	player.speed = 0
-	
+
 func Physics_Update(_delta:float):
-	animated_sprite.play("idle")
+	#animated_sprite.play("idle")
 	
 	if Input.is_action_just_pressed("lmb") and attack_cd.is_stopped():
 		attack_cd.start()

@@ -16,17 +16,17 @@ func Update(_delta:float):
 	jump_timer -= _delta
 	
 func Physics_Update(_delta:float):
-	if player.is_on_floor():
-		animated_sprite.play("run")
-	else:
-		animated_sprite.play("jump")
-	
-	if player.direction > 0:
-		animated_sprite.flip_h = false
-	elif player.direction < 0:
-		animated_sprite.flip_h = true
-	elif player.is_on_floor():
-		Transitioned.emit(self, "PlayerIdle")
+	#if player.is_on_floor():
+		#animated_sprite.play("run")
+	#else:
+		#animated_sprite.play("jump")
+	#
+	#if player.direction > 0:
+		#animated_sprite.flip_h = false
+	#elif player.direction < 0:
+		#animated_sprite.flip_h = true
+	#elif player.is_on_floor():
+		#Transitioned.emit(self, "PlayerIdle")
 		
 	player.velocity.x = player.speed * player.direction
 	

@@ -16,9 +16,12 @@ var current_jump = 1
 var jump_count = 2
 var attack_hitboxes : Dictionary = {}
 # Get the gravity from the project settings to be synced with RigidBody nodes.
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+#variables for animation
 @onready var animated_sprite = $AnimatedSprite2D
+@export var animation_tree: AnimationTree
 
 func _ready() -> void:
 	for hitbox in %AttackBox.get_children():
@@ -34,12 +37,13 @@ var attack_dir;
 func attack(dir: String):
 	if %ResetTimer.is_stopped():
 		attack_dir = dir
+		%StateMachine.attack(dir)
 		if attack_hitboxes[dir]:
-			attack_hitboxes[dir].set_deferred("disabled", false)		
+			attack_hitboxes[dir].set_deferred("disabled", false)
 		else:
 			attack_hitboxes["Right"].set_deferred("disabled", false)
 		%ResetTimer.start()
-
+		
 func _on_reset_timer_timeout() -> void:
 	attack_hitboxes[attack_dir].set_deferred("disabled", true)
 
