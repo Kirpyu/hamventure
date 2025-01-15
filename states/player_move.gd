@@ -5,6 +5,7 @@ class_name PlayerMove
 @export var player : CharacterBody2D
 @export var jump_time : float = 0.1
 var jump_timer = 0;
+var dashed : bool = false;
 
 @onready var attack_cd : Timer = %AttackCD
 @onready var dash_cd : Timer = %DashCD
@@ -35,7 +36,8 @@ func Physics_Update(_delta:float):
 		Transitioned.emit(self, "PlayerAttack")
 	
 	if Input.is_action_just_pressed("shift"):
-		if dash_cd.is_stopped():
+		if dash_cd.is_stopped() and !dashed:
+			dashed = true;
 			dash_cd.start()
 			Transitioned.emit(self, "PlayerDash")
 	
@@ -59,3 +61,4 @@ func Physics_Update(_delta:float):
 	if player.is_on_floor():
 		if jump_timer > 0:
 			Transitioned.emit(self, "PlayerJump")
+		dashed = false;
