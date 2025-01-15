@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
 
-@export var speed = 100
-@export var grapple_speed = 5
-const JUMP_VELOCITY = -300.0
+@export var speed = 50
+@export var grapple_speed = 3
+const JUMP_VELOCITY = -150.0
 
-@export var radius: float = 50
+@export var radius: float = 30
 var angle : float = 0
 var grappled = false
 var direction = null;
