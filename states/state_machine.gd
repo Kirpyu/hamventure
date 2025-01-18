@@ -69,3 +69,17 @@ func attack(dir: String):
 
 func _on_attack_cd_timeout() -> void:
 	attacking = false;
+
+func start_attacking():
+	attacking = true
+
+func stop_attacking():
+	attacking = false
+func print_test() -> void:
+	print("happened")
+	if %AttackCD.is_stopped():
+		print("stopped")
+	else:
+		print("working")
+	attacking = false;
+	
