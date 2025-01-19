@@ -11,10 +11,12 @@ var grappled = false
 var direction = null;
 @onready var anchor = %Anchor
 var grapple_angle : float
+@onready var state_machine = %StateMachine
 
 var current_jump = 1
 var jump_count = 2
 var attack_hitboxes : Dictionary = {}
+var has_sickle = true
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")

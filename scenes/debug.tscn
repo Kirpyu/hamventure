@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cimf6xhquahgi"]
+[gd_scene load_steps=19 format=3 uid="uid://cimf6xhquahgi"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_hnp3u"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_eohvi"]
@@ -218,6 +218,9 @@ _data = {
 "move": SubResource("Animation_bm7kf")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_s47ti"]
+radius = 7.07107
+
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="."]
@@ -358,3 +361,12 @@ script = ExtResource("10_6dt2u")
 [node name="Sprite2D" type="Sprite2D" parent="Anchor"]
 texture = ExtResource("10_k8i35")
 hframes = 12
+
+[node name="Area2D" type="Area2D" parent="Anchor"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Anchor/Area2D"]
+shape = SubResource("CircleShape2D_s47ti")
+
+[node name="ProjectileNode" type="Node2D" parent="." groups=["projectile_node"]]
