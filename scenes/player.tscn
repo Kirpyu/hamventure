@@ -105,17 +105,17 @@ blend_point_1/node = SubResource("AnimationNodeAnimation_2ji3c")
 blend_point_1/pos = 1.0
 blend_mode = 2
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nd4ll"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k3s3q"]
 animation = &"spin_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ht8eq"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3fyl0"]
 animation = &"spin_right"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1i5vn"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_nd4ll")
-blend_point_0/pos = Vector2(-1, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_ht8eq")
-blend_point_1/pos = Vector2(1, 0)
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_mytg0"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_k3s3q")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_3fyl0")
+blend_point_1/pos = -1.0
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f6p0f"]
 advance_mode = 2
@@ -149,19 +149,19 @@ advance_expression = "!attacking"
 advance_mode = 2
 advance_expression = "!grappling"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qsw4r"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2ykfg"]
 advance_mode = 2
 advance_expression = "!grappling"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_guwqr"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r51u4"]
 advance_mode = 2
 advance_expression = "grappling"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xa6yl"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jogk0"]
 advance_mode = 2
 advance_expression = "grapple_attacking"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kq8j8"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cyl2t"]
 advance_mode = 2
 advance_expression = "!grapple_attacking"
 
@@ -178,9 +178,9 @@ states/idle/node = SubResource("AnimationNodeBlendSpace1D_agy4r")
 states/idle/position = Vector2(393, 41)
 states/run/node = SubResource("AnimationNodeBlendSpace1D_mgtoe")
 states/run/position = Vector2(998.5, 41)
-states/spin/node = SubResource("AnimationNodeBlendSpace2D_1i5vn")
+states/spin/node = SubResource("AnimationNodeBlendSpace1D_mytg0")
 states/spin/position = Vector2(393, 275.624)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_f6p0f"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_mdrf8"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_cdfh5"), "run", "grapple_charge", SubResource("AnimationNodeStateMachineTransition_i501x"), "idle", "grapple_charge", SubResource("AnimationNodeStateMachineTransition_3c7bb"), "grapple_charge", "attack", SubResource("AnimationNodeStateMachineTransition_m1l7v"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_rhmhn"), "grapple_attack", "idle", SubResource("AnimationNodeStateMachineTransition_hves5"), "spin", "idle", SubResource("AnimationNodeStateMachineTransition_qsw4r"), "grapple_charge", "spin", SubResource("AnimationNodeStateMachineTransition_guwqr"), "spin", "grapple_attack", SubResource("AnimationNodeStateMachineTransition_xa6yl"), "grapple_attack", "spin", SubResource("AnimationNodeStateMachineTransition_kq8j8")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_f6p0f"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_mdrf8"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_cdfh5"), "run", "grapple_charge", SubResource("AnimationNodeStateMachineTransition_i501x"), "idle", "grapple_charge", SubResource("AnimationNodeStateMachineTransition_3c7bb"), "grapple_charge", "attack", SubResource("AnimationNodeStateMachineTransition_m1l7v"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_rhmhn"), "grapple_attack", "idle", SubResource("AnimationNodeStateMachineTransition_hves5"), "spin", "idle", SubResource("AnimationNodeStateMachineTransition_2ykfg"), "grapple_charge", "spin", SubResource("AnimationNodeStateMachineTransition_r51u4"), "spin", "grapple_attack", SubResource("AnimationNodeStateMachineTransition_jogk0"), "grapple_attack", "spin", SubResource("AnimationNodeStateMachineTransition_cyl2t")]
 graph_offset = Vector2(-143.637, 32.9228)
 
 [sub_resource type="Animation" id="Animation_g4k0h"]
@@ -1313,9 +1313,9 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_ws3p5"]
 resource_name = "spin_left"
-length = 0.60002
+length = 0.187506
 loop_mode = 1
-step = 0.2
+step = 0.0625
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1335,7 +1335,7 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
+"times": PackedFloat32Array(0, 0.0625, 0.125),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
@@ -1367,7 +1367,9 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_g8bv6"]
 resource_name = "spin_right"
-step = 0.2
+length = 0.187506
+loop_mode = 1
+step = 0.0625
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1387,7 +1389,7 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
+"times": PackedFloat32Array(0, 0.0625, 0.125),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
@@ -1870,7 +1872,7 @@ parameters/grapple_attack/blend_position = Vector2(0, 0)
 parameters/grapple_charge/blend_position = -0.040783
 parameters/idle/blend_position = 0.120896
 parameters/run/blend_position = -0.998507
-parameters/spin/blend_position = Vector2(0, 0)
+parameters/spin/blend_position = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

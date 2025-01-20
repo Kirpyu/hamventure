@@ -9,10 +9,11 @@ const JUMP_VELOCITY = -150.0
 var angle : float = 0
 var grappled = false
 var direction = null;
-@onready var anchor = %Anchor
+@onready var target = %Anchor
 var grapple_angle : float
 var relative_vector : Vector2
 var normalized_vector : Vector2 = Vector2(0,0)
+var normalized_x : float
 @onready var state_machine = %StateMachine
 
 var current_jump = 1
@@ -32,8 +33,7 @@ func _ready() -> void:
 		attack_hitboxes[hitbox.name] = hitbox
 		
 func _physics_process(delta):
-	print(angle)
-	grapple_angle = atan2(global_position.y - anchor.global_position.y, global_position.x - anchor.global_position.x)
+	grapple_angle = atan2(global_position.y - target.global_position.y, global_position.x - target.global_position.x)
 	direction = Input.get_axis("move_left","move_right")
 	move_and_slide()
 
@@ -57,13 +57,15 @@ func circular_motion(delta):
 	var x_pos = cos(angle)
 	var y_pos = sin(angle)
 
-	position.x = radius * x_pos + anchor.global_position.x
-	position.y = radius * y_pos + anchor.global_position.y
+	position.x = radius * x_pos + target.global_position.x
+	position.y = radius * y_pos + target.global_position.y
 	
-	relative_vector = position - anchor.global_position
+	relative_vector = position - target.global_position
 	if abs(relative_vector.x) > abs(relative_vector.y):
 		# Horizontal dominant
 		normalized_vector = Vector2(sign(relative_vector.x), 0)
 	else:
 		# Vertical dominant
 		normalized_vector = Vector2(0, sign(relative_vector.y))
+		
+	normalized_x = relative_vector.x / radius

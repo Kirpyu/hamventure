@@ -28,7 +28,7 @@ func Physics_Update(_delta:float):
 				
 		if Input.is_action_just_pressed("lmb") and player.has_sickle:
 			%StateMachine.grapple_attacking = true
-			attack(player.anchor)
+			attack(player.target)
 			player.has_sickle = false
 		
 		if Input.is_action_just_pressed("jump"):
