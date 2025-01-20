@@ -1,8 +1,8 @@
 extends Area2D
 
 var target = null
-@export var speed: float = 300
-@export var max_speed: float = 300
+@export var speed: float = 600
+@export var max_speed: float = 600
 var player: CharacterBody2D
 var spinning : bool 
 var returning: bool = false

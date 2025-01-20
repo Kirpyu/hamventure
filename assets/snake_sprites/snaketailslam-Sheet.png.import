@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1jfrnwfpgx0q"
-path="res://.godot/imported/snake_tongueflick-Sheet.png-3916212ff3f9b409a57713bab45051a1.ctex"
+uid="uid://douevgo2f2wcx"
+path="res://.godot/imported/snaketailslam-Sheet.png-3140fad4e1f95a980542104b87b7b2cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/snake_tongueflick-Sheet.png"
-dest_files=["res://.godot/imported/snake_tongueflick-Sheet.png-3916212ff3f9b409a57713bab45051a1.ctex"]
+source_file="res://assets/snake_sprites/snaketailslam-Sheet.png"
+dest_files=["res://.godot/imported/snaketailslam-Sheet.png-3140fad4e1f95a980542104b87b7b2cc.ctex"]
 
 [params]
 
