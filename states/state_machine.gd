@@ -10,6 +10,9 @@ var player : CharacterBody2D
 var held_dir;
 @export var attacking = false;
 var attack_dir;
+var grappling: bool = false
+var charging: bool = false
+var grapple_attacking:bool = false
 
 func _ready():
 	animation_tree.active = true
@@ -36,6 +39,9 @@ func _physics_process(delta: float) -> void:
 	animation_tree.set("parameters/run/blend_position", held_dir)
 	animation_tree.set("parameters/idle/blend_position", held_dir)
 	animation_tree.set("parameters/attack/blend_position", attack_dir)
+	animation_tree.set("parameters/spin/blend_position", sign(player.normalized_x))
+	animation_tree.set("parameters/grapple_charge/blend_position", held_dir)
+	animation_tree.set("parameters/grapple_attack/blend_position", player.normalized_vector)
 	
 func on_child_transition(state, new_state_name):
 	if state != current_state:
@@ -69,3 +75,10 @@ func attack(dir: String):
 
 func _on_attack_cd_timeout() -> void:
 	attacking = false;
+
+func start_attacking():
+	attacking = true
+
+func stop_attacking():
+	attacking = false
+	

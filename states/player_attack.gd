@@ -10,8 +10,9 @@ var jump_timer = 0;
 var current_charge : float = 0
 
 func Enter():
-	player.speed = 100
+	player.speed = player.max_speed * .75
 	current_charge = 0
+	%StateMachine.charging = true
 
 func Update(_delta:float):
 	jump_timer -= _delta
@@ -25,6 +26,7 @@ func Physics_Update(_delta:float):
 			Transitioned.emit(self, "PlayerChargeAttack")
 		else:
 			Transitioned.emit(self, "PlayerQuickAttack")
+		%StateMachine.charging = false
 		
 	player.velocity.x = player.speed * player.direction
 	

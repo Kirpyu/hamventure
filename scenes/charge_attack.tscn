@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5tugofgsamwj"]
+
+[ext_resource type="Texture2D" uid="uid://bnlifh735vl2u" path="res://assets/sprites/sickleSPIN-Sheet.png" id="1_2qssx"]
+[ext_resource type="Script" path="res://scenes/charge_attack.gd" id="1_wf3ip"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v436n"]
+atlas = ExtResource("1_2qssx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eav8j"]
+atlas = ExtResource("1_2qssx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_elfwt"]
+atlas = ExtResource("1_2qssx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5misa"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v436n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eav8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_elfwt")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 24.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ixfs7"]
+radius = 11.0
+
+[node name="ChargeAttack" type="Area2D"]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_wf3ip")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5misa")
+animation = &"spin"
+frame_progress = 0.763116
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_ixfs7")
+
+[node name="ReturnTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.25
+one_shot = true
+
+[node name="TickTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ReturnTimer" to="." method="_on_return_timer_timeout"]
+[connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
