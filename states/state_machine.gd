@@ -39,8 +39,10 @@ func _physics_process(delta: float) -> void:
 	animation_tree.set("parameters/run/blend_position", held_dir)
 	animation_tree.set("parameters/idle/blend_position", held_dir)
 	animation_tree.set("parameters/attack/blend_position", attack_dir)
-	animation_tree.set("parameters/spin/blend_position", attack_dir)
-	animation_tree.set("parameters/grapple_attack/blend_position", attack_dir)
+	animation_tree.set("parameters/spin/blend_position", held_dir)
+	animation_tree.set("parameters/grapple_charge/blend_position", held_dir)
+	animation_tree.set("parameters/grapple_attack/blend_position", player.normalized_vector)
+	print(player.normalized_vector)
 	
 func on_child_transition(state, new_state_name):
 	if state != current_state:

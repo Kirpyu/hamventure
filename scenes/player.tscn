@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=132 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://disdi646684l0" path="res://assets/sprites/mc_attack1-Sheet.png" id="2_kc6hl"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" path="res://states/player_move.gd" id="4_scvtl"]
 [ext_resource type="Script" path="res://states/player_idle.gd" id="5_2a7d5"]
 [ext_resource type="Texture2D" uid="uid://bpy3nx2n1fktn" path="res://assets/sprites/mc_chargingGrapple_DOWN-Sheet.png" id="5_dttal"]
+[ext_resource type="Texture2D" uid="uid://1ipg1tofdtl6" path="res://assets/sprites/mc_chargingGrapple_SIDE-Sheet.png" id="6_1rlc0"]
 [ext_resource type="Script" path="res://states/player_jump.gd" id="6_544lc"]
 [ext_resource type="Script" path="res://states/player_quick_attack.gd" id="7_bp4dj"]
+[ext_resource type="Texture2D" uid="uid://o10sis6ps1yw" path="res://assets/sprites/mc_chargingGrapple_UP-Sheet.png" id="7_qijyu"]
 [ext_resource type="Texture2D" uid="uid://diw2kxanx0kh7" path="res://assets/sprites/mc_pullback-Sheet.png" id="7_xt5et"]
 [ext_resource type="Script" path="res://states/player_charge_attack.gd" id="8_yctwb"]
 [ext_resource type="Script" path="res://states/player_attack.gd" id="9_a4vn6"]
@@ -43,17 +45,27 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_x7spx")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jll38"]
-animation = &"grapple_charge_left"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0fafp"]
+animation = &"grapple_attack_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hx4fl"]
-animation = &"grapple_charge_right"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_thg35"]
+animation = &"grapple_attack_right"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_jfqxn"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_jll38")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_hx4fl")
-blend_point_1/pos = 1.0
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lw2jr"]
+animation = &"grapple_attack_down_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nai3y"]
+animation = &"grapple_attack_up_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ktcmm"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_0fafp")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_thg35")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_lw2jr")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_nai3y")
+blend_point_3/pos = Vector2(0, -1)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p0ogl"]
 animation = &"grapple_charge_left"
@@ -93,17 +105,17 @@ blend_point_1/node = SubResource("AnimationNodeAnimation_2ji3c")
 blend_point_1/pos = 1.0
 blend_mode = 2
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hx1k5"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nd4ll"]
 animation = &"spin_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o5nrt"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ht8eq"]
 animation = &"spin_right"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_uj4g6"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_hx1k5")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_o5nrt")
-blend_point_1/pos = 1.0
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1i5vn"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_nd4ll")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ht8eq")
+blend_point_1/pos = Vector2(1, 0)
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f6p0f"]
 advance_mode = 2
@@ -125,14 +137,6 @@ advance_expression = "charging"
 advance_mode = 2
 advance_expression = "charging"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1j4h4"]
-advance_mode = 2
-advance_expression = "grappling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_daxoc"]
-advance_mode = 2
-advance_expression = "!grappling"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m1l7v"]
 advance_mode = 2
 advance_expression = "attacking"
@@ -141,35 +145,43 @@ advance_expression = "attacking"
 advance_mode = 2
 advance_expression = "!attacking"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ltt1l"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hves5"]
+advance_mode = 2
+advance_expression = "!grappling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qsw4r"]
+advance_mode = 2
+advance_expression = "!grappling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_guwqr"]
+advance_mode = 2
+advance_expression = "grappling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xa6yl"]
 advance_mode = 2
 advance_expression = "grapple_attacking"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0q7jw"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kq8j8"]
 advance_mode = 2
 advance_expression = "!grapple_attacking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4025y"]
-advance_mode = 2
-advance_expression = "!grappling"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rb7fu"]
 states/End/position = Vector2(1119, 169)
 states/Start/position = Vector2(179, 41)
 states/attack/node = SubResource("AnimationNodeBlendSpace2D_3shf5")
-states/attack/position = Vector2(694.5, 273)
-states/grapple_attack/node = SubResource("AnimationNodeBlendSpace1D_jfqxn")
-states/grapple_attack/position = Vector2(194.1, 275.624)
+states/attack/position = Vector2(703.5, 275.624)
+states/grapple_attack/node = SubResource("AnimationNodeBlendSpace2D_ktcmm")
+states/grapple_attack/position = Vector2(179, 274.698)
 states/grapple_charge/node = SubResource("AnimationNodeBlendSpace1D_1ice6")
-states/grapple_charge/position = Vector2(694.5, 169)
+states/grapple_charge/position = Vector2(703.5, 169)
 states/idle/node = SubResource("AnimationNodeBlendSpace1D_agy4r")
 states/idle/position = Vector2(393, 41)
 states/run/node = SubResource("AnimationNodeBlendSpace1D_mgtoe")
 states/run/position = Vector2(998.5, 41)
-states/spin/node = SubResource("AnimationNodeBlendSpace1D_uj4g6")
-states/spin/position = Vector2(393, 273)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_f6p0f"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_mdrf8"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_cdfh5"), "run", "grapple_charge", SubResource("AnimationNodeStateMachineTransition_i501x"), "idle", "grapple_charge", SubResource("AnimationNodeStateMachineTransition_3c7bb"), "grapple_charge", "spin", SubResource("AnimationNodeStateMachineTransition_1j4h4"), "spin", "idle", SubResource("AnimationNodeStateMachineTransition_daxoc"), "grapple_charge", "attack", SubResource("AnimationNodeStateMachineTransition_m1l7v"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_rhmhn"), "spin", "grapple_attack", SubResource("AnimationNodeStateMachineTransition_ltt1l"), "grapple_attack", "spin", SubResource("AnimationNodeStateMachineTransition_0q7jw"), "grapple_attack", "idle", SubResource("AnimationNodeStateMachineTransition_4025y")]
-graph_offset = Vector2(-354.637, 138.926)
+states/spin/node = SubResource("AnimationNodeBlendSpace2D_1i5vn")
+states/spin/position = Vector2(393, 275.624)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_f6p0f"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_mdrf8"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_cdfh5"), "run", "grapple_charge", SubResource("AnimationNodeStateMachineTransition_i501x"), "idle", "grapple_charge", SubResource("AnimationNodeStateMachineTransition_3c7bb"), "grapple_charge", "attack", SubResource("AnimationNodeStateMachineTransition_m1l7v"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_rhmhn"), "grapple_attack", "idle", SubResource("AnimationNodeStateMachineTransition_hves5"), "spin", "idle", SubResource("AnimationNodeStateMachineTransition_qsw4r"), "grapple_charge", "spin", SubResource("AnimationNodeStateMachineTransition_guwqr"), "spin", "grapple_attack", SubResource("AnimationNodeStateMachineTransition_xa6yl"), "grapple_attack", "spin", SubResource("AnimationNodeStateMachineTransition_kq8j8")]
+graph_offset = Vector2(-143.637, 32.9228)
 
 [sub_resource type="Animation" id="Animation_g4k0h"]
 length = 0.001
@@ -551,6 +563,430 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tq84m"]
+resource_name = "grapple_attack_down_left"
+length = 0.250008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"grapple_attack_up"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2wlfn"]
+resource_name = "grapple_attack_down_right"
+length = 0.250008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"grapple_attack_up"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ds1v3"]
+resource_name = "grapple_attack_left"
+length = 0.250008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"grapple_attack_side"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_nj26p"]
+resource_name = "grapple_attack_right"
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"grapple_attack_side"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_iaeg2"]
+resource_name = "grapple_attack_up_left"
+length = 0.250008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"grapple_attack_down"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5iavw"]
+resource_name = "grapple_attack_up_right"
+length = 0.250008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"grapple_attack_down"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_treu8"]
+resource_name = "grapple_charge_left"
+length = 1.00005
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"grapple_charge"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_pqqis"]
+resource_name = "grapple_charge_right"
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"grapple_charge"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
 }
 
 [sub_resource type="Animation" id="Animation_qj14g"]
@@ -981,113 +1417,6 @@ tracks/3/keys = {
 "values": [&"spin"]
 }
 
-[sub_resource type="Animation" id="Animation_treu8"]
-resource_name = "grapple_charge_left"
-length = 1.00005
-loop_mode = 1
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"grapple_charge"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_pqqis"]
-resource_name = "grapple_charge_right"
-loop_mode = 1
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"grapple_charge"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6evey"]
 _data = {
 "RESET": SubResource("Animation_g4k0h"),
@@ -1097,6 +1426,12 @@ _data = {
 "attack_up": SubResource("Animation_one4e"),
 "dash_left": SubResource("Animation_urd8e"),
 "dash_right": SubResource("Animation_tmh6o"),
+"grapple_attack_down_left": SubResource("Animation_tq84m"),
+"grapple_attack_down_right": SubResource("Animation_2wlfn"),
+"grapple_attack_left": SubResource("Animation_ds1v3"),
+"grapple_attack_right": SubResource("Animation_nj26p"),
+"grapple_attack_up_left": SubResource("Animation_iaeg2"),
+"grapple_attack_up_right": SubResource("Animation_5iavw"),
 "grapple_charge_left": SubResource("Animation_treu8"),
 "grapple_charge_right": SubResource("Animation_pqqis"),
 "idle_left": SubResource("Animation_qj14g"),
@@ -1160,6 +1495,42 @@ region = Rect2(112, 0, 56, 72)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wvyom"]
 atlas = ExtResource("3_jg0ik")
 region = Rect2(168, 0, 56, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_anirj"]
+atlas = ExtResource("5_dttal")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l23q"]
+atlas = ExtResource("5_dttal")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kic0"]
+atlas = ExtResource("5_dttal")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75vfj"]
+atlas = ExtResource("6_1rlc0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttw5p"]
+atlas = ExtResource("6_1rlc0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42tf7"]
+atlas = ExtResource("6_1rlc0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0ony"]
+atlas = ExtResource("7_qijyu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8efvt"]
+atlas = ExtResource("7_qijyu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pe167"]
+atlas = ExtResource("7_qijyu")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ehofh"]
 atlas = ExtResource("5_dttal")
@@ -1323,6 +1694,48 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_anirj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l23q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kic0")
+}],
+"loop": true,
+"name": &"grapple_attack_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75vfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttw5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42tf7")
+}],
+"loop": true,
+"name": &"grapple_attack_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0ony")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8efvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pe167")
+}],
+"loop": true,
+"name": &"grapple_attack_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ehofh")
 }, {
 "duration": 1.0,
@@ -1453,11 +1866,11 @@ tree_root = SubResource("AnimationNodeStateMachine_rb7fu")
 advance_expression_base_node = NodePath("../StateMachine")
 anim_player = NodePath("../AnimationPlayer")
 parameters/attack/blend_position = Vector2(-0.00127226, -0.911243)
-parameters/grapple_attack/blend_position = 0
-parameters/grapple_charge/blend_position = -0.992537
+parameters/grapple_attack/blend_position = Vector2(0, 0)
+parameters/grapple_charge/blend_position = -0.040783
 parameters/idle/blend_position = 0.120896
 parameters/run/blend_position = -0.998507
-parameters/spin/blend_position = -0.977612
+parameters/spin/blend_position = Vector2(0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
