@@ -10,7 +10,7 @@ var jump_timer = 0;
 var current_charge : float = 0
 
 func Enter():
-	player.speed = 100
+	player.speed = player.max_speed * .75
 	current_charge = 0
 	%StateMachine.charging = true
 

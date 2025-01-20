@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 
-@export var speed = 50
-@export var grapple_speed = 3
-const JUMP_VELOCITY = -150.0
+@export var speed = 200
+const max_speed = 200
+@export var grapple_speed = 5
+const JUMP_VELOCITY = -225.0
 
 @export var radius: float = 30
 var angle : float = 0
@@ -22,7 +23,7 @@ var attack_hitboxes : Dictionary = {}
 var has_sickle = true
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.75
 
 #variables for animation
 @onready var animated_sprite = $AnimatedSprite2D
