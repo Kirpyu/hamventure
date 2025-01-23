@@ -2,6 +2,7 @@ extends Area2D  # Assuming this script is attached to the Area2D node
 
 var tween: Tween
 var initial_pos : Vector2
+@onready var target: Node2D = %Target
 @export var wobble_amount : int = 5
 func _ready():
 	

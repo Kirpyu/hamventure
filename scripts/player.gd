@@ -10,7 +10,7 @@ const JUMP_VELOCITY = -225.0
 var angle : float = 0
 var grappled = false
 var direction = null;
-@onready var target = %Anchor
+@onready var target : Node2D
 var grapple_angle : float
 var relative_vector : Vector2
 var normalized_vector : Vector2 = Vector2(0,0)
@@ -32,6 +32,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.75
 func _ready() -> void:
 	for hitbox in %AttackBox.get_children():
 		attack_hitboxes[hitbox.name] = hitbox
+	get_closest_target()
+	
+func get_closest_target():
+	target = get_tree().get_first_node_in_group("targets").target
 		
 func _physics_process(delta):
 	grapple_angle = atan2(global_position.y - target.global_position.y, global_position.x - target.global_position.x)
