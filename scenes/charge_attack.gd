@@ -1,8 +1,8 @@
 extends Area2D
 
 var target = null
-@export var speed: float = 600
-@export var max_speed: float = 600
+@export var speed: float = 750
+@export var max_speed: float = 750
 var player: CharacterBody2D
 var spinning : bool 
 var returning: bool = false
@@ -20,13 +20,19 @@ func _physics_process(delta: float) -> void:
 		direction = (player.global_position - global_position).normalized()
 
 func _on_area_entered(area: Area2D) -> void:
-	
+	if area.has_method("wiggle"):
+		player.radius = area.grapple_amount
+		if player.grapple_speed <= 0:
+			player.grapple_speed = -1 * area.grapple_speed
+		else:
+			player.grapple_speed = area.grapple_speed	
+		
 	if spinning == false:
 		%ReturnTimer.start()
 		spinning = true;
 	%TickTimer.start()
+	
 	speed = 0
-
 func return_boomerang():
 	speed = max_speed
 	returning = true;
@@ -40,7 +46,6 @@ func change_target(new_target):
 
 func _on_return_timer_timeout() -> void:
 	return_boomerang()
-
 
 func _on_body_entered(body: Node2D) -> void:
 	if returning == true:
