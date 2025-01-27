@@ -45,3 +45,9 @@ func wiggle():
 func take_damage(dmg: int):
 	current_hp -= dmg
 	hp_bar.update_hp_bar(dmg)
+
+func look_at_player():
+	pass
+	
+func fire_projectile():
+	pass
