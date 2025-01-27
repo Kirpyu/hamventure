@@ -64,7 +64,13 @@ autostart = true
 unique_name_in_owner = true
 wait_time = 0.05
 
+[node name="HardReturn" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ReturnTimer" to="." method="_on_return_timer_timeout"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
+[connection signal="timeout" from="HardReturn" to="." method="_on_hard_return_timeout"]

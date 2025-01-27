@@ -56,7 +56,6 @@ func _on_body_entered(body: Node2D) -> void:
 		body.has_sickle = true
 		body.state_machine.grapple_attacking = false
 
-
 func _on_tick_timer_timeout() -> void:
 	if hitbox.disabled == true:
 		hitbox.set_deferred("disabled", false)
@@ -66,3 +65,7 @@ func _on_tick_timer_timeout() -> void:
 func attack(enemy: Enemy):
 	enemy.take_damage(damage)
 	
+func _on_hard_return_timeout() -> void:
+	%TickTimer.stop()
+	hitbox.set_deferred("disabled", true)
+	return_boomerang()
