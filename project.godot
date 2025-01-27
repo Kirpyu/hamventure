@@ -30,6 +30,7 @@ window/vsync/vsync_mode=0
 player=""
 projectile_node=""
 targets=""
+hp_bar=""
 
 [input]
 

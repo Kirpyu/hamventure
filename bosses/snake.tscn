@@ -117,7 +117,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjx8e"]
 radius = 66.0303
 
-[node name="Snake" type="Area2D" groups=["targets"]]
+[node name="Snake" type="Area2D" groups=["projectile_node", "targets"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_n4dhk")

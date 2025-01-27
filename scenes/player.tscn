@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=133 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://disdi646684l0" path="res://assets/sprites/mc_attack1-Sheet.png" id="2_kc6hl"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://vbyevdf5dgi3" path="res://assets/sprites/mc_spinning-Sheet.png" id="9_nqmfr"]
 [ext_resource type="Script" path="res://states/player_grapple.gd" id="10_byiok"]
 [ext_resource type="Script" path="res://states/player_dash.gd" id="11_bnvse"]
+[ext_resource type="Script" path="res://scenes/attack_box.gd" id="22_kwo8o"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qhu14"]
 animation = &"attack_left"
@@ -1959,6 +1960,9 @@ one_shot = true
 
 [node name="AttackBox" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("22_kwo8o")
 
 [node name="Right" type="CollisionShape2D" parent="AttackBox"]
 position = Vector2(32, -5)
@@ -1985,3 +1989,4 @@ disabled = true
 [connection signal="timeout" from="AttackCD" to="StateMachine" method="_on_attack_cd_timeout"]
 [connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
 [connection signal="timeout" from="GrappleTimer" to="StateMachine/PlayerGrapple" method="_on_grapple_timer_timeout"]
+[connection signal="area_entered" from="AttackBox" to="AttackBox" method="_on_area_entered"]

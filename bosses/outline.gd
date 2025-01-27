@@ -9,6 +9,7 @@ var player = null
 func _process(delta: float) -> void:
 	queue_redraw()
 #change this later to self
+
 func _draw():
 	if Input.is_action_pressed("lmb"):
 		draw_circle(Vector2(0,0), grapple_amount, Color(1, 1, 1, 0.4), false)

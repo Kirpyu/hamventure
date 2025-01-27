@@ -37,7 +37,6 @@ func _ready() -> void:
 	
 func get_closest_target():
 	target = get_tree().get_first_node_in_group("targets").target
-	print(target.get_script())
 		
 func _physics_process(delta):
 	grapple_angle = atan2(global_position.y - target.global_position.y, global_position.x - target.global_position.x)

@@ -1,4 +1,9 @@
 extends Area2D  # Assuming this script is attached to the Area2D node
+class_name Enemy
+
+@export var max_hp = 100
+var current_hp = max_hp
+var hp_bar : HPBar
 
 var tween: Tween
 var initial_pos : Vector2
@@ -15,6 +20,7 @@ var initial_pos : Vector2
 @export var grapple_angle : float;
 
 func _ready():
+	hp_bar = get_tree().get_first_node_in_group("hp_bar")
 	initial_pos = position
 	tween = create_tween()
 	wiggle()
@@ -35,3 +41,7 @@ func wiggle():
 	tween.stop()
 	tween.tween_property(self, "position", initial_pos + random_offset, 1)
 	tween.play()
+
+func take_damage(dmg: int):
+	current_hp -= dmg
+	hp_bar.update_hp_bar(dmg)
