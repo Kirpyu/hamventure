@@ -29,18 +29,13 @@ func _on_area_entered(area: Area2D) -> void:
 			player.grapple_speed = area.grapple_speed	
 		attack(area)
 		
+		
 	if spinning == false:
 		%ReturnTimer.start()
 		spinning = true;
+		speed = 0
+
 	%TickTimer.start()
-	
-	
-	
-	speed = 0
-	
-func return_boomerang():
-	speed = max_speed
-	returning = true;
 
 func change_target(new_target):
 	target = new_target
@@ -48,14 +43,15 @@ func change_target(new_target):
 		player = get_tree().get_first_node_in_group("player")
 	direction = (target.global_position - player.global_position).normalized()
 
-
 func _on_return_timer_timeout() -> void:
 	return_boomerang()
 
+func return_boomerang():
+	speed = max_speed
+	returning = true;
+
 func _on_body_entered(body: Node2D) -> void:
 	if returning == true:
-		spinning = false
-		returning = false
 		queue_free()
 		body.has_sickle = true
 		body.state_machine.grapple_attacking = false
