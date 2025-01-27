@@ -25,6 +25,18 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/vsync/vsync_mode=0
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "pink",
+"res://bosses/": "red",
+"res://hud/": "purple",
+"res://projectile/": "blue",
+"res://scenes/": "yellow",
+"res://scripts/": "gray",
+"res://states/": "green"
+}
+
 [global_group]
 
 player=""

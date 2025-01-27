@@ -1,7 +1,10 @@
 extends CharacterBody2D
-
+class_name Player
 
 @export var speed = 200
+@export var max_hp = 100
+var current_hp = max_hp
+
 const max_speed = 200
 @export var grapple_speed = 5
 const JUMP_VELOCITY = -225.0
@@ -75,3 +78,6 @@ func circular_motion(delta):
 		normalized_vector = Vector2(0, sign(relative_vector.y))
 		
 	normalized_x = relative_vector.x / radius
+
+func take_damage(damage: int):
+	current_hp -= damage
