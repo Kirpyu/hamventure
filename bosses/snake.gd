@@ -9,7 +9,7 @@ var tween: Tween
 var initial_pos : Vector2
 
 @onready var target: Node2D = %Target
-@onready var player = %Player;
+@onready var player : Player = %Player;
 
 @export var wobble_amount : int = 5
 @export var grapple_amount : float= 125
@@ -18,6 +18,9 @@ var initial_pos : Vector2
 
 #NEED FROM PLAYER!!!!
 @export var grapple_angle : float;
+
+#Attack Projectiles
+@export var fireball : PackedScene
 
 func _ready():
 	hp_bar = get_tree().get_first_node_in_group("hp_bar")
@@ -46,8 +49,37 @@ func take_damage(dmg: int):
 	current_hp -= dmg
 	hp_bar.update_hp_bar(dmg)
 
-func look_at_player():
-	pass
+func look_at_player() -> Vector2:
+	return (player.global_position - %Target.global_position).normalized()
 	
 func fire_projectile():
+	var b = fireball.instantiate()
+	if b is Projectile:
+		var direction = look_at_player()
+		get_tree().get_first_node_in_group("projectile_node").add_child(b)
+		b.transform = %Target.global_transform
+		b.look_at(player.global_position)
+		b.direction = look_at_player()
+	
+
+
+func _on_shoot_timer_timeout() -> void:
+	fire_projectile()
+
+
+var current_attack;
+func change_attack(attack_name : String):
+	match attack_name:
+		"Normal Fireball":
+			pass
+		_:
+			pass
+#	make physics process match an attack function
+
+## This function is called after every attack in order to change the current attack
+func phase_change() -> void:
 	pass
+#	this is called after every attack
+#get random num, then match that number with whatever attack we feeling, then swap current attack with whatever our new attack is
+#	we cana ctually try out a dictionary here, would be hella helpful, match dictionary instead of matching here
+# something like change_attack(attacks[random num])
