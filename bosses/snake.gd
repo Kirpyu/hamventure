@@ -21,6 +21,18 @@ var initial_pos : Vector2
 
 #Attack Projectiles
 @export var fireball : PackedScene
+@export var fireball_lob : PackedScene
+@export var tail: PackedScene
+@export var lava: PackedScene
+
+#Attack Data
+const attacks : Array = ["Normal Fireball", "Spew Attack"]
+
+func _physics_process(delta: float) -> void:
+	#global_position.x = player.global_position.x
+	#initial_pos = global_position
+	if Input.is_action_just_pressed("jump"):
+		pass
 
 func _ready():
 	hp_bar = get_tree().get_first_node_in_group("hp_bar")
@@ -30,6 +42,7 @@ func _ready():
 	tween.connect("finished", wiggle)
 	$AnimatedSprite2D.play("flicker")
 	update_target()
+	start_spew_attack()
 	
 func update_target():
 	%Target.player = player
@@ -61,25 +74,48 @@ func fire_projectile():
 		b.look_at(player.global_position)
 		b.direction = look_at_player()
 	
-
-
-func _on_shoot_timer_timeout() -> void:
-	fire_projectile()
-
-
-var current_attack;
-func change_attack(attack_name : String):
-	match attack_name:
+var current_attack : String;
+func change_attack():
+	var rng = RandomNumberGenerator.new()
+	match attacks[rng.randi_range(0, attacks.size() - 1)]:
 		"Normal Fireball":
-			pass
+			fire_projectile()
+			phase_change()
+		"Spew Attack":
+			start_spew_attack()
 		_:
 			pass
-#	make physics process match an attack function
 
 ## This function is called after every attack in order to change the current attack
 func phase_change() -> void:
-	pass
-#	this is called after every attack
-#get random num, then match that number with whatever attack we feeling, then swap current attack with whatever our new attack is
-#	we cana ctually try out a dictionary here, would be hella helpful, match dictionary instead of matching here
-# something like change_attack(attacks[random num])
+	%CooldownTimer.start()
+
+func start_spew_attack():
+	%TickTimer.start()
+	%SpewTimer.start()
+	
+func spew_attack():
+	var b = fireball_lob.instantiate()
+	if b is Projectile:
+		b.transform = %Target.global_transform
+		get_tree().get_first_node_in_group("projectile_node").add_child(b)
+
+func tail_slam():
+	var b = tail.instantiate()
+	if b is Projectile:
+		get_tree().get_first_node_in_group("projectile_node").add_child(b)
+		
+func lava_spout():
+	var b = lava.instantiate()
+	if b is Projectile:
+		get_tree().get_first_node_in_group("projectile_node").add_child(b)
+	
+func _on_tick_timer_timeout() -> void:
+	spew_attack()
+
+func _on_spew_timer_timeout() -> void:
+	%TickTimer.stop()
+	phase_change()
+
+func _on_cooldown_timer_timeout() -> void:
+	change_attack()

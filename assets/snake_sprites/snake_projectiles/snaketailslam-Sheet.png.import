@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://douevgo2f2wcx"
-path="res://.godot/imported/snaketailslam-Sheet.png-3140fad4e1f95a980542104b87b7b2cc.ctex"
+path="res://.godot/imported/snaketailslam-Sheet.png-a49a56b4931a914ddf881c0281fa6cdd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/snake_sprites/snaketailslam-Sheet.png"
-dest_files=["res://.godot/imported/snaketailslam-Sheet.png-3140fad4e1f95a980542104b87b7b2cc.ctex"]
+source_file="res://assets/snake_sprites/snake_projectiles/snaketailslam-Sheet.png"
+dest_files=["res://.godot/imported/snaketailslam-Sheet.png-a49a56b4931a914ddf881c0281fa6cdd.ctex"]
 
 [params]
 

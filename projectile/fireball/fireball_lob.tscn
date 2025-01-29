@@ -1,19 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://u8ffi45n4rte"]
+[gd_scene load_steps=9 format=3 uid="uid://btet38377m86b"]
 
-[ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_3yui1"]
-[ext_resource type="Script" path="res://projectile/fireball/fireball.gd" id="2_mc0l1"]
-[ext_resource type="Texture2D" uid="uid://c2ormao8hyc5s" path="res://assets/snake_sprites/snake_projectiles/corruptedenergy-Sheet.png" id="2_rry07"]
+[ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_txglo"]
+[ext_resource type="Script" path="res://projectile/fireball/fireball_lob.gd" id="2_i2pt7"]
+[ext_resource type="Texture2D" uid="uid://c2ormao8hyc5s" path="res://assets/snake_sprites/snake_projectiles/corruptedenergy-Sheet.png" id="3_e11mh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_roegb"]
-atlas = ExtResource("2_rry07")
+atlas = ExtResource("3_e11mh")
 region = Rect2(0, 0, 16, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aie4t"]
-atlas = ExtResource("2_rry07")
+atlas = ExtResource("3_e11mh")
 region = Rect2(16, 0, 16, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1h3ej"]
-atlas = ExtResource("2_rry07")
+atlas = ExtResource("3_e11mh")
 region = Rect2(32, 0, 16, 26)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d1ko8"]
@@ -36,13 +36,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_666xu"]
 radius = 14.0357
 
-[node name="Fireball" node_paths=PackedStringArray("hitbox", "sprite", "particles") instance=ExtResource("1_3yui1")]
+[node name="FireballLob" instance=ExtResource("1_txglo")]
 collision_mask = 3
-script = ExtResource("2_mc0l1")
+gravity_space_override = 3
+gravity = 500.0
+script = ExtResource("2_i2pt7")
+cone_angle = 45.0
 max_speed = 400.0
-hitbox = NodePath("Hitbox")
-sprite = NodePath("AnimatedSprite2D")
-particles = NodePath("CPUParticles2D")
 
 [node name="CPUParticles2D" parent="." index="0"]
 modulate = Color(0.309804, 0.788235, 0.952941, 1)

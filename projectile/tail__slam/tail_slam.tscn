@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://dmlcld1tupse8"]
+
+[ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_xtkpj"]
+[ext_resource type="Texture2D" uid="uid://ctnl2hf64c53k" path="res://assets/snake_sprites/snake_projectiles/bigtailslam-Sheet.png" id="2_h6ujc"]
+[ext_resource type="Script" path="res://projectile/tail__slam/tail_slam.gd" id="2_p0i6b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bpto"]
+atlas = ExtResource("2_h6ujc")
+region = Rect2(3600, 0, 600, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aexvp"]
+atlas = ExtResource("2_h6ujc")
+region = Rect2(4200, 0, 600, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1p7e"]
+atlas = ExtResource("2_h6ujc")
+region = Rect2(4800, 0, 600, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqay3"]
+atlas = ExtResource("2_h6ujc")
+region = Rect2(5400, 0, 600, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r28uw"]
+atlas = ExtResource("2_h6ujc")
+region = Rect2(6000, 0, 600, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4b20"]
+atlas = ExtResource("2_h6ujc")
+region = Rect2(6600, 0, 600, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ie6tp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bpto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aexvp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1p7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqay3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r28uw")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_q4b20")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="TailSlam" instance=ExtResource("1_xtkpj")]
+position = Vector2(-102, 204)
+script = ExtResource("2_p0i6b")
+flip = false
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(449, -214)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_ie6tp")
+frame_progress = 0.441477
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

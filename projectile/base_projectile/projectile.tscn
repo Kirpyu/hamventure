@@ -2,16 +2,20 @@
 
 [ext_resource type="Script" path="res://projectile/base_projectile/projectile.gd" id="1_p5yfe"]
 
-[node name="Projectile" type="Area2D"]
+[node name="Projectile" type="Area2D" node_paths=PackedStringArray("hitbox", "sprite", "particles")]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_p5yfe")
+hitbox = NodePath("Hitbox")
+sprite = NodePath("AnimatedSprite2D")
+particles = NodePath("CPUParticles2D")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished"]
