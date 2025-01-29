@@ -31,6 +31,7 @@ const attacks : Array = ["Normal Fireball", "Spew Attack"]
 func _physics_process(delta: float) -> void:
 	#global_position.x = player.global_position.x
 	#initial_pos = global_position
+#	DEBUGGING BUTTON
 	if Input.is_action_just_pressed("jump"):
 		pass
 
