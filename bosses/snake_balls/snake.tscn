@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://xqi8hlcfmgl8"]
+
+[ext_resource type="Texture2D" uid="uid://d1rg5ad84o6ab" path="res://assets/snake_sprites/snakecrystal.png" id="1_hbb41"]
+[ext_resource type="Script" path="res://bosses/snake_balls/snake_ball.gd" id="1_ihmkk"]
+[ext_resource type="Script" path="res://bosses/outline.gd" id="2_av00o"]
+[ext_resource type="PackedScene" uid="uid://u8ffi45n4rte" path="res://projectile/fireball/fireball.tscn" id="2_wihcw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bf8ix"]
+radius = 22.0907
+
+[node name="SnakeBall" type="Area2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_ihmkk")
+fireball = ExtResource("2_wihcw")
+sprite = NodePath("Snakecrystal1")
+
+[node name="Snakecrystal1" type="Sprite2D" parent="."]
+texture = ExtResource("1_hbb41")
+region_enabled = true
+region_rect = Rect2(79, 95, 48, 128)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -43)
+shape = SubResource("CircleShape2D_bf8ix")
+
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Target" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-1, -42)
+script = ExtResource("2_av00o")
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

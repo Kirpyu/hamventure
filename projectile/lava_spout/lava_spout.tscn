@@ -1,9 +1,25 @@
-[gd_scene load_steps=13 format=3 uid="uid://cg1xkd1syblgj"]
+[gd_scene load_steps=12 format=3 uid="uid://cg1xkd1syblgj"]
 
 [ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_f0bg8"]
 [ext_resource type="Texture2D" uid="uid://55rebuy7xdkk" path="res://assets/snake_sprites/snake_projectiles/lavaSpout-Sheet.png" id="2_ebvwt"]
 [ext_resource type="Script" path="res://projectile/lava_spout/lava_spout.gd" id="2_k6b3f"]
-[ext_resource type="Texture2D" uid="uid://c2ormao8hyc5s" path="res://assets/snake_sprites/snake_projectiles/corruptedenergy-Sheet.png" id="4_yhu53"]
+[ext_resource type="Texture2D" uid="uid://d0y6otognej0q" path="res://assets/sprites/exclamationMark.png" id="3_p24or"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ffosp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s4mpx"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("3_p24or")
+}, {
+"duration": 3.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_000a3"]
 atlas = ExtResource("2_ebvwt")
@@ -48,39 +64,27 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ajnn4"]
-atlas = ExtResource("4_yhu53")
-region = Rect2(0, 0, 16, 26)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rigyo"]
+size = Vector2(29, 75)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gstml"]
-atlas = ExtResource("4_yhu53")
-region = Rect2(16, 0, 16, 26)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oojko"]
-atlas = ExtResource("4_yhu53")
-region = Rect2(32, 0, 16, 26)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_s4mpx"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ajnn4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gstml")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oojko")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[node name="LavaSpout" instance=ExtResource("1_f0bg8")]
+[node name="LavaSpout" node_paths=PackedStringArray("warning_box", "exclamation_mark") instance=ExtResource("1_f0bg8")]
 script = ExtResource("2_k6b3f")
+warning_box = NodePath("WarningBox")
+exclamation_mark = NodePath("WarningBox/ExclamationMark")
 
-[node name="CPUParticles2D" parent="." index="0"]
+[node name="WarningBox" type="Sprite2D" parent="." index="0"]
+self_modulate = Color(0.9, 0.3654, 0.306, 0.509804)
+position = Vector2(-0.500002, -41.125)
+scale = Vector2(49, 81.75)
+texture = SubResource("CanvasTexture_ffosp")
+
+[node name="ExclamationMark" type="AnimatedSprite2D" parent="WarningBox" index="0"]
+position = Vector2(0.0102041, 0.0137615)
+scale = Vector2(0.0446429, 0.0267584)
+sprite_frames = SubResource("SpriteFrames_s4mpx")
+frame_progress = 0.303463
+
+[node name="CPUParticles2D" parent="." index="1"]
 position = Vector2(0, -11)
 emitting = false
 amount = 100
@@ -98,15 +102,22 @@ scale_amount_min = 0.0
 scale_amount_max = 2.0
 color = Color(0.243137, 0.631373, 0.839216, 1)
 
-[node name="AnimatedSprite2D" parent="." index="1"]
-position = Vector2(-1, -40)
-scale = Vector2(1.7, 1.7)
+[node name="AnimatedSprite2D" parent="." index="2"]
+visible = false
+position = Vector2(-0.750001, -40)
+scale = Vector2(1.7, 1.717)
 sprite_frames = SubResource("SpriteFrames_vsqdl")
 frame = 2
 frame_progress = 1.0
 
-[node name="WarningBox" type="AnimatedSprite2D" parent="." index="3"]
-position = Vector2(0, -13)
-sprite_frames = SubResource("SpriteFrames_s4mpx")
+[node name="Hitbox" parent="." index="3"]
+position = Vector2(0, -38)
+shape = SubResource("RectangleShape2D_rigyo")
+
+[node name="EruptionTimer" type="Timer" parent="." index="4"]
+wait_time = 0.5
+one_shot = true
+autostart = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="EruptionTimer" to="." method="_on_eruption_timer_timeout"]

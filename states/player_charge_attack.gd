@@ -20,6 +20,3 @@ func attack(new_target):
 	get_tree().get_first_node_in_group("projectile_node").add_child(b)
 	b.change_target(new_target)
 	b.transform = player.global_transform
-	
-	
-	

@@ -26,7 +26,7 @@ var initial_pos : Vector2
 @export var lava: PackedScene
 
 #Attack Data
-const attacks : Array = ["Normal Fireball", "Spew Attack"]
+const attacks : Array = ["Normal Fireball", "Spew Attack", "Tail Slam", "Lava Spike"]
 
 func _physics_process(delta: float) -> void:
 	#global_position.x = player.global_position.x
@@ -76,13 +76,25 @@ func fire_projectile():
 		b.direction = look_at_player()
 	
 var current_attack : String;
+## Changes the snake's current attack by randomizing through the attack array
+## Ensures that the same attack does not play twice in a row
 func change_attack():
 	var rng = RandomNumberGenerator.new()
-	match attacks[rng.randi_range(0, attacks.size() - 1)]:
+	var random_attack : String = attacks[rng.randi_range(0, attacks.size() - 1)]
+	while random_attack == current_attack:
+		random_attack = attacks[rng.randi_range(0, attacks.size() - 1)]
+	current_attack = random_attack
+	match random_attack:
 		"Normal Fireball":
 			fire_projectile()
+#			Phase change should actually pop on signal, not right away, since this is how we change phases
 			phase_change()
 		"Spew Attack":
+			start_spew_attack()
+		"Tail Slam":
+			tail_slam()
+			phase_change()
+		"Lava Spike":
 			start_spew_attack()
 		_:
 			pass
@@ -92,6 +104,11 @@ func phase_change() -> void:
 	%CooldownTimer.start()
 
 func start_spew_attack():
+	match current_attack:
+		attacks[1]:
+			%TickTimer.wait_time = .1
+		attacks[3]:
+			%TickTimer.wait_time = .2
 	%TickTimer.start()
 	%SpewTimer.start()
 	
@@ -112,7 +129,13 @@ func lava_spout():
 		get_tree().get_first_node_in_group("projectile_node").add_child(b)
 	
 func _on_tick_timer_timeout() -> void:
-	spew_attack()
+	match current_attack:
+		attacks[1]:
+			spew_attack()
+		attacks[3]:
+			lava_spout()
+		_:
+			phase_change()
 
 func _on_spew_timer_timeout() -> void:
 	%TickTimer.stop()

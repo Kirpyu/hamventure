@@ -5,7 +5,7 @@ var grapple_distance : float;
 
 #NEED FROM PLAYER!!!!
 var player = null
-	
+
 func _process(delta: float) -> void:
 	queue_redraw()
 #change this later to self
