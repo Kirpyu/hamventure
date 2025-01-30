@@ -2,7 +2,7 @@ extends State
 class_name PlayerGrapple
 
 @export var animated_sprite : AnimatedSprite2D
-@export var player : CharacterBody2D
+@export var player : Player
 @onready var charge_attack = preload("res://scenes/charge_attack.tscn")
 @onready var attack_cd = %AttackCD
 
@@ -10,6 +10,8 @@ var grappling = false;
 
 func Enter():
 	player.angle = player.grapple_angle
+	player.grapple_speed = player.target.grapple_speed
+	player.grapple_amount = player.target.grapple_amount
 	%GrappleTimer.start()
 
 func Physics_Update(_delta:float):

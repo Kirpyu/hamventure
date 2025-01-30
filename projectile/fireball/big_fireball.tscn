@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dcbxvahx4eqim"]
 
 [ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_r70cr"]
-[ext_resource type="Script" path="res://projectile/fireball/fireball.gd" id="2_vycd0"]
+[ext_resource type="Script" path="res://projectile/fireball/big_fireball.gd" id="2_s5dbx"]
 [ext_resource type="Texture2D" uid="uid://y5kcqxrq7e1j" path="res://assets/snake_sprites/snake_projectiles/BIGcorruptedEnergy-Sheet.png" id="3_grtko"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_abytk"]
@@ -36,10 +36,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_666xu"]
 radius = 26.1725
 
-[node name="Fireball" instance=ExtResource("1_r70cr")]
+[node name="BigFireball" instance=ExtResource("1_r70cr")]
 collision_mask = 3
-script = ExtResource("2_vycd0")
-max_speed = 400.0
+script = ExtResource("2_s5dbx")
 
 [node name="CPUParticles2D" parent="." index="0"]
 modulate = Color(0.309804, 0.788235, 0.952941, 1)

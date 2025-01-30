@@ -4,7 +4,7 @@ var target = null
 @export var speed: float = 750
 @export var max_speed: float = 750
 @export var damage = 5
-var player: CharacterBody2D
+var player: Player
 var spinning : bool 
 var returning: bool = false
 var direction: Vector2 = Vector2.ZERO
@@ -22,7 +22,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Enemy:
-		player.radius = area.grapple_amount
 		if player.grapple_speed <= 0:
 			player.grapple_speed = -1 * area.grapple_speed
 		else:

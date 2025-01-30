@@ -2,7 +2,7 @@ extends State
 class_name PlayerAttack
 
 @export var animated_sprite : AnimatedSprite2D
-@export var player : CharacterBody2D
+@export var player : Player
 @export var jump_time : float = 0.1
 var jump_timer = 0;
 
@@ -10,6 +10,7 @@ var jump_timer = 0;
 var current_charge : float = 0
 
 func Enter():
+	player.get_closest_target()
 	player.speed = player.max_speed * .75
 	current_charge = 0
 	%StateMachine.charging = true

@@ -9,6 +9,8 @@
 radius = 22.0907
 
 [node name="SnakeBall" type="Area2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_ihmkk")
 fireball = ExtResource("2_wihcw")
 sprite = NodePath("Snakecrystal1")
@@ -25,9 +27,12 @@ shape = SubResource("CircleShape2D_bf8ix")
 [node name="ShootTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="Target" type="Node2D" parent="."]
+[node name="Target" type="Node2D" parent="." groups=["targets"]]
 unique_name_in_owner = true
 position = Vector2(-1, -42)
 script = ExtResource("2_av00o")
+grapple_amount = 60.0
+grapple_distance = 100.0
+grapple_speed = 5.0
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

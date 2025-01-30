@@ -6,13 +6,12 @@ var current_hp = max_hp
 var hp_bar : HPBar
 
 var tween: Tween
-var initial_pos : Vector2
 
 @onready var target: Node2D = %Target
 @onready var player : Player = %Player;
 
 @export var wobble_amount : int = 5
-@export var grapple_amount : float= 125
+@export var grapple_amount : float
 @export var grapple_speed : float = 1.75
 @export var grapple_distance : float = 250
 
@@ -29,35 +28,33 @@ var initial_pos : Vector2
 const attacks : Array = ["Normal Fireball", "Spew Attack", "Tail Slam", "Lava Spike"]
 
 func _physics_process(delta: float) -> void:
-	#global_position.x = player.global_position.x
-	#initial_pos = global_position
 #	DEBUGGING BUTTON
 	if Input.is_action_just_pressed("jump"):
 		pass
 
 func _ready():
 	hp_bar = get_tree().get_first_node_in_group("hp_bar")
-	initial_pos = position
-	tween = create_tween()
-	wiggle()
-	tween.connect("finished", wiggle)
+	follow_player()
 	$AnimatedSprite2D.play("flicker")
 	update_target()
 	start_spew_attack()
 	
 func update_target():
 	%Target.player = player
-	%Target.grapple_amount = grapple_amount
-	%Target.grapple_distance = grapple_distance
-
-func wiggle():
-	var random_offset = Vector2(
-		randf_range(-wobble_amount, wobble_amount),
-		randf_range(-wobble_amount, wobble_amount)
-	)
-	tween.stop()
-	tween.tween_property(self, "position", initial_pos + random_offset, 1)
+	
+func follow_player():
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	var target_pos = player.global_position / 3
+	#var random_offset = Vector2(
+		#randf_range(-wobble_amount, wobble_amount),
+		#randf_range(-wobble_amount, wobble_amount)
+	#)
+	
+	tween.tween_property(self, "position", Vector2(target_pos.x, position.y), 1)
 	tween.play()
+	tween.connect("finished", follow_player)
 
 func take_damage(dmg: int):
 	current_hp -= dmg
@@ -120,6 +117,9 @@ func spew_attack():
 
 func tail_slam():
 	var b = tail.instantiate()
+	var rng = RandomNumberGenerator.new()
+	if rng.randi_range(0, 1) == 1:
+		b.flip = true
 	if b is Projectile:
 		get_tree().get_first_node_in_group("projectile_node").add_child(b)
 		

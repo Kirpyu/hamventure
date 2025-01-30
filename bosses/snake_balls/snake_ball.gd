@@ -8,6 +8,7 @@ extends Area2D
 func _ready() -> void:
 	if flip:
 		sprite.flip_h = true
+	%Target.player = player
 
 func _on_shoot_timer_timeout() -> void:
 	fire_projectile()

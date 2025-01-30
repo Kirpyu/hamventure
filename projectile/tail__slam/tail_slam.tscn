@@ -79,7 +79,7 @@ position = Vector2(-102, 204)
 script = ExtResource("2_p0i6b")
 warning_box = NodePath("WarningBox")
 exclamation_mark = NodePath("WarningBox/ExclamationMark")
-flip = true
+flip = false
 
 [node name="WarningBox" type="Sprite2D" parent="." index="1"]
 self_modulate = Color(0.9, 0.3654, 0.306, 0.509804)

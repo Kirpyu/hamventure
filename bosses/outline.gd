@@ -1,9 +1,12 @@
 extends Node2D
+class_name Target
+@export var grapple_amount : float;
+@export var grapple_distance : float;
+@export var grapple_speed : float;
 
-var grapple_amount : float;
-var grapple_distance : float;
-
-#NEED FROM PLAYER!!!!
+var highlighted = false
+# can set highlighted when doing for loop
+# NEED FROM PLAYER!!!!
 var player = null
 
 func _process(delta: float) -> void:

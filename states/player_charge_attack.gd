@@ -2,10 +2,13 @@ extends State
 class_name PlayerChargeAttack
 
 @export var animated_sprite : AnimatedSprite2D
-@export var player : CharacterBody2D
-@export var max_dist_to_target = 150
+@export var player : Player
+var max_dist_to_target
 @onready var charge_attack = preload("res://scenes/charge_attack.tscn")
 
+func Enter():
+	max_dist_to_target = player.target.grapple_distance
+	
 func Physics_Update(_delta:float):
 	if player.global_position.distance_to(player.target.global_position) <= max_dist_to_target:
 		Transitioned.emit(self, "PlayerGrapple")
