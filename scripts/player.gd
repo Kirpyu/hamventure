@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+@export var pause_screen : PauseScreen
+@export var invulnerable : bool
 @export var speed = 200
 @export var max_hp = 100
 var current_hp = max_hp
@@ -100,6 +102,10 @@ func take_damage(damage: int):
 	set_collision_layer_value(2, false)
 	current_hp -= damage
 	hp_bar.update_hp_bar(damage)
+	
+	if current_hp <= 0 and !invulnerable:
+		pause_screen.pause(true, "Noob")
+	
 	
 	
 func _on_cpu_particles_2d_2_finished() -> void:

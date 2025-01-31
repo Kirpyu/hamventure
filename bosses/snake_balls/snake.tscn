@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://xqi8hlcfmgl8"]
+[gd_scene load_steps=12 format=3 uid="uid://xqi8hlcfmgl8"]
 
 [ext_resource type="Texture2D" uid="uid://cks0bsq441tx0" path="res://assets/snake_sprites/snakecrystal.png" id="1_hbb41"]
 [ext_resource type="Script" path="res://bosses/snake_balls/snake_ball.gd" id="1_ihmkk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b2w2hkrlfy4mj" path="res://assets/sprites/health_bar_sprites/under_health_bar.png" id="5_t6epw"]
 [ext_resource type="Texture2D" uid="uid://b4caqo3yxkqj" path="res://assets/sprites/health_bar_sprites/over_health_bar.png" id="6_2dku6"]
 [ext_resource type="Script" path="res://hud/boss/boss_hp_bar.gd" id="7_b57uh"]
+[ext_resource type="Gradient" uid="uid://7pwuus2pxr1r" path="res://projectile/fireball/fireball.tres" id="8_qiqe6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bf8ix"]
 radius = 22.0907
@@ -16,12 +17,14 @@ colors = PackedColorArray(0.309804, 0.788235, 0.952941, 1, 0.3135, 0.790875, 0.9
 
 [sub_resource type="Theme" id="Theme_ffe8p"]
 
-[node name="SnakeBall" type="Area2D" node_paths=PackedStringArray("sprite", "hp_bar") groups=["enemy"]]
+[node name="SnakeBall" type="Area2D" node_paths=PackedStringArray("sprite", "death_particles", "hp_bar") groups=["enemy"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ihmkk")
 fireball = ExtResource("2_wihcw")
 sprite = NodePath("Snakecrystal1")
+max_hp = 200
+death_particles = NodePath("QueueFreeParticles")
 hp_bar = NodePath("TextureProgressBar")
 
 [node name="Snakecrystal1" type="Sprite2D" parent="."]
@@ -81,4 +84,24 @@ texture_under = ExtResource("5_t6epw")
 texture_progress = ExtResource("6_2dku6")
 script = ExtResource("7_b57uh")
 
+[node name="QueueFreeParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -11)
+emitting = false
+amount = 100
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.8
+emission_shape = 2
+emission_sphere_radius = 15.43
+direction = Vector2(0, -300)
+spread = 20.0
+gravity = Vector2(0, 350)
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+scale_amount_min = 0.0
+scale_amount_max = 2.0
+color = Color(0.243137, 0.631373, 0.839216, 1)
+color_ramp = ExtResource("8_qiqe6")
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="finished" from="QueueFreeParticles" to="." method="_on_queue_free_particles_finished"]

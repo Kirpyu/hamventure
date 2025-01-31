@@ -4,8 +4,11 @@ extends Area2D
 @export var fireball : PackedScene
 @export var flip : bool
 @export var sprite : Sprite2D
-@export var max_hp : int = 100
-var hp = max_hp
+@export var max_hp : int
+@export var death_particles : CPUParticles2D
+@export var dead := false
+
+@onready var hp = max_hp
 @export var hp_bar : HPBar
 func _ready() -> void:
 	if flip:
@@ -31,4 +34,20 @@ func look_at_player() -> Vector2:
 func take_damage(dmg:int):
 	hp -= dmg
 	hp_bar.update_hp_bar(dmg)
+	if hp <= 0:
+		queue_delete()
 	
+func queue_delete():
+	sprite.hide()
+	hp_bar.hide()
+	dead = true
+	$ShootTimer.stop()
+	remove_from_group("enemy")
+	%Target.remove_from_group("targets")
+	%Target.dead = true
+#	to avoid writing all of these, i should find a way to signal player if dead, stop grappling
+	if death_particles:
+		death_particles.emitting = true
+
+func _on_queue_free_particles_finished() -> void:
+	pass

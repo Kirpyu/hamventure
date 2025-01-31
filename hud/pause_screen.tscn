@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://nl2emir7wpyg"]
+
+[ext_resource type="Script" path="res://hud/pause_screen.gd" id="1_7daol"]
+[ext_resource type="Texture2D" uid="uid://suq1xo6wpu3o" path="res://assets/sprites/health_bar_sprites/ui_background.png" id="2_jpaha"]
+[ext_resource type="Theme" uid="uid://0knhqsfqlrhj" path="res://scenes/boss_levels/default_theme.tres" id="3_beqoj"]
+
+[node name="PauseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7daol")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(0.714081, 0.514891, 0.740536, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -303.0
+offset_top = -208.0
+offset_right = -102.0
+offset_bottom = -70.0
+grow_vertical = 2
+scale = Vector2(3, 3)
+texture = ExtResource("2_jpaha")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 0.333336
+offset_right = 20.0
+offset_bottom = 44.3333
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 3
+
+[node name="restart" type="Button" parent="NinePatchRect/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_font_sizes/font_size = 5
+text = "RETRY"
+
+[node name="quit" type="Button" parent="NinePatchRect/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "QUIT"
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.1667
+offset_top = 42.3333
+offset_right = 40.8333
+offset_bottom = 65.3333
+grow_horizontal = 2
+theme = ExtResource("3_beqoj")
+theme_override_font_sizes/font_size = 15
+text = "TEXT HERE"
+
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/quit" to="." method="_on_quit_pressed"]

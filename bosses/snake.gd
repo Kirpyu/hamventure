@@ -1,8 +1,8 @@
 extends Area2D  # Assuming this script is attached to the Area2D node
 class_name Enemy
 
-@export var max_hp = 100
-var current_hp = max_hp
+@export var max_hp : int
+@onready var current_hp = max_hp
 
 var tween: Tween
 @export var animation_player : AnimationPlayer
@@ -24,6 +24,7 @@ var tween: Tween
 @export var tail: PackedScene
 @export var lava: PackedScene
 
+@export var pause_screen : PauseScreen
 #Attack Data
 const attacks : Array = ["Normal Fireball", "Spew Attack", "Tail Slam", "Lava Spike"]
 
@@ -60,9 +61,13 @@ func follow_player():
 	tween.connect("finished", follow_player)
 
 func take_damage(dmg: int):
-	current_hp -= dmg
-	for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
-		hp_bar.update_hp_bar(dmg)
+	var enemy_count = get_tree().get_nodes_in_group("enemy").size()
+	if enemy_count <= 1:
+		current_hp -= dmg
+		for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
+			hp_bar.update_hp_bar(dmg)
+		if current_hp <= 0:
+			pause_screen.pause(true, "you dont suck")
 
 func look_at_player() -> Vector2:
 	return (player.global_position - %Target.global_position).normalized()
