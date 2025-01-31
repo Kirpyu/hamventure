@@ -1,12 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://xqi8hlcfmgl8"]
+[gd_scene load_steps=11 format=3 uid="uid://xqi8hlcfmgl8"]
 
-[ext_resource type="Texture2D" uid="uid://d1rg5ad84o6ab" path="res://assets/snake_sprites/snakecrystal.png" id="1_hbb41"]
+[ext_resource type="Texture2D" uid="uid://cks0bsq441tx0" path="res://assets/snake_sprites/snakecrystal.png" id="1_hbb41"]
 [ext_resource type="Script" path="res://bosses/snake_balls/snake_ball.gd" id="1_ihmkk"]
 [ext_resource type="Script" path="res://bosses/outline.gd" id="2_av00o"]
 [ext_resource type="PackedScene" uid="uid://u8ffi45n4rte" path="res://projectile/fireball/fireball.tscn" id="2_wihcw"]
+[ext_resource type="Texture2D" uid="uid://b2w2hkrlfy4mj" path="res://assets/sprites/health_bar_sprites/under_health_bar.png" id="5_t6epw"]
+[ext_resource type="Texture2D" uid="uid://b4caqo3yxkqj" path="res://assets/sprites/health_bar_sprites/over_health_bar.png" id="6_2dku6"]
+[ext_resource type="Script" path="res://hud/boss/boss_hp_bar.gd" id="7_b57uh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bf8ix"]
 radius = 22.0907
+
+[sub_resource type="Gradient" id="Gradient_u1r34"]
+colors = PackedColorArray(0.309804, 0.788235, 0.952941, 1, 0.3135, 0.790875, 0.95, 0.133333)
+
+[sub_resource type="Theme" id="Theme_ffe8p"]
 
 [node name="SnakeBall" type="Area2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 4
@@ -35,5 +43,41 @@ script = ExtResource("2_av00o")
 grapple_amount = 75.0
 grapple_distance = 100.0
 grapple_speed = 3.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -42)
+amount = 30
+speed_scale = 1.25
+emission_shape = 1
+emission_sphere_radius = 25.85
+gravity = Vector2(0, 3)
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+color = Color(0.309804, 0.788235, 0.952941, 1)
+color_ramp = SubResource("Gradient_u1r34")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." groups=["hp_bar"]]
+anchors_preset = -1
+anchor_left = 0.00178566
+anchor_top = 0.285714
+anchor_right = 1.00179
+anchor_bottom = 0.935714
+offset_left = -19.0
+offset_top = -67.0
+offset_right = 21.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 0.0
+theme = SubResource("Theme_ffe8p")
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_top = 5
+stretch_margin_right = 10
+stretch_margin_bottom = 5
+texture_under = ExtResource("5_t6epw")
+texture_progress = ExtResource("6_2dku6")
+script = ExtResource("7_b57uh")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

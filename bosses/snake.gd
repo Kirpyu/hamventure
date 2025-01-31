@@ -3,9 +3,9 @@ class_name Enemy
 
 @export var max_hp = 100
 var current_hp = max_hp
-var hp_bar : HPBar
 
 var tween: Tween
+@export var animation_player : AnimationPlayer
 
 @onready var target: Node2D = %Target
 @onready var player : Player = %Player;
@@ -33,11 +33,14 @@ func _physics_process(delta: float) -> void:
 		pass
 
 func _ready():
-	hp_bar = get_tree().get_first_node_in_group("hp_bar")
+	
 	follow_player()
-	$AnimationPlayer.play("default")
+	animation_player.play("default")
 	update_target()
 	start_spew_attack()
+	
+	for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
+		hp_bar.update_max_value(max_hp)
 	
 func update_target():
 	%Target.player = player
@@ -58,12 +61,14 @@ func follow_player():
 
 func take_damage(dmg: int):
 	current_hp -= dmg
-	hp_bar.update_hp_bar(dmg)
+	for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
+		hp_bar.update_hp_bar(dmg)
 
 func look_at_player() -> Vector2:
 	return (player.global_position - %Target.global_position).normalized()
 	
 func fire_projectile():
+	animation_player.play("mouth_open")
 	var b = fireball.instantiate()
 	if b is Projectile:
 		var direction = look_at_player()
@@ -83,6 +88,7 @@ func change_attack():
 	current_attack = random_attack
 	match random_attack:
 		"Normal Fireball":
+
 			fire_projectile()
 #			Phase change should actually pop on signal, not right away, since this is how we change phases
 			phase_change()
@@ -101,6 +107,7 @@ func phase_change() -> void:
 	%CooldownTimer.start()
 
 func start_spew_attack():
+	animation_player.play("mouth_open")
 	match current_attack:
 		attacks[1]:
 			%TickTimer.wait_time = .1
@@ -143,3 +150,9 @@ func _on_spew_timer_timeout() -> void:
 
 func _on_cooldown_timer_timeout() -> void:
 	change_attack()
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"mouth_open":
+			animation_player.play("default")

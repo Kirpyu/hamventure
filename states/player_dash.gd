@@ -4,13 +4,13 @@ class_name PlayerDash
 @export var animated_sprite : AnimatedSprite2D
 @export var player : CharacterBody2D
 
-@export var dist : float = 0.1
+@export var dist : float = 0.15
 var time_passed = 0
 var prev_speed;
-
+@export var dash_speed : float
 func Enter():
 	prev_speed = player.speed
-	player.speed = 600
+	player.speed = dash_speed
 	time_passed = 0
 #	invulnerable = true
 func Exit():

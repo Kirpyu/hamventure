@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cks0bsq441tx0"
-path="res://.godot/imported/snakecrystal.png-c213aa577a068e8b94d1f425dd5c6506.ctex"
+uid="uid://rj40o1xvlojj"
+path="res://.godot/imported/ui_background_front.png-02c92cac1f57715f104ecd27b7dc9957.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/snake_sprites/snakecrystal.png"
-dest_files=["res://.godot/imported/snakecrystal.png-c213aa577a068e8b94d1f425dd5c6506.ctex"]
+source_file="res://assets/sprites/health_bar_sprites/ui_background_front.png"
+dest_files=["res://.godot/imported/ui_background_front.png-02c92cac1f57715f104ecd27b7dc9957.ctex"]
 
 [params]
 

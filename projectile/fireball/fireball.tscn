@@ -36,10 +36,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_666xu"]
 radius = 14.0357
 
-[node name="Fireball" instance=ExtResource("1_3yui1")]
+[node name="Fireball" node_paths=PackedStringArray("death_particles") instance=ExtResource("1_3yui1")]
 collision_mask = 3
 script = ExtResource("2_mc0l1")
 max_speed = 300.0
+death_particles = NodePath("OnDeath")
 
 [node name="CPUParticles2D" parent="." index="0"]
 modulate = Color(0.309804, 0.788235, 0.952941, 1)
@@ -58,6 +59,19 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_d1ko8")
 frame_progress = 0.132863
 
-[node name="Hitbox" parent="." index="2"]
+[node name="OnDeath" type="CPUParticles2D" parent="." index="2"]
+emitting = false
+amount = 45
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 21.5
+spread = 33.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 78.49
+initial_velocity_max = 129.0
+color = Color(0.188235, 0.741176, 1, 1)
+
+[node name="Hitbox" parent="." index="3"]
 position = Vector2(4, 0)
 shape = SubResource("CircleShape2D_666xu")

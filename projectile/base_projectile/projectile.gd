@@ -10,6 +10,7 @@ class_name Projectile
 
 @export var sprite : AnimatedSprite2D
 @export var particles : CPUParticles2D
+@export var death_particles: CPUParticles2D
 
 var direction: Vector2 = Vector2.ZERO
 
@@ -26,12 +27,16 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.take_damage(damage)
 		queue_delete()
+	if body is TileMapLayer:
+		queue_delete()
 		
 
 func queue_delete():
 	hitbox.set_deferred("disabled", true)
 	sprite.hide()
 	particles.emitting = false
+	if death_particles:
+		death_particles.emitting = true
 
 func _on_cpu_particles_2d_finished() -> void:
 	queue_free()
