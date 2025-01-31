@@ -8,7 +8,7 @@ var tween: Tween
 @export var animation_player : AnimationPlayer
 
 @onready var target: Node2D = %Target
-@onready var player : Player = %Player;
+@onready var player : Player = %Player
 
 @export var wobble_amount : int = 5
 @export var grapple_amount : float

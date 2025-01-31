@@ -21,12 +21,13 @@ func _physics_process(delta: float) -> void:
 		direction = (player.global_position - global_position).normalized()
 
 func _on_area_entered(area: Area2D) -> void:
-	if area is Enemy:
-		if player.grapple_speed <= 0:
-			player.grapple_speed = -1 * area.grapple_speed
-		else:
-			player.grapple_speed = area.grapple_speed	
-		attack(area)
+	if area.is_in_group("enemy"):
+#		not sure why this is here???? ill just comment it out???
+		#if player.grapple_speed <= 0:
+			#player.grapple_speed = -1 * area.grapple_speed
+		#else:
+			#player.grapple_speed = area.grapple_speed	
+		area.take_damage(damage)
 		
 		
 	if spinning == false:

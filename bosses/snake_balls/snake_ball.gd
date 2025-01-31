@@ -4,11 +4,14 @@ extends Area2D
 @export var fireball : PackedScene
 @export var flip : bool
 @export var sprite : Sprite2D
-
+@export var max_hp : int = 100
+var hp = max_hp
+@export var hp_bar : HPBar
 func _ready() -> void:
 	if flip:
 		sprite.flip_h = true
 	%Target.player = player
+	hp_bar.update_max_value(max_hp)
 
 func _on_shoot_timer_timeout() -> void:
 	fire_projectile()
@@ -24,3 +27,8 @@ func fire_projectile():
 
 func look_at_player() -> Vector2:
 	return (player.global_position - %Target.global_position).normalized()
+
+func take_damage(dmg:int):
+	hp -= dmg
+	hp_bar.update_hp_bar(dmg)
+	

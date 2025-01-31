@@ -16,12 +16,13 @@ colors = PackedColorArray(0.309804, 0.788235, 0.952941, 1, 0.3135, 0.790875, 0.9
 
 [sub_resource type="Theme" id="Theme_ffe8p"]
 
-[node name="SnakeBall" type="Area2D" node_paths=PackedStringArray("sprite")]
+[node name="SnakeBall" type="Area2D" node_paths=PackedStringArray("sprite", "hp_bar") groups=["enemy"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ihmkk")
 fireball = ExtResource("2_wihcw")
 sprite = NodePath("Snakecrystal1")
+hp_bar = NodePath("TextureProgressBar")
 
 [node name="Snakecrystal1" type="Sprite2D" parent="."]
 texture = ExtResource("1_hbb41")

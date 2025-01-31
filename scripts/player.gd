@@ -36,6 +36,9 @@ func _ready() -> void:
 	for hitbox in %AttackBox.get_children():
 		attack_hitboxes[hitbox.name] = hitbox
 	get_closest_target()
+	hp_bar = get_tree().get_first_node_in_group("player_ui")
+	if hp_bar:
+		hp_bar.update_max_value(max_hp)
 	
 	
 func get_closest_target():
@@ -90,5 +93,15 @@ func circular_motion(delta):
 		
 	normalized_x = relative_vector.x / grapple_amount
 
+var hp_bar : HPBar
 func take_damage(damage: int):
+	animated_sprite.self_modulate = Color(0.6, 0.2901960784313726 ,0.2901960784313726)
+	%DamagedParticles.emitting = true
+	set_collision_layer_value(2, false)
 	current_hp -= damage
+	hp_bar.update_hp_bar(damage)
+	
+	
+func _on_cpu_particles_2d_2_finished() -> void:
+	animated_sprite.self_modulate = Color(1, 1 ,1)
+	set_collision_layer_value(2, true)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=135 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://cgodwjcwxhprk" path="res://assets/sprites/mc_idle-Sheet.png" id="2_kw16x"]
@@ -22,6 +22,10 @@
 [ext_resource type="Script" path="res://states/player_grapple.gd" id="10_byiok"]
 [ext_resource type="Script" path="res://states/player_dash.gd" id="11_bnvse"]
 [ext_resource type="Script" path="res://scenes/attack_box.gd" id="22_kwo8o"]
+[ext_resource type="Gradient" uid="uid://7pwuus2pxr1r" path="res://projectile/fireball/fireball.tres" id="23_vqjxx"]
+
+[sub_resource type="Gradient" id="Gradient_fupug"]
+colors = PackedColorArray(0, 0, 0, 0.384314, 0.952941, 0.952941, 0.952941, 0.329412)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qhu14"]
 animation = &"attack_left"
@@ -1859,10 +1863,21 @@ size = Vector2(39.5, 23.6251)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree") groups=["player"]]
 z_index = 5
-collision_layer = 2
+collision_layer = 18
 collision_mask = 9
 script = ExtResource("1_ofpvf")
 animation_tree = NodePath("AnimationTree")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 6)
+amount = 30
+randomness = 0.42
+emission_shape = 1
+emission_sphere_radius = 5.0
+gravity = Vector2(0, 2)
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+color_ramp = SubResource("Gradient_fupug")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 active = false
@@ -1988,7 +2003,27 @@ position = Vector2(-32, -5)
 shape = SubResource("RectangleShape2D_a0abg")
 disabled = true
 
+[node name="DamagedParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -11)
+emitting = false
+amount = 100
+one_shot = true
+explosiveness = 0.8
+emission_shape = 2
+emission_sphere_radius = 15.43
+direction = Vector2(0, -300)
+spread = 20.0
+gravity = Vector2(0, 350)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.0
+scale_amount_max = 2.0
+color = Color(0.836833, 0.481837, 0.410942, 1)
+color_ramp = ExtResource("23_vqjxx")
+
 [connection signal="timeout" from="AttackCD" to="StateMachine" method="_on_attack_cd_timeout"]
 [connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
 [connection signal="timeout" from="GrappleTimer" to="StateMachine/PlayerGrapple" method="_on_grapple_timer_timeout"]
 [connection signal="area_entered" from="AttackBox" to="AttackBox" method="_on_area_entered"]
+[connection signal="finished" from="DamagedParticles" to="." method="_on_cpu_particles_2d_2_finished"]
