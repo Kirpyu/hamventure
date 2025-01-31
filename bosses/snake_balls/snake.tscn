@@ -25,14 +25,15 @@ position = Vector2(-1, -43)
 shape = SubResource("CircleShape2D_bf8ix")
 
 [node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.5
 autostart = true
 
 [node name="Target" type="Node2D" parent="." groups=["targets"]]
 unique_name_in_owner = true
 position = Vector2(-1, -42)
 script = ExtResource("2_av00o")
-grapple_amount = 60.0
+grapple_amount = 75.0
 grapple_distance = 100.0
-grapple_speed = 5.0
+grapple_speed = 3.0
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

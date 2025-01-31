@@ -1860,6 +1860,7 @@ size = Vector2(39.5, 23.6251)
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree") groups=["player"]]
 z_index = 5
 collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_ofpvf")
 animation_tree = NodePath("AnimationTree")
 

@@ -13,6 +13,7 @@ config_version=5
 config/name="Hamventure"
 run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,7 +24,9 @@ Music="res://scenes/music.tscn"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
+window/ios/allow_high_refresh_rate=false
 
 [file_customization]
 
@@ -89,6 +92,7 @@ move_down={
 2d_physics/layer_1="Environment"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Platform"
 
 [physics]
 

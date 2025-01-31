@@ -7,7 +7,7 @@ var current_hp = max_hp
 
 const max_speed = 200
 @export var grapple_speed = 5
-const JUMP_VELOCITY = -225.0
+const JUMP_VELOCITY = -300.0
 
 @export var grapple_amount: float = 30
 var angle : float = 0
@@ -36,18 +36,19 @@ func _ready() -> void:
 	for hitbox in %AttackBox.get_children():
 		attack_hitboxes[hitbox.name] = hitbox
 	get_closest_target()
-	print(target)
 	
 	
 func get_closest_target():
 	var closest_target : Node2D
 	var closest_distance = INF
 	for t : Target in get_tree().get_nodes_in_group("targets"):
+		t.targetted = false
 		var distance = global_position.distance_to(t.global_position)
 		if distance < closest_distance:
 			closest_target = t
 			closest_distance = distance
 	target = closest_target
+	target.targetted = true
 		
 func _physics_process(delta):
 	if target:

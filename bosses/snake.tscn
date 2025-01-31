@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bf52re74728pp"]
+[gd_scene load_steps=40 format=3 uid="uid://bf52re74728pp"]
 
 [ext_resource type="Script" path="res://bosses/snake.gd" id="1_n4dhk"]
 [ext_resource type="Texture2D" uid="uid://c1jfrnwfpgx0q" path="res://assets/snake_tongueflick-Sheet.png" id="2_2aoli"]
@@ -8,6 +8,128 @@
 [ext_resource type="PackedScene" uid="uid://dmlcld1tupse8" path="res://projectile/tail__slam/tail_slam.tscn" id="4_2k2a7"]
 [ext_resource type="Script" path="res://bosses/outline.gd" id="4_skgma"]
 [ext_resource type="PackedScene" uid="uid://cg1xkd1syblgj" path="res://projectile/lava_spout/lava_spout.tscn" id="5_j44y5"]
+[ext_resource type="Texture2D" uid="uid://k77rggynjjmv" path="res://assets/snake_sprites/snake_idleEMPTY-Sheet.png" id="6_ecnoo"]
+[ext_resource type="Texture2D" uid="uid://bqiqfkci7vpjs" path="res://assets/snake_sprites/eye.png" id="7_hvby3"]
+[ext_resource type="Texture2D" uid="uid://bped01tsjeycn" path="res://assets/sprites/coin.png" id="9_aam4p"]
+[ext_resource type="Script" path="res://bosses/eyes.gd" id="9_fbhqt"]
+[ext_resource type="Script" path="res://bosses/right_eye.gd" id="12_m2u40"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qcx83"]
+
+[sub_resource type="Animation" id="Animation_pn2ht"]
+resource_name = "default"
+length = 1.40002
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-11, -166), Vector2(-11, -157), Vector2(-4, -146), Vector2(-10, -151), Vector2(-4, -164)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyes:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(-2, 9), Vector2(7, 19), Vector2(-3, 15), Vector2(2, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2t5p8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-11, -166)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyes:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qj0d5"]
+_data = {
+"RESET": SubResource("Animation_2t5p8"),
+"default": SubResource("Animation_pn2ht")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekxxj"]
+atlas = ExtResource("6_ecnoo")
+region = Rect2(0, 0, 330, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8pak"]
+atlas = ExtResource("6_ecnoo")
+region = Rect2(330, 0, 330, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2o5q"]
+atlas = ExtResource("6_ecnoo")
+region = Rect2(660, 0, 330, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbi8r"]
+atlas = ExtResource("6_ecnoo")
+region = Rect2(990, 0, 330, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvbm6"]
+atlas = ExtResource("6_ecnoo")
+region = Rect2(1320, 0, 330, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ammcw"]
+atlas = ExtResource("6_ecnoo")
+region = Rect2(1650, 0, 330, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26tbf"]
+atlas = ExtResource("6_ecnoo")
+region = Rect2(1980, 0, 330, 170)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uif2g"]
 atlas = ExtResource("2_2aoli")
@@ -63,7 +185,28 @@ region = Rect2(3600, 0, 600, 300)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yxqil"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekxxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8pak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2o5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbi8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvbm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ammcw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26tbf")
+}],
 "loop": true,
 "name": &"default",
 "speed": 5.0
@@ -130,11 +273,59 @@ fireball_lob = ExtResource("3_ehnn2")
 tail = ExtResource("4_2k2a7")
 lava = ExtResource("5_j44y5")
 
+[node name="Eyes" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Eyes"]
+modulate = Color(0.905882, 0.290196, 0.290196, 1)
+position = Vector2(-7, -174)
+scale = Vector2(129.571, -53.2935)
+texture = SubResource("CanvasTexture_qcx83")
+
+[node name="LeftEye" type="Marker2D" parent="Eyes"]
+unique_name_in_owner = true
+position = Vector2(-59, -175)
+script = ExtResource("9_fbhqt")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Eyes/LeftEye"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(7, 0)
+scale = Vector2(1.70368, 1.70368)
+texture = ExtResource("7_hvby3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Eyes/LeftEye"]
+position = Vector2(11, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("9_aam4p")
+region_enabled = true
+region_rect = Rect2(3, 3, 10, 10)
+
+[node name="RightEye" type="Marker2D" parent="Eyes"]
+unique_name_in_owner = true
+position = Vector2(39, -175)
+script = ExtResource("12_m2u40")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Eyes/RightEye"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(7, 0)
+scale = Vector2(1.70368, 1.70368)
+texture = ExtResource("7_hvby3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Eyes/RightEye"]
+position = Vector2(10, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("9_aam4p")
+region_enabled = true
+region_rect = Rect2(3, 3, 10, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qj0d5")
+}
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(16, -77)
+position = Vector2(20, -77)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_yxqil")
-animation = &"flicker"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-11, -166)
@@ -152,7 +343,7 @@ grapple_speed = 5.0
 
 [node name="CooldownTimer" type="Timer" parent="Timers"]
 unique_name_in_owner = true
-wait_time = 1.5
+wait_time = 5.0
 one_shot = true
 
 [node name="SpewTimer" type="Timer" parent="Timers"]
@@ -163,7 +354,7 @@ one_shot = true
 unique_name_in_owner = true
 wait_time = 0.1
 
-[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Timers/SpewTimer" to="." method="_on_spew_timer_timeout"]
 [connection signal="timeout" from="Timers/TickTimer" to="." method="_on_tick_timer_timeout"]

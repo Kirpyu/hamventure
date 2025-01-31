@@ -7,7 +7,8 @@ class_name PlayerIdle
 
 func Enter():
 	player.speed = 0
-
+	player.set_collision_mask_value(4, true)
+	
 func Physics_Update(_delta:float):
 	#animated_sprite.play("idle")
 	
@@ -18,7 +19,10 @@ func Physics_Update(_delta:float):
 	if Input.is_action_just_pressed("jump"):
 		if player.is_on_floor():
 			player.current_jump = 1
-			Transitioned.emit(self, "PlayerJump")
+			if Input.is_action_pressed("move_down"):
+				player.set_collision_mask_value(4, false)
+			else:
+				Transitioned.emit(self, "PlayerJump")
 		elif player.current_jump < player.jump_count:
 			player.current_jump += 1
 			Transitioned.emit(self, "PlayerJump")

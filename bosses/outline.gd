@@ -3,6 +3,7 @@ class_name Target
 @export var grapple_amount : float;
 @export var grapple_distance : float;
 @export var grapple_speed : float;
+var targetted = false
 
 var highlighted = false
 # can set highlighted when doing for loop
@@ -14,7 +15,7 @@ func _process(delta: float) -> void:
 #change this later to self
 
 func _draw():
-	if Input.is_action_pressed("lmb"):
+	if Input.is_action_pressed("lmb") and targetted:
 		draw_circle(Vector2(0,0), grapple_amount, Color(1, 1, 1, 0.4), false)
 		draw_circle(Vector2(0,0), grapple_distance, Color(1, 1, 1, 0.4), false)
 		draw_circle(Vector2(cos(player.grapple_angle) * grapple_amount, sin(player.grapple_angle) * grapple_amount), 4, Color(1, 1, 1, 0.4))

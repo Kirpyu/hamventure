@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 func _ready():
 	hp_bar = get_tree().get_first_node_in_group("hp_bar")
 	follow_player()
-	$AnimatedSprite2D.play("flicker")
+	$AnimationPlayer.play("default")
 	update_target()
 	start_spew_attack()
 	

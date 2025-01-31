@@ -12,6 +12,8 @@ var dashed : bool = false;
 
 func Enter():
 	player.speed = player.max_speed
+	player.set_collision_mask_value(4, true)
+	
 
 func Update(_delta:float):
 	jump_timer -= _delta
@@ -32,7 +34,10 @@ func Physics_Update(_delta:float):
 	if Input.is_action_just_pressed("jump"):
 		if player.is_on_floor():
 			player.current_jump = 1
-			Transitioned.emit(self, "PlayerJump")
+			if Input.is_action_pressed("move_down"):
+				player.set_collision_mask_value(4, false)
+			else:
+				Transitioned.emit(self, "PlayerJump")
 		elif player.current_jump < player.jump_count:
 			player.current_jump += 1
 			Transitioned.emit(self, "PlayerJump")
