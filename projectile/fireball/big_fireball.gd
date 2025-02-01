@@ -6,6 +6,7 @@ func _ready() -> void:
 	tween.play()
 	tween.connect("finished", launch)
 	sprite.play("default")
+	speed = 10
 	
 func launch():
 	speed = 250

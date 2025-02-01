@@ -3,13 +3,19 @@ extends Projectile
 var player : Player
 @export var warning_box : Sprite2D
 @export var exclamation_mark : AnimatedSprite2D
+var second_phase := false
 
 func _ready() -> void:
 	hitbox.set_deferred("disabled", true)
 	exclamation_mark.play("default")
 	
 	player = get_tree().get_first_node_in_group("player")
-	global_position.y = 20
+	
+	if !second_phase:
+		global_position.y = 20
+	else:
+		global_position.y = -15
+		scale = Vector2(1.5, 1.5)
 	global_position.x = player.global_position.x
 
 func _on_body_entered(body: Node2D) -> void:

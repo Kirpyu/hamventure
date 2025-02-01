@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Hamventure"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="res://scenes/boss_levels/snake_boss_level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -44,12 +44,12 @@ folder_colors={
 [global_group]
 
 player=""
-projectile_node=""
-targets=""
 hp_bar=""
 player_ui=""
+projectile_node=""
 boss=""
 enemy=""
+targets=""
 
 [input]
 
@@ -98,6 +98,7 @@ move_down={
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Platform"
 2d_physics/layer_5="Boomerang"
+2d_physics/layer_6="Lava"
 
 [physics]
 

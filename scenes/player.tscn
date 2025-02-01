@@ -1863,9 +1863,10 @@ size = Vector2(39.5, 23.6251)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree") groups=["player"]]
 z_index = 5
-collision_layer = 18
+collision_layer = 50
 collision_mask = 9
 script = ExtResource("1_ofpvf")
+invulnerable = true
 animation_tree = NodePath("AnimationTree")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -2008,6 +2009,7 @@ unique_name_in_owner = true
 position = Vector2(0, -11)
 emitting = false
 amount = 100
+lifetime = 0.75
 one_shot = true
 explosiveness = 0.8
 emission_shape = 2

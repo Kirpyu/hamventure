@@ -40,3 +40,7 @@ func queue_delete():
 
 func _on_cpu_particles_2d_finished() -> void:
 	queue_free()
+
+
+func _on_death_timer_timeout() -> void:
+	queue_free()

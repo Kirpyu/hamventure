@@ -25,6 +25,7 @@ fireball = ExtResource("2_wihcw")
 sprite = NodePath("Snakecrystal1")
 max_hp = 200
 death_particles = NodePath("QueueFreeParticles")
+clock = 24.0
 hp_bar = NodePath("TextureProgressBar")
 
 [node name="Snakecrystal1" type="Sprite2D" parent="."]
@@ -37,7 +38,7 @@ position = Vector2(-1, -43)
 shape = SubResource("CircleShape2D_bf8ix")
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 0.1
 autostart = true
 
 [node name="Target" type="Node2D" parent="." groups=["targets"]]
@@ -45,7 +46,7 @@ unique_name_in_owner = true
 position = Vector2(-1, -42)
 script = ExtResource("2_av00o")
 grapple_amount = 75.0
-grapple_distance = 100.0
+grapple_distance = 300.0
 grapple_speed = 3.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

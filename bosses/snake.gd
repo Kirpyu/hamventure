@@ -13,7 +13,7 @@ var tween: Tween
 @export var wobble_amount : int = 5
 @export var grapple_amount : float
 @export var grapple_speed : float = 1.75
-@export var grapple_distance : float = 250
+@export var grapple_distance : float
 
 #NEED FROM PLAYER!!!!
 @export var grapple_angle : float;
@@ -26,7 +26,7 @@ var tween: Tween
 
 @export var pause_screen : PauseScreen
 #Attack Data
-const attacks : Array = ["Normal Fireball", "Spew Attack", "Tail Slam", "Lava Spike"]
+var attacks : Array = ["Normal Fireball", "Spew Attack", "Lava Spike"]
 
 func _physics_process(delta: float) -> void:
 #	DEBUGGING BUTTON
@@ -42,7 +42,7 @@ func _ready():
 	
 	for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
 		hp_bar.update_max_value(max_hp)
-	
+
 func update_target():
 	%Target.player = player
 	
@@ -50,7 +50,7 @@ func follow_player():
 	if tween:
 		tween.kill()
 	tween = create_tween()
-	var target_pos = player.global_position / 3
+	var target_pos = player.global_position / 2
 	#var random_offset = Vector2(
 		#randf_range(-wobble_amount, wobble_amount),
 		#randf_range(-wobble_amount, wobble_amount)
@@ -73,7 +73,6 @@ func look_at_player() -> Vector2:
 	return (player.global_position - %Target.global_position).normalized()
 	
 func fire_projectile():
-	animation_player.play("mouth_open")
 	var b = fireball.instantiate()
 	if b is Projectile:
 		var direction = look_at_player()
@@ -93,16 +92,19 @@ func change_attack():
 	current_attack = random_attack
 	match random_attack:
 		"Normal Fireball":
-
+			animation_player.play("mouth_open")
 			fire_projectile()
 #			Phase change should actually pop on signal, not right away, since this is how we change phases
 			phase_change()
 		"Spew Attack":
+			animation_player.play("mouth_open_longer")
 			start_spew_attack()
 		"Tail Slam":
+			animation_player.play("mouth_open")
 			tail_slam()
 			phase_change()
 		"Lava Spike":
+			animation_player.play("mouth_open")
 			start_spew_attack()
 		_:
 			pass
@@ -112,14 +114,25 @@ func phase_change() -> void:
 	%CooldownTimer.start()
 
 func start_spew_attack():
-	animation_player.play("mouth_open")
+	
 	match current_attack:
-		attacks[1]:
+		"Spew Attack":
 			%TickTimer.wait_time = .1
-		attacks[3]:
+		"Lava Spike":
 			%TickTimer.wait_time = .2
-	%TickTimer.start()
-	%SpewTimer.start()
+			%TickTimer.start()
+			%SpewTimer.start()
+
+func second_phase():
+	%CooldownTimer.wait_time = 2.5
+	var snake_floor_tween = create_tween()
+	snake_floor_tween.tween_property(%SnakeLayer, "position", Vector2(0, -32), 5)
+	snake_floor_tween.play()
+	snake_floor_tween.is_queued_for_deletion()
+	attacks.append("Tail Slam")
+	is_second_phase = true
+	
+	
 	
 func spew_attack():
 	var b = fireball_lob.instantiate()
@@ -135,16 +148,18 @@ func tail_slam():
 	if b is Projectile:
 		get_tree().get_first_node_in_group("projectile_node").add_child(b)
 		
+var is_second_phase := false
 func lava_spout():
 	var b = lava.instantiate()
 	if b is Projectile:
+		if is_second_phase : b.second_phase = true
 		get_tree().get_first_node_in_group("projectile_node").add_child(b)
 	
 func _on_tick_timer_timeout() -> void:
 	match current_attack:
-		attacks[1]:
+		"Spew Attack":
 			spew_attack()
-		attacks[3]:
+		"Lava Spike":
 			lava_spout()
 		_:
 			phase_change()
@@ -160,4 +175,10 @@ func _on_cooldown_timer_timeout() -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
 		"mouth_open":
+			animation_player.play("default")
+		"mouth_open_longer":
+			animation_player.play("leave_mouth_open")
+			%TickTimer.start()
+			%SpewTimer.start()
+		"leave_mouth_open":
 			animation_player.play("default")

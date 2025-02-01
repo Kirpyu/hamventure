@@ -8,6 +8,9 @@ extends Area2D
 @export var death_particles : CPUParticles2D
 @export var dead := false
 
+var angle : float = 0
+@export var clock : float = 12.0
+
 @onready var hp = max_hp
 @export var hp_bar : HPBar
 func _ready() -> void:
@@ -22,11 +25,11 @@ func _on_shoot_timer_timeout() -> void:
 func fire_projectile():
 	var b = fireball.instantiate()
 	if b is Projectile:
-		var direction = look_at_player()
 		get_tree().get_first_node_in_group("projectile_node").add_child(b)
 		b.transform = %Target.global_transform
-		b.look_at(player.global_position)
-		b.direction = look_at_player()
+		b.rotate(deg_to_rad(angle))
+		b.direction = Vector2.RIGHT.rotated(deg_to_rad(angle))
+		angle += float(360) / clock
 
 func look_at_player() -> Vector2:
 	return (player.global_position - %Target.global_position).normalized()
@@ -48,6 +51,8 @@ func queue_delete():
 #	to avoid writing all of these, i should find a way to signal player if dead, stop grappling
 	if death_particles:
 		death_particles.emitting = true
-
+	if get_tree().get_nodes_in_group("enemy").size() <= 1:
+		get_tree().get_first_node_in_group("boss").second_phase()
+		
 func _on_queue_free_particles_finished() -> void:
 	pass

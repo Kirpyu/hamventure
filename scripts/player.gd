@@ -4,7 +4,7 @@ class_name Player
 @export var pause_screen : PauseScreen
 @export var invulnerable : bool
 @export var speed = 200
-@export var max_hp = 100
+@export var max_hp = 150
 var current_hp = max_hp
 
 const max_speed = 200
@@ -105,8 +105,6 @@ func take_damage(damage: int):
 	
 	if current_hp <= 0 and !invulnerable:
 		pause_screen.pause(true, "Noob")
-	
-	
 	
 func _on_cpu_particles_2d_2_finished() -> void:
 	animated_sprite.self_modulate = Color(1, 1 ,1)
