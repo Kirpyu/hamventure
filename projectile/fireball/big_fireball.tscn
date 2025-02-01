@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dcbxvahx4eqim"]
+[gd_scene load_steps=11 format=3 uid="uid://dcbxvahx4eqim"]
 
 [ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_r70cr"]
 [ext_resource type="Script" path="res://projectile/fireball/big_fireball.gd" id="2_s5dbx"]
 [ext_resource type="Texture2D" uid="uid://blhprba1ksrsw" path="res://assets/snake_sprites/snake_projectiles/BIGcorruptedEnergy-Sheet.png" id="3_grtko"]
 [ext_resource type="Gradient" uid="uid://7pwuus2pxr1r" path="res://projectile/fireball/fireball.tres" id="3_k0s8r"]
+[ext_resource type="AudioStream" uid="uid://o6n4eofjt2j8" path="res://assets/music/projectile_sfx/snake/Fireball.mp3" id="5_8g56l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_abytk"]
 atlas = ExtResource("3_grtko")
@@ -38,7 +39,7 @@ animations = [{
 radius = 26.1725
 
 [node name="BigFireball" node_paths=PackedStringArray("death_particles") instance=ExtResource("1_r70cr")]
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("2_s5dbx")
 death_particles = NodePath("OnDeath")
 
@@ -85,3 +86,9 @@ scale_amount_min = 0.1
 scale_amount_max = 2.0
 color = Color(0.309804, 0.788235, 0.952941, 1)
 color_ramp = ExtResource("3_k0s8r")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="5"]
+stream = ExtResource("5_8g56l")
+volume_db = -10.33
+pitch_scale = 0.5
+autoplay = true

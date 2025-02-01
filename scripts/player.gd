@@ -53,9 +53,10 @@ func get_closest_target():
 			closest_target = t
 			closest_distance = distance
 	target = closest_target
-	target.targetted = true
+	if target:
+		target.targetted = true
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	if target:
 		grapple_angle = atan2(global_position.y - target.global_position.y, global_position.x - target.global_position.x)
 	direction = Input.get_axis("move_left","move_right")
@@ -104,7 +105,7 @@ func take_damage(damage: int):
 	hp_bar.update_hp_bar(damage)
 	
 	if current_hp <= 0 and !invulnerable:
-		pause_screen.pause(true, "Noob")
+		pause_screen.pause(true, "YOU LOSE")
 	
 func _on_cpu_particles_2d_2_finished() -> void:
 	animated_sprite.self_modulate = Color(1, 1 ,1)

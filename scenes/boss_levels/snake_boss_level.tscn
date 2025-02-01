@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://ryvpdspotnwj"]
+[gd_scene load_steps=35 format=4 uid="uid://ryvpdspotnwj"]
 
 [ext_resource type="Texture2D" uid="uid://byvv7n2m5mkvs" path="res://assets/snake_sprites/StoneBrick.png" id="1_35nsk"]
 [ext_resource type="Texture2D" uid="uid://oj6dlv3u3722" path="res://assets/snake_sprites/SnakeBG_WithFilter.png" id="2_ib3bi"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://b8apopg4jcvtd" path="res://assets/sprites/health_bar_sprites/ribbon_hamster.png" id="13_e41ph"]
 [ext_resource type="Texture2D" uid="uid://c6rtn6rq234jb" path="res://assets/sprites/health_bar_sprites/hamster_icon.png" id="15_ksetk"]
 [ext_resource type="PackedScene" uid="uid://nl2emir7wpyg" path="res://hud/pause_screen.tscn" id="17_hoakp"]
+[ext_resource type="PackedScene" uid="uid://bu5nt2de0pssv" path="res://bosses/base_enemy/countdown_timer.tscn" id="18_4cuhy"]
 [ext_resource type="Script" path="res://scenes/boss_levels/lava.gd" id="20_7ugv5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_36v21"]
@@ -433,6 +434,9 @@ script = ExtResource("12_fgjgs")
 
 [node name="PauseScreen" parent="CanvasLayer" instance=ExtResource("17_hoakp")]
 visible = false
+
+[node name="CountdownTimer" parent="CanvasLayer" instance=ExtResource("18_4cuhy")]
+do_countdown = true
 
 [node name="SnakeLayer" type="TileMapLayer" parent="."]
 unique_name_in_owner = true

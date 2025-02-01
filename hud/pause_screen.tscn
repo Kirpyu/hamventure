@@ -110,7 +110,7 @@ theme_override_colors/font_color = Color(0.236065, 0.370154, 0.510734, 1)
 theme_override_colors/font_shadow_color = Color(0.259582, 0.297322, 0.396526, 1)
 theme_override_fonts/font = ExtResource("4_yphs1")
 theme_override_font_sizes/font_size = 8
-text = "TEXT HERE"
+text = "YOU DIED"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="NinePatchRect/VBoxContainer/restart" to="." method="_on_restart_pressed"]

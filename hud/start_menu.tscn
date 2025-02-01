@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtmoe607d8tc2"]
+
+[ext_resource type="Texture2D" uid="uid://csaodklvt21cu" path="res://assets/start_splash.jpg" id="1_02w5r"]
+[ext_resource type="Script" path="res://hud/start_menu.gd" id="1_7i74s"]
+[ext_resource type="Theme" uid="uid://0knhqsfqlrhj" path="res://scenes/boss_levels/default_theme.tres" id="2_0hjpf"]
+[ext_resource type="PackedScene" uid="uid://jm7xvak3wukq" path="res://scenes/tutorial_stage/tutorial_stage.tscn" id="2_54grs"]
+[ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_bc7g0"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7i74s")
+tutorial_scene = ExtResource("2_54grs")
+
+[node name="StartSplash" type="Sprite2D" parent="."]
+texture = ExtResource("1_02w5r")
+centered = false
+
+[node name="HSplitContainer" type="HSplitContainer" parent="StartSplash"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = 43.0
+offset_right = -59.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(55, 25)
+layout_mode = 2
+theme = ExtResource("2_0hjpf")
+theme_override_constants/align_to_largest_stylebox = 1
+theme_override_fonts/font = ExtResource("3_bc7g0")
+theme_override_font_sizes/font_size = 8
+text = "START"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(55, 25)
+layout_mode = 2
+theme = ExtResource("2_0hjpf")
+theme_override_constants/align_to_largest_stylebox = 1
+theme_override_fonts/font = ExtResource("3_bc7g0")
+theme_override_font_sizes/font_size = 8
+text = "QUIT"
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

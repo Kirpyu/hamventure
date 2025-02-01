@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bf52re74728pp"]
+[gd_scene load_steps=54 format=3 uid="uid://bf52re74728pp"]
 
 [ext_resource type="Script" path="res://bosses/snake.gd" id="1_n4dhk"]
 [ext_resource type="Texture2D" uid="uid://c1jfrnwfpgx0q" path="res://assets/snake_tongueflick-Sheet.png" id="2_2aoli"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://bosses/eyes.gd" id="9_fbhqt"]
 [ext_resource type="Script" path="res://bosses/right_eye.gd" id="12_m2u40"]
 [ext_resource type="Texture2D" uid="uid://dcqpyuj1o24jk" path="res://assets/snake_sprites/snake_mouthOpen-Sheet.png" id="13_6s6wo"]
+[ext_resource type="AudioStream" uid="uid://dcxco7qo8ho10" path="res://assets/music/GuardianOfTheForest.mp3" id="15_akpgi"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_qcx83"]
 
@@ -70,26 +71,26 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Eyes/Sprite2D:scale")
+tracks/4/path = NodePath("AnimatedSprite2D:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(159.131, -53.2935)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("AnimatedSprite2D:modulate")
+tracks/5/path = NodePath("Eyes/Sprite2D:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.86, 0.5074, 0.5074, 1)]
+"values": [Vector2(131.771, -52.1832)]
 }
 
 [sub_resource type="Animation" id="Animation_pn2ht"]
@@ -168,6 +169,58 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3i1vn"]
+resource_name = "leave_mouth_open"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"mouth_open"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 3, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyes:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-5, 15), Vector2(-4, 6)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Eyes/Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(159.131, -53.2935)]
 }
 
 [sub_resource type="Animation" id="Animation_jmmw5"]
@@ -286,58 +339,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.86, 0.5074, 0.5074, 1), Color(1, 1, 1, 1), Color(0.86, 0.5074, 0.5074, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_3i1vn"]
-resource_name = "leave_mouth_open"
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"mouth_open"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [2, 3, 3]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Eyes:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(-5, 15), Vector2(-4, 6)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Eyes/Sprite2D:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(159.131, -53.2935)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qj0d5"]
@@ -583,7 +584,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjx8e"]
 radius = 66.0303
 
-[node name="Snake" type="Area2D" node_paths=PackedStringArray("animation_player") groups=["boss", "enemy"]]
+[node name="Snake" type="Area2D" node_paths=PackedStringArray("animation_player", "boss_theme") groups=["boss", "enemy"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_n4dhk")
@@ -594,13 +595,14 @@ fireball = ExtResource("2_tvfic")
 fireball_lob = ExtResource("3_ehnn2")
 tail = ExtResource("4_2k2a7")
 lava = ExtResource("5_j44y5")
+boss_theme = NodePath("BossTheme")
 
 [node name="Eyes" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Eyes"]
 modulate = Color(0.905882, 0.290196, 0.290196, 1)
 position = Vector2(-7, -174)
-scale = Vector2(159.131, -53.2935)
+scale = Vector2(131.771, -52.1832)
 texture = SubResource("CanvasTexture_qcx83")
 
 [node name="LeftEye" type="Marker2D" parent="Eyes"]
@@ -645,7 +647,6 @@ libraries = {
 }
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.86, 0.5074, 0.5074, 1)
 position = Vector2(20, -77)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_yxqil")
@@ -679,8 +680,14 @@ one_shot = true
 unique_name_in_owner = true
 wait_time = 0.1
 
+[node name="BossTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_akpgi")
+volume_db = -10.0
+autoplay = true
+parameters/looping = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Timers/SpewTimer" to="." method="_on_spew_timer_timeout"]
 [connection signal="timeout" from="Timers/TickTimer" to="." method="_on_tick_timer_timeout"]

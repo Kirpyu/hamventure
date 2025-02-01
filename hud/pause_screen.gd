@@ -12,6 +12,7 @@ func _unhandled_input(event):
 func pause(value:bool, input: String):
 	%Label.text = input
 	set_paused(value)
+
 func set_paused(value:bool) -> void:
 	_is_paused = value
 	get_tree().paused = _is_paused

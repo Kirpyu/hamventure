@@ -31,6 +31,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func _on_eruption_timer_timeout() -> void:
 	warning_box.hide()
+	$AudioStreamPlayer2D.play()
 	spout()
 
 func spout() -> void:

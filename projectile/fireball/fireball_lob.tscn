@@ -38,7 +38,6 @@ animations = [{
 radius = 14.0357
 
 [node name="FireballLob" node_paths=PackedStringArray("death_particles") instance=ExtResource("1_txglo")]
-collision_mask = 3
 gravity_space_override = 3
 gravity = 500.0
 script = ExtResource("2_i2pt7")

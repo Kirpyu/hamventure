@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu5nt2de0pssv"]
+
+[ext_resource type="Script" path="res://hud/countdown_timer.gd" id="1_mnyv5"]
+[ext_resource type="Theme" uid="uid://0knhqsfqlrhj" path="res://scenes/boss_levels/default_theme.tres" id="2_s1u5w"]
+
+[node name="CountdownTimer" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mnyv5")
+
+[node name="Label" type="Label" parent="."]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_s1u5w")
+theme_override_font_sizes/font_size = 256
+text = "3"
+
+[node name="Timer" type="Timer" parent="Label"]
+process_mode = 3
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Label/Timer" to="." method="_on_timer_timeout"]

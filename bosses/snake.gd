@@ -25,16 +25,16 @@ var tween: Tween
 @export var lava: PackedScene
 
 @export var pause_screen : PauseScreen
+@export var boss_theme : AudioStreamPlayer
 #Attack Data
 var attacks : Array = ["Normal Fireball", "Spew Attack", "Lava Spike"]
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 #	DEBUGGING BUTTON
 	if Input.is_action_just_pressed("jump"):
 		pass
 
 func _ready():
-	
 	follow_player()
 	animation_player.play("default")
 	update_target()
@@ -118,8 +118,10 @@ func start_spew_attack():
 	match current_attack:
 		"Spew Attack":
 			%TickTimer.wait_time = .1
+			%SpewTimer.wait_time = 1
 		"Lava Spike":
-			%TickTimer.wait_time = .2
+			%TickTimer.wait_time = .5
+			%SpewTimer.wait_time = 1.6
 			%TickTimer.start()
 			%SpewTimer.start()
 
@@ -131,8 +133,6 @@ func second_phase():
 	snake_floor_tween.is_queued_for_deletion()
 	attacks.append("Tail Slam")
 	is_second_phase = true
-	
-	
 	
 func spew_attack():
 	var b = fireball_lob.instantiate()

@@ -7,10 +7,13 @@ var max_dist_to_target
 @onready var charge_attack = preload("res://scenes/charge_attack.tscn")
 
 func Enter():
-	max_dist_to_target = player.target.grapple_distance
+	if player.target:
+		max_dist_to_target = player.target.grapple_distance
+	else:
+		Transitioned.emit(self, "PlayerMove")
 	
 func Physics_Update(_delta:float):
-	if player.global_position.distance_to(player.target.global_position) <= max_dist_to_target:
+	if player.target and player.global_position.distance_to(player.target.global_position) <= max_dist_to_target:
 		Transitioned.emit(self, "PlayerGrapple")
 		player.has_sickle = false
 		attack(player.target)

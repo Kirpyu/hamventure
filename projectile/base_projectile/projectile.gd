@@ -20,16 +20,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
 	
-func _on_area_entered(area: Area2D) -> void:
-	pass
-
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.take_damage(damage)
 		queue_delete()
 	if body is TileMapLayer:
 		queue_delete()
-		
 
 func queue_delete():
 	hitbox.set_deferred("disabled", true)
