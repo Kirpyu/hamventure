@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://ryvpdspotnwj" path="res://scenes/boss_levels/snake_boss_level.tscn" id="16_s6mjt"]
 [ext_resource type="PackedScene" uid="uid://d33fe2ttfku2y" path="res://bosses/base_enemy/base_enemy.tscn" id="17_sl5vo"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_psf11"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d22t6"]
 texture = ExtResource("1_cx6nw")
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -34,7 +34,7 @@ texture = ExtResource("1_cx6nw")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hsi6c"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xpxjd"]
 texture = ExtResource("2_b7nnm")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -57,8 +57,8 @@ texture = ExtResource("2_b7nnm")
 
 [sub_resource type="TileSet" id="TileSet_to8fv"]
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_psf11")
-sources/2 = SubResource("TileSetAtlasSource_hsi6c")
+sources/1 = SubResource("TileSetAtlasSource_d22t6")
+sources/2 = SubResource("TileSetAtlasSource_xpxjd")
 
 [sub_resource type="Gradient" id="Gradient_1cbgx"]
 offsets = PackedFloat32Array(0, 0.67, 1)
@@ -389,7 +389,7 @@ position = Vector2(5, 0)
 script = ExtResource("2_qvvu6")
 grapple_amount = 50.0
 grapple_distance = 200.0
-grapple_speed = 3.5
+grapple_speed = 5.0
 
 [node name="Enemy2" parent="Destructables" node_paths=PackedStringArray("dynamic_label") instance=ExtResource("17_sl5vo")]
 position = Vector2(325, -81)

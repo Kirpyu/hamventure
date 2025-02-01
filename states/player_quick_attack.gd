@@ -2,8 +2,11 @@ extends State
 class_name PlayerQuickAttack
 
 @export var animated_sprite : AnimatedSprite2D
-@export var player : CharacterBody2D
-
+@export var player : Player
+@export var sfx: AudioStreamPlayer2D
+func Enter():
+	MusicManager.init_sound(sfx)
+	
 func Physics_Update(_delta:float):
 	if Input.is_action_pressed("move_right"):
 		player.attack("Right")

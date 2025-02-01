@@ -3,6 +3,7 @@ extends Projectile
 var player : Player
 @export var warning_box : Sprite2D
 @export var exclamation_mark : AnimatedSprite2D
+@export var sfx : AudioStreamPlayer2D
 
 @export var flip : bool = false
 func _ready() -> void:
@@ -35,6 +36,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func slam():
 	hitbox.set_deferred("disabled", false)
 	sprite.show()
+	MusicManager.init_sound(sfx)
 	sprite.play("default")
 	particles.emitting = true
 	

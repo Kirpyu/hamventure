@@ -13,6 +13,9 @@ var angle : float = 0
 
 @onready var hp = max_hp
 @export var hp_bar : HPBar
+
+@export var sfx : AudioStreamPlayer2D
+
 func _ready() -> void:
 	if flip:
 		sprite.flip_h = true
@@ -39,6 +42,9 @@ func take_damage(dmg:int):
 	hp_bar.update_hp_bar(dmg)
 	if hp <= 0:
 		queue_delete()
+	elif %Cooldown.is_stopped():
+		%Cooldown.start()
+		MusicManager.init_sound(sfx)
 	
 func queue_delete():
 	sprite.hide()

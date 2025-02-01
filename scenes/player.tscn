@@ -1,4 +1,4 @@
-[gd_scene load_steps=135 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=136 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://cgodwjcwxhprk" path="res://assets/sprites/mc_idle-Sheet.png" id="2_kw16x"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://states/player_grapple.gd" id="10_byiok"]
 [ext_resource type="Script" path="res://states/player_dash.gd" id="11_bnvse"]
 [ext_resource type="Script" path="res://scenes/attack_box.gd" id="22_kwo8o"]
+[ext_resource type="AudioStream" uid="uid://55ybeiexjnhe" path="res://assets/music/player/Attack.mp3" id="23_2y35m"]
 [ext_resource type="Gradient" uid="uid://7pwuus2pxr1r" path="res://projectile/fireball/fireball.tres" id="23_vqjxx"]
 
 [sub_resource type="Gradient" id="Gradient_fupug"]
@@ -1929,10 +1930,11 @@ script = ExtResource("6_544lc")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 player = NodePath("../..")
 
-[node name="PlayerQuickAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "player")]
+[node name="PlayerQuickAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "player", "sfx")]
 script = ExtResource("7_bp4dj")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 player = NodePath("../..")
+sfx = NodePath("../../SFX/AttackSound")
 
 [node name="PlayerChargeAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "player")]
 script = ExtResource("8_yctwb")
@@ -2003,6 +2005,14 @@ disabled = true
 position = Vector2(-32, -5)
 shape = SubResource("RectangleShape2D_a0abg")
 disabled = true
+
+[node name="SFX" type="Node2D" parent="."]
+position = Vector2(0, -11)
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="SFX"]
+position = Vector2(0, 11)
+stream = ExtResource("23_2y35m")
+volume_db = -10.0
 
 [node name="DamagedParticles" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true

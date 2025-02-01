@@ -10,8 +10,10 @@ var returning: bool = false
 var direction: Vector2 = Vector2.ZERO
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox = %Hitbox
+@export var sfx : AudioStreamPlayer2D
 
 func _ready() -> void:
+	MusicManager.init_sound(sfx)
 	animated_sprite.play("spin")
 	player = get_tree().get_first_node_in_group("player")
 

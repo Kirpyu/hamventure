@@ -436,7 +436,7 @@ script = ExtResource("12_fgjgs")
 visible = false
 
 [node name="CountdownTimer" parent="CanvasLayer" instance=ExtResource("18_4cuhy")]
-do_countdown = true
+metadata/_edit_use_anchors_ = true
 
 [node name="SnakeLayer" type="TileMapLayer" parent="."]
 unique_name_in_owner = true

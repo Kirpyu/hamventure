@@ -27,7 +27,7 @@ func _on_resume_button_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	resume_game()
-	get_tree().reload_current_scene()
+	get_tree().quit()
 
 
 func _on_restart_pressed() -> void:
