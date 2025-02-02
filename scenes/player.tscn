@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 [gd_scene load_steps=139 format=3 uid="uid://dqnaqj8yb6hwd"]
-=======
-[gd_scene load_steps=136 format=3 uid="uid://dqnaqj8yb6hwd"]
->>>>>>> parent of 72c7e21 (finished game)
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
 [ext_resource type="Texture2D" uid="uid://cgodwjcwxhprk" path="res://assets/sprites/mc_idle-Sheet.png" id="2_kw16x"]
@@ -28,12 +24,9 @@
 [ext_resource type="Script" path="res://scenes/attack_box.gd" id="22_kwo8o"]
 [ext_resource type="AudioStream" uid="uid://55ybeiexjnhe" path="res://assets/music/player/Attack.mp3" id="23_2y35m"]
 [ext_resource type="Gradient" uid="uid://7pwuus2pxr1r" path="res://projectile/fireball/fireball.tres" id="23_vqjxx"]
-<<<<<<< HEAD
 [ext_resource type="AudioStream" uid="uid://o6n4eofjt2j8" path="res://assets/music/projectile_sfx/snake/Fireball.mp3" id="24_74yia"]
 [ext_resource type="AudioStream" uid="uid://bo48d5dhwu1kb" path="res://assets/music/GetHit.mp3" id="24_ruai8"]
 [ext_resource type="AudioStream" uid="uid://do1i8dmusryik" path="res://assets/music/EyeSnakeHitSound.mp3" id="25_kr5wm"]
-=======
->>>>>>> parent of 72c7e21 (finished game)
 
 [sub_resource type="Gradient" id="Gradient_fupug"]
 colors = PackedColorArray(0, 0, 0, 0.384314, 0.952941, 0.952941, 0.952941, 0.329412)
@@ -1877,7 +1870,6 @@ z_index = 5
 collision_layer = 50
 collision_mask = 9
 script = ExtResource("1_ofpvf")
-invulnerable = true
 animation_tree = NodePath("AnimationTree")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -2030,6 +2022,18 @@ pitch_scale = 4.0
 position = Vector2(0, 11)
 stream = ExtResource("23_2y35m")
 volume_db = -10.0
+
+[node name="GetHit" type="AudioStreamPlayer" parent="SFX"]
+unique_name_in_owner = true
+stream = ExtResource("24_ruai8")
+volume_db = -25.0
+pitch_scale = 0.75
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="SFX"]
+unique_name_in_owner = true
+stream = ExtResource("25_kr5wm")
+volume_db = -15.0
+pitch_scale = 2.5
 
 [node name="DamagedParticles" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true

@@ -9,8 +9,15 @@ func _unhandled_input(event):
 		if %EndScreen._is_paused == false:
 			_is_paused = !_is_paused
 
+var is_beat := false
 func pause(value:bool, input: String):
 	%Label.text = input
+	if input == "Well done":
+		is_beat = true
+		show()
+		%restart.text = "NEXT"
+		return
+	
 	set_paused(value)
 
 func set_paused(value:bool) -> void:
@@ -30,7 +37,6 @@ func _on_quit_pressed() -> void:
 	resume_game()
 	get_tree().quit()
 
-<<<<<<< HEAD
 @export var restart_scene : PackedScene
 @onready var snake_boss : PackedScene = load("res://scenes/boss_levels/snake_boss_level.tscn")
 @onready var tengu_boss : PackedScene = load("res://scenes/boss_levels/tengu_boss_level.tscn")
@@ -43,9 +49,3 @@ func _on_restart_pressed() -> void:
 		return
 	%TransitionScreen.target_scene = tengu_boss
 	%TransitionScreen.transition_screen()
-=======
-
-func _on_restart_pressed() -> void:
-	resume_game()
-	get_tree().reload_current_scene()
->>>>>>> parent of 72c7e21 (finished game)

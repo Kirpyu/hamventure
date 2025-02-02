@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 [gd_scene load_steps=56 format=3 uid="uid://56fq2frqgvb8"]
-=======
-[gd_scene load_steps=52 format=3 uid="uid://56fq2frqgvb8"]
->>>>>>> parent of 72c7e21 (finished game)
 
 [ext_resource type="Script" path="res://bosses/tengu/tengu.gd" id="1_gm0bo"]
 [ext_resource type="Texture2D" uid="uid://e54sk85k54qr" path="res://assets/tengu_sprites/TenguDash-Sheet.png" id="2_0v18i"]
@@ -14,13 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://whrayhg1rpb7" path="res://assets/tengu_sprites/Tengu_Attack1-Sheet.png" id="5_mpq1u"]
 [ext_resource type="Texture2D" uid="uid://ckq22mtdw1m3g" path="res://assets/tengu_sprites/Tengu_Tiredidle-Sheet.png" id="6_btkvl"]
 [ext_resource type="Script" path="res://bosses/outline.gd" id="7_8jmya"]
-<<<<<<< HEAD
 [ext_resource type="AudioStream" uid="uid://dcxco7qo8ho10" path="res://assets/music/GuardianOfTheForest.mp3" id="11_gicbi"]
 [ext_resource type="AudioStream" uid="uid://bs4smq8kj6kn" path="res://assets/music/player/KnifeHit.mp3" id="12_25vec"]
 [ext_resource type="AudioStream" uid="uid://cie6e4a0o1y8o" path="res://assets/music/TenguSlash.mp3" id="12_57ffo"]
 [ext_resource type="AudioStream" uid="uid://dq1fydq4vqdtv" path="res://assets/music/Taiko Drum Hit 2-4.wav" id="14_wt1to"]
-=======
->>>>>>> parent of 72c7e21 (finished game)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4jico"]
 atlas = ExtResource("2_0v18i")
@@ -1146,7 +1139,7 @@ _data = {
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_gm0bo")
-max_hp = 300
+max_hp = 350
 target = NodePath("Target")
 animation_player = NodePath("AnimationPlayer")
 animated_sprite = NodePath("AnimatedSprite2D")
@@ -1183,7 +1176,6 @@ unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
 
-<<<<<<< HEAD
 [node name="BossTheme" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_gicbi")
 volume_db = -20.0
@@ -1208,7 +1200,5 @@ stream = ExtResource("14_wt1to")
 volume_db = -20.0
 max_polyphony = 5
 
-=======
->>>>>>> parent of 72c7e21 (finished game)
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

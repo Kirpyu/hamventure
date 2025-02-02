@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://ryvpdspotnwj"]
+[gd_scene load_steps=38 format=4 uid="uid://ryvpdspotnwj"]
 
 [ext_resource type="Texture2D" uid="uid://byvv7n2m5mkvs" path="res://assets/snake_sprites/StoneBrick.png" id="1_35nsk"]
 [ext_resource type="Texture2D" uid="uid://oj6dlv3u3722" path="res://assets/snake_sprites/SnakeBG_WithFilter.png" id="2_ib3bi"]
@@ -19,9 +19,11 @@
 [ext_resource type="Texture2D" uid="uid://b8apopg4jcvtd" path="res://assets/sprites/health_bar_sprites/ribbon_hamster.png" id="13_e41ph"]
 [ext_resource type="Texture2D" uid="uid://c6rtn6rq234jb" path="res://assets/sprites/health_bar_sprites/hamster_icon.png" id="15_ksetk"]
 [ext_resource type="PackedScene" uid="uid://nl2emir7wpyg" path="res://hud/pause_screen.tscn" id="17_hoakp"]
+[ext_resource type="PackedScene" uid="uid://bk8dr2nfmj46s" path="res://scenes/boss_levels/tengu_boss_level.tscn" id="18_0tu8k"]
 [ext_resource type="PackedScene" uid="uid://bu5nt2de0pssv" path="res://bosses/base_enemy/countdown_timer.tscn" id="18_4cuhy"]
 [ext_resource type="Script" path="res://scenes/boss_levels/lava.gd" id="20_7ugv5"]
 [ext_resource type="PackedScene" uid="uid://dxwg8m787wxod" path="res://assets/music/music_manager.tscn" id="22_0vry4"]
+[ext_resource type="Script" path="res://hud/transition.gd" id="23_k46uh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_36v21"]
 texture = ExtResource("1_35nsk")
@@ -236,7 +238,6 @@ position = Vector2(-435, -47)
 [node name="Player" parent="." node_paths=PackedStringArray("pause_screen") instance=ExtResource("5_jhes4")]
 unique_name_in_owner = true
 pause_screen = NodePath("../CanvasLayer/PauseScreen")
-invulnerable = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 9)
@@ -437,8 +438,10 @@ script = ExtResource("12_fgjgs")
 
 [node name="PauseScreen" parent="CanvasLayer" instance=ExtResource("17_hoakp")]
 visible = false
+restart_scene = ExtResource("18_0tu8k")
 
 [node name="CountdownTimer" parent="CanvasLayer" instance=ExtResource("18_4cuhy")]
+do_countdown = true
 metadata/_edit_use_anchors_ = true
 
 [node name="SnakeLayer" type="TileMapLayer" parent="."]
@@ -471,5 +474,16 @@ texture = SubResource("GradientTexture2D_mf5dt")
 [node name="MusicManager" parent="." instance=ExtResource("22_0vry4")]
 unique_name_in_owner = true
 script = null
+
+[node name="TransitionScreen" type="ColorRect" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+offset_left = -721.0
+offset_top = -434.0
+offset_right = 737.0
+offset_bottom = 286.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("23_k46uh")
+target_scene = ExtResource("18_0tu8k")
 
 [connection signal="body_entered" from="SnakeLayer/Area2D" to="SnakeLayer/Area2D" method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://jm7xvak3wukq"]
+[gd_scene load_steps=31 format=4 uid="uid://jm7xvak3wukq"]
 
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_7ar5q"]
 [ext_resource type="PackedScene" uid="uid://dxwg8m787wxod" path="res://assets/music/music_manager.tscn" id="1_ck8jx"]
@@ -19,6 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://bv4hmqgln0gcv" path="res://assets/snake_sprites/Tori-sheet.png" id="16_o1imc"]
 [ext_resource type="PackedScene" uid="uid://ryvpdspotnwj" path="res://scenes/boss_levels/snake_boss_level.tscn" id="16_s6mjt"]
 [ext_resource type="PackedScene" uid="uid://d33fe2ttfku2y" path="res://bosses/base_enemy/base_enemy.tscn" id="17_sl5vo"]
+[ext_resource type="Script" path="res://hud/transition.gd" id="20_8embd"]
+[ext_resource type="PackedScene" uid="uid://bk8dr2nfmj46s" path="res://scenes/boss_levels/tengu_boss_level.tscn" id="21_qj4ir"]
+[ext_resource type="AudioStream" uid="uid://dtd7gd6puvj36" path="res://assets/music/Tutorial.mp3" id="22_3bdy8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0fh6r"]
 texture = ExtResource("1_cx6nw")
@@ -100,8 +103,7 @@ tile_set = SubResource("TileSet_to8fv")
 
 [node name="Player" parent="." instance=ExtResource("1_7ar5q")]
 unique_name_in_owner = true
-position = Vector2(-570, 1)
-invulnerable = false
+position = Vector2(-545, -2)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 9)
@@ -405,7 +407,6 @@ dynamic_label = NodePath("../../Labels/DynamicLabel")
 position = Vector2(158, -96)
 dynamic_label = NodePath("../../Labels/DynamicLabel")
 
-<<<<<<< HEAD
 [node name="TransitionScreen" type="ColorRect" parent="."]
 unique_name_in_owner = true
 top_level = true
@@ -426,6 +427,4 @@ volume_db = -20.0
 autoplay = true
 parameters/looping = true
 
-=======
->>>>>>> parent of 72c7e21 (finished game)
 [connection signal="body_entered" from="Platform/CPUParticles2D2/Area2D" to="Platform/CPUParticles2D2" method="_on_area_2d_body_entered"]
