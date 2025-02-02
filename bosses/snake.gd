@@ -35,7 +35,6 @@ func _physics_process(_delta: float) -> void:
 		pass
 
 func _ready():
-
 	follow_player()
 	animation_player.play("default")
 	update_target()

@@ -8,7 +8,9 @@ class_name PlayerDash
 var time_passed = 0
 var prev_speed;
 @export var dash_speed : float
+
 func Enter():
+	MusicManager.init_sound(%DashSound)
 	prev_speed = player.speed
 	player.speed = dash_speed
 	time_passed = 0
