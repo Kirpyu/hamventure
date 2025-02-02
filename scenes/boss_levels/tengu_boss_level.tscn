@@ -773,6 +773,8 @@ sources/2 = SubResource("TileSetAtlasSource_rgtl2")
 
 [node name="TenguBossLevel" type="Node2D"]
 
+[node name="ProjectileNode" type="Node2D" parent="." groups=["projectile_node"]]
+
 [node name="MainAnimatedSprite" type="AnimatedSprite2D" parent="."]
 visible = false
 position = Vector2(0, -6)
@@ -894,8 +896,6 @@ limit_right = 250
 limit_bottom = 325
 limit_smoothed = true
 position_smoothing_enabled = true
-
-[node name="ProjectileNode" type="Node2D" parent="." groups=["projectile_node"]]
 
 [node name="Tengu" parent="." node_paths=PackedStringArray("attack_animation_player", "hp_bar") instance=ExtResource("4_3fg45")]
 position = Vector2(0, -148)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=51 format=3 uid="uid://56fq2frqgvb8"]
+[gd_scene load_steps=52 format=3 uid="uid://56fq2frqgvb8"]
 
 [ext_resource type="Script" path="res://bosses/tengu/tengu.gd" id="1_gm0bo"]
 [ext_resource type="Texture2D" uid="uid://e54sk85k54qr" path="res://assets/tengu_sprites/TenguDash-Sheet.png" id="2_0v18i"]
 [ext_resource type="Texture2D" uid="uid://d1c4qly8t7hls" path="res://assets/tengu_sprites/TenguFlying-Sheet.png" id="2_emk5h"]
+[ext_resource type="PackedScene" uid="uid://bwiubvm405d0f" path="res://projectile/wave_slash/wave_slash.tscn" id="2_ytduh"]
 [ext_resource type="Texture2D" uid="uid://yo00jp1oij5v" path="res://assets/tengu_sprites/TenguDefaultidle-Sheet.png" id="3_kaq8e"]
 [ext_resource type="Texture2D" uid="uid://0ysduc8hbct5" path="res://assets/tengu_sprites/Tengudowndash-Sheet.png" id="3_wb6q1"]
 [ext_resource type="Texture2D" uid="uid://dcuvpqhnqpdwq" path="res://assets/TenguDiagonalDash-Sheet.png" id="4_tmlrf"]
@@ -544,7 +545,7 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -1139,6 +1140,7 @@ target = NodePath("Target")
 animation_player = NodePath("AnimationPlayer")
 animated_sprite = NodePath("AnimatedSprite2D")
 blink_timer = NodePath("BlinkTimer")
+wave_slash_projectile = ExtResource("2_ytduh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.75, 0.75)

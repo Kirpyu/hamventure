@@ -40,7 +40,7 @@ func _ready() -> void:
 	hp_bar.update_max_value(max_hp)
 	animation_player.play("default")
 	start_down_dash()
-	
+
 func set_corners():
 	upper_left = Vector2(reset_pos.x - 220, reset_pos.y)
 	upper_right = Vector2(reset_pos.x + 220, reset_pos.y)
@@ -129,8 +129,16 @@ func play_slash():
 
 func slash_wave():
 	play_slash()
-#	create slash waves here, then at the end of slash, pick random attack
-
+	match current_attack:
+		"Left Down Slash":
+			fire_projectile(bottom_left, false)
+			print("hi")
+		"Right Down Slash":
+			fire_projectile(bottom_right, true)
+		"Middle Down Slash":
+			fire_projectile(bottom_middle, true)
+			fire_projectile(bottom_middle, false)
+	print(current_attack)
 func blink(amount: int, duration: float):
 	reset_tween()
 	var blink_amount = amount
@@ -195,6 +203,13 @@ func _on_timer_timeout() -> void:
 func _on_cooldown_timer_timeout() -> void:
 	pick_attack()
 	
+@export var wave_slash_projectile: PackedScene
+func fire_projectile(pos : Vector2, flipped: bool):
+	var b = wave_slash_projectile.instantiate()
+	b.global_position = pos + Vector2(0, 12)
+	if flipped:
+		b.flipped = true
+	get_tree().get_first_node_in_group("projectile_node").add_child(b)
 
 func queue_delete():
 	pass

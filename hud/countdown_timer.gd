@@ -8,7 +8,7 @@ func _ready() -> void:
 	else:
 		hide()
 		
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	$Label.text = str(ceili($Label/Timer.time_left))
 	
 func start_countdown():

@@ -12,7 +12,7 @@ func init_sound(sound: AudioStreamPlayer2D):
 	
 	# Get the original pitch from the meta data
 	var original_pitch = sound.get_meta("original_pitch")
-	sound.pitch_scale =  original_pitch + randf_range(-0.15, 0.15)
+	sound.pitch_scale =  original_pitch + rng.randf_range(-0.15, 0.15)
 	sound.play()
 	await sound.finished
 	sound.pitch_scale = original_pitch

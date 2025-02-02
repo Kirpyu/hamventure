@@ -5,7 +5,7 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 	follow_player()
 #
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if global_position.distance_to(player.global_position) > %RightEye.global_position.distance_to(player.global_position):
 		rotation = %RightEye.rotation
 	else:
