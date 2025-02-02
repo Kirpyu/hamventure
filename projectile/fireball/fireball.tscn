@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://u8ffi45n4rte"]
+[gd_scene load_steps=10 format=3 uid="uid://u8ffi45n4rte"]
 
 [ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_3yui1"]
 [ext_resource type="Script" path="res://projectile/fireball/fireball.gd" id="2_mc0l1"]
 [ext_resource type="Texture2D" uid="uid://c2ormao8hyc5s" path="res://assets/snake_sprites/snake_projectiles/corruptedenergy-Sheet.png" id="2_rry07"]
 [ext_resource type="Gradient" uid="uid://7pwuus2pxr1r" path="res://projectile/fireball/fireball.tres" id="3_pjhgh"]
-[ext_resource type="AudioStream" uid="uid://fi4dyvcm1vva" path="res://assets/music/ButtonClick.mp3" id="5_f3k0p"]
-[ext_resource type="AudioStream" uid="uid://o6n4eofjt2j8" path="res://assets/music/projectile_sfx/snake/Fireball.mp3" id="6_dbs3l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_roegb"]
 atlas = ExtResource("2_rry07")
@@ -40,6 +38,7 @@ animations = [{
 radius = 14.0357
 
 [node name="Fireball" node_paths=PackedStringArray("death_particles") instance=ExtResource("1_3yui1")]
+collision_mask = 3
 script = ExtResource("2_mc0l1")
 max_speed = 200.0
 death_particles = NodePath("OnDeath")
@@ -85,21 +84,3 @@ color_ramp = ExtResource("3_pjhgh")
 [node name="Hitbox" parent="." index="3"]
 position = Vector2(4, 0)
 shape = SubResource("CircleShape2D_666xu")
-
-[node name="ButtonClick" type="AudioStreamPlayer2D" parent="." index="5"]
-unique_name_in_owner = true
-position = Vector2(606, 389)
-rotation = 0.241464
-scale = Vector2(10, 10)
-stream = ExtResource("5_f3k0p")
-volume_db = -15.0
-
-[node name="FireballSFX" type="AudioStreamPlayer2D" parent="." index="6"]
-unique_name_in_owner = true
-position = Vector2(606, 389)
-rotation = 0.241464
-scale = Vector2(10, 10)
-stream = ExtResource("6_dbs3l")
-volume_db = -25.0
-pitch_scale = 2.5
-max_distance = 1000.0

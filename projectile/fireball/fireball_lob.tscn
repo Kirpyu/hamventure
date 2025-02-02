@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://btet38377m86b"]
+[gd_scene load_steps=10 format=3 uid="uid://btet38377m86b"]
 
 [ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_txglo"]
 [ext_resource type="Script" path="res://projectile/fireball/fireball_lob.gd" id="2_i2pt7"]
 [ext_resource type="Gradient" uid="uid://7pwuus2pxr1r" path="res://projectile/fireball/fireball.tres" id="3_72blt"]
 [ext_resource type="Texture2D" uid="uid://c2ormao8hyc5s" path="res://assets/snake_sprites/snake_projectiles/corruptedenergy-Sheet.png" id="3_e11mh"]
-[ext_resource type="AudioStream" uid="uid://o6n4eofjt2j8" path="res://assets/music/projectile_sfx/snake/Fireball.mp3" id="5_ygndf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_roegb"]
 atlas = ExtResource("3_e11mh")
@@ -84,12 +83,3 @@ initial_velocity_max = 129.0
 radial_accel_min = -30.0
 radial_accel_max = 30.0
 color = Color(0.188235, 0.741176, 1, 1)
-
-[node name="FireballSFX" type="AudioStreamPlayer2D" parent="." index="5"]
-unique_name_in_owner = true
-position = Vector2(606, 389)
-rotation = 0.241464
-scale = Vector2(10, 10)
-stream = ExtResource("5_ygndf")
-volume_db = -25.0
-pitch_scale = 2.5

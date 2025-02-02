@@ -1263,7 +1263,7 @@ attack_animation_player = NodePath("../CloneAttacks/MainAnimationPlayer")
 
 [node name="Tengu" parent="." node_paths=PackedStringArray("attack_animation_player", "pick_attack_timer", "pause_screen", "rest_timer") instance=ExtResource("4_3fg45")]
 position = Vector2(0, -148)
-max_hp = 500
+max_hp = 1
 attack_animation_player = NodePath("../MainAttacks/MainAnimationPlayer")
 pick_attack_timer = NodePath("../CanvasLayer/PickAttackTimer")
 pause_screen = NodePath("../CanvasLayer/PauseScreen")
