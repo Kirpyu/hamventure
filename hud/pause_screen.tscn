@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://nl2emir7wpyg"]
+[gd_scene load_steps=8 format=3 uid="uid://nl2emir7wpyg"]
 
 [ext_resource type="Script" path="res://hud/pause_screen.gd" id="1_7daol"]
 [ext_resource type="Texture2D" uid="uid://suq1xo6wpu3o" path="res://assets/sprites/health_bar_sprites/ui_background.png" id="2_jpaha"]
 [ext_resource type="Theme" uid="uid://0knhqsfqlrhj" path="res://scenes/boss_levels/default_theme.tres" id="3_beqoj"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_yphs1"]
 [ext_resource type="Texture2D" uid="uid://duqd7bcq2boup" path="res://assets/sprites/TextBackground.png" id="5_pj18i"]
+[ext_resource type="AudioStream" uid="uid://vknymdkot0n4" path="res://assets/YayUWon.mp3" id="6_rgaue"]
 [ext_resource type="AudioStream" uid="uid://fi4dyvcm1vva" path="res://assets/music/ButtonClick.mp3" id="6_t1wtl"]
 
 [node name="PauseScreen" type="Control"]
@@ -114,6 +115,10 @@ theme_override_fonts/font = ExtResource("4_yphs1")
 theme_override_font_sizes/font_size = 8
 text = "YOU DIED"
 horizontal_alignment = 1
+
+[node name="YayUWon" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_rgaue")
 
 [node name="ButtonClick" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true

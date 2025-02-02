@@ -27,6 +27,7 @@ window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 window/ios/allow_high_refresh_rate=false
+mouse_cursor/custom_image="res://assets/hand_point.png"
 window/max_fps=60
 
 [file_customization]

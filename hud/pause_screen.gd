@@ -17,6 +17,8 @@ func pause(value:bool, input: String):
 		show()
 		%restart.text = "NEXT"
 		return
+	if input == "You Win":
+		%YayUWon.play()
 	
 	set_paused(value)
 
@@ -43,6 +45,7 @@ func _on_quit_pressed() -> void:
 @onready var snake_tutorial : PackedScene = load("res://bosses/snake_tutorial.tscn")
 func _on_restart_pressed() -> void:
 	%ButtonClick.play()
+	set_paused(false)
 	if is_beat:
 		%TransitionScreen.target_scene = snake_tutorial
 		%TransitionScreen.transition_screen()

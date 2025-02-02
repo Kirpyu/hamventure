@@ -39,6 +39,7 @@ func _ready() -> void:
 	if target:
 		target.player = player
 		
+		
 	for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
 		hp_bar.update_max_value(max_hp)
 	animation_player.play("default")
@@ -47,6 +48,8 @@ func _ready() -> void:
 	if clone:
 		animated_sprite.modulate = Color(0, 0, 0, 1)
 		%Hurtbox.set_deferred("disabled", true)
+		%BossTheme.autoplay = false
+		%BossTheme.stop()
 		pause()
 	else:
 		clone_node = %Clone
@@ -218,6 +221,8 @@ func take_damage(dmg:int):
 		if hp <= max_hp / 2 and !is_second_phase:
 			second_phase()
 		if hp <= 0:
+			%BlinkTimer.stop()
+			%CooldownTimer.stop()
 			animation_player.play("tired")
 			%BlinkTimer.stop()
 			%CooldownTimer.stop()

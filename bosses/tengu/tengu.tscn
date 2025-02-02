@@ -1177,6 +1177,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="BossTheme" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("11_gicbi")
 volume_db = -20.0
 autoplay = true
@@ -1198,7 +1199,6 @@ pitch_scale = 2.5
 unique_name_in_owner = true
 stream = ExtResource("14_wt1to")
 volume_db = -20.0
-stream_paused = true
 max_polyphony = 5
 
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_timer_timeout"]

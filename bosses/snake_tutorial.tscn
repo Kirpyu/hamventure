@@ -381,6 +381,7 @@ parameters/looping = true
 
 [node name="TransitionScreen" type="ColorRect" parent="."]
 unique_name_in_owner = true
+process_mode = 3
 top_level = true
 light_mask = 3
 visibility_layer = 3
