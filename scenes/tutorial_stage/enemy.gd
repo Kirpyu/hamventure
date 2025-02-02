@@ -44,11 +44,12 @@ func queue_delete():
 	if dynamic_label:
 		match get_tree().get_nodes_in_group("enemy").size():
 			0:
-				dynamic_label.text = "Great job, enter the shrine and save the world"
+				dynamic_label.text = "Great job, enter the shrine whenever you are ready"
 			1:
 				dynamic_label.text = "That orb seems to be higher, try
 				holding your attack button to grapple, then
-				press attack again while you are grappled"
+				press attack again while you are grappled,
+				then press left or right to change directions"
 			_:
 				pass
 			

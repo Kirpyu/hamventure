@@ -131,12 +131,13 @@ func sideward_dash():
 	tween.tween_property(self, "position", bottom_right, 0.25).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 
 func play_slash():
+	%SlashSFX.play()
 	if current_attack != "Right Diagonal Dash":
 		animation_player.play("slash_right")
 	else:
 		animation_player.play("slash_left")
 	%CooldownTimer.start()
-
+	
 func slash_wave():
 	play_slash()
 	match current_attack:
@@ -154,6 +155,7 @@ func blink(amount: int, duration: float):
 	blink_timer.wait_time = .75
 	blink_timer.start()
 	while blink_amount > 0:
+		%DrumSFX.play()
 		tween.tween_property(animated_sprite, "self_modulate", Color.INDIAN_RED, duration / (2.0 * float(amount))).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(animated_sprite, "self_modulate", Color.WHITE, 1.0 * duration / (2.0 * float(amount))).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		blink_amount -= 1
@@ -240,6 +242,7 @@ func rest():
 
 ## Follows Up on what attack to do/ Change This To Whatever Current Attack Is
 func _on_timer_timeout() -> void:
+	%InitialSlashSfx.play()
 	match current_attack:
 		"Middle Down Dash":
 			down_dash()

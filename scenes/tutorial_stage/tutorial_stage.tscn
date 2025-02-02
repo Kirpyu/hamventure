@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bk8dr2nfmj46s" path="res://scenes/boss_levels/tengu_boss_level.tscn" id="21_qj4ir"]
 [ext_resource type="AudioStream" uid="uid://dtd7gd6puvj36" path="res://assets/music/Tutorial.mp3" id="22_3bdy8"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d22t6"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0fh6r"]
 texture = ExtResource("1_cx6nw")
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -38,7 +38,7 @@ texture = ExtResource("1_cx6nw")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xpxjd"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iyc8t"]
 texture = ExtResource("2_b7nnm")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -61,15 +61,15 @@ texture = ExtResource("2_b7nnm")
 
 [sub_resource type="TileSet" id="TileSet_to8fv"]
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_d22t6")
-sources/2 = SubResource("TileSetAtlasSource_xpxjd")
+sources/1 = SubResource("TileSetAtlasSource_0fh6r")
+sources/2 = SubResource("TileSetAtlasSource_iyc8t")
 
-[sub_resource type="Gradient" id="Gradient_1cbgx"]
+[sub_resource type="Gradient" id="Gradient_024py"]
 offsets = PackedFloat32Array(0, 0.67, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.290486, 0.24338, 0.543675, 1, 0.55, 0.6175, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vp1v4"]
-gradient = SubResource("Gradient_1cbgx")
+gradient = SubResource("Gradient_024py")
 fill_from = Vector2(0.321101, 0.545872)
 fill_to = Vector2(0.513761, 0.545872)
 
@@ -385,7 +385,7 @@ color_ramp = SubResource("Gradient_eymhw")
 [node name="Destructables" type="Node2D" parent="."]
 
 [node name="Enemy3" parent="Destructables" node_paths=PackedStringArray("target", "dynamic_label") instance=ExtResource("17_sl5vo")]
-position = Vector2(421, -180)
+position = Vector2(241, -237)
 flip = true
 max_hp = 100
 target = NodePath("Target")
@@ -394,9 +394,9 @@ dynamic_label = NodePath("../../Labels/DynamicLabel")
 [node name="Target" type="Node2D" parent="Destructables/Enemy3" groups=["targets"]]
 position = Vector2(5, 0)
 script = ExtResource("2_qvvu6")
-grapple_amount = 50.0
+grapple_amount = 35.0
 grapple_distance = 200.0
-grapple_speed = 5.0
+grapple_speed = 4.0
 
 [node name="Enemy2" parent="Destructables" node_paths=PackedStringArray("dynamic_label") instance=ExtResource("17_sl5vo")]
 position = Vector2(325, -81)
@@ -419,6 +419,7 @@ offset_bottom = 199.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("20_8embd")
 target_scene = ExtResource("21_qj4ir")
+metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_3bdy8")
