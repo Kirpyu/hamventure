@@ -6,7 +6,7 @@ class_name PlayerAttack
 @export var jump_time : float = 0.1
 var jump_timer = 0;
 
-@export var charge_timer : float = 0.1
+@export var charge_timer : float = 0.25
 var current_charge : float = 0
 
 func Enter():
@@ -32,7 +32,7 @@ func Physics_Update(_delta:float):
 	player.velocity.x = player.speed * player.direction
 	
 	if not player.is_on_floor():
-		player.velocity.y += player.gravity * 0.2 * _delta
+		player.velocity.y += player.gravity * _delta
 	
 
 	if Input.is_action_just_pressed("jump"):

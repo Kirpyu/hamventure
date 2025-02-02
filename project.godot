@@ -50,6 +50,7 @@ projectile_node=""
 boss=""
 enemy=""
 targets=""
+sfx=""
 
 [input]
 

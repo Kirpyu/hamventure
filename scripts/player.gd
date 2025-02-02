@@ -30,6 +30,8 @@ var has_sickle = true
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.75
 
+signal drop_grapple
+
 #variables for animation
 @onready var animated_sprite = $AnimatedSprite2D
 @export var animation_tree: AnimationTree
@@ -118,3 +120,6 @@ func init_sound(sound: AudioStreamPlayer2D):
 	sound.play()
 	await sound.finished
 	sound.pitch_scale = original_pitch
+
+func stop_grapple():
+	emit_signal("drop_grapple")

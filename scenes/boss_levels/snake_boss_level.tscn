@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://ryvpdspotnwj"]
+[gd_scene load_steps=36 format=4 uid="uid://ryvpdspotnwj"]
 
 [ext_resource type="Texture2D" uid="uid://byvv7n2m5mkvs" path="res://assets/snake_sprites/StoneBrick.png" id="1_35nsk"]
 [ext_resource type="Texture2D" uid="uid://oj6dlv3u3722" path="res://assets/snake_sprites/SnakeBG_WithFilter.png" id="2_ib3bi"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://nl2emir7wpyg" path="res://hud/pause_screen.tscn" id="17_hoakp"]
 [ext_resource type="PackedScene" uid="uid://bu5nt2de0pssv" path="res://bosses/base_enemy/countdown_timer.tscn" id="18_4cuhy"]
 [ext_resource type="Script" path="res://scenes/boss_levels/lava.gd" id="20_7ugv5"]
+[ext_resource type="PackedScene" uid="uid://dxwg8m787wxod" path="res://assets/music/music_manager.tscn" id="22_0vry4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_36v21"]
 texture = ExtResource("1_35nsk")
@@ -110,6 +111,7 @@ sources/0 = SubResource("TileSetAtlasSource_u6jkb")
 size = Vector2(1524, 249)
 
 [sub_resource type="Gradient" id="Gradient_lggh3"]
+colors = PackedColorArray(0, 0, 0, 1, 0.784254, 0.771004, 0.938458, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_mf5dt"]
 gradient = SubResource("Gradient_lggh3")
@@ -349,6 +351,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="CanvasLayer/EnemyHUD"]
 layout_mode = 1
@@ -464,5 +467,9 @@ color = Color(0.366892, 0.31676, 0.427886, 0.266667)
 energy = 11.07
 blend_mode = 2
 texture = SubResource("GradientTexture2D_mf5dt")
+
+[node name="MusicManager" parent="." instance=ExtResource("22_0vry4")]
+unique_name_in_owner = true
+script = null
 
 [connection signal="body_entered" from="SnakeLayer/Area2D" to="SnakeLayer/Area2D" method="_on_body_entered"]

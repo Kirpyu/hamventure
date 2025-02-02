@@ -2034,6 +2034,7 @@ scale_amount_max = 2.0
 color = Color(0.836833, 0.481837, 0.410942, 1)
 color_ramp = ExtResource("23_vqjxx")
 
+[connection signal="drop_grapple" from="." to="StateMachine/PlayerGrapple" method="_on_player_drop_grapple"]
 [connection signal="timeout" from="AttackCD" to="StateMachine" method="_on_attack_cd_timeout"]
 [connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]
 [connection signal="timeout" from="GrappleTimer" to="StateMachine/PlayerGrapple" method="_on_grapple_timer_timeout"]

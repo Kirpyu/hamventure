@@ -53,3 +53,9 @@ func attack(target):
 func _on_grapple_timer_timeout() -> void:
 	%StateMachine.charging = false
 	grappling = true
+
+
+func _on_player_drop_grapple() -> void:
+	%StateMachine.grappling = false
+	grappling = false
+	Transitioned.emit(self, "PlayerMove")

@@ -1,0 +1,200 @@
+extends Area2D
+
+@onready var player : Player = %Player;
+@export var max_hp : int
+@export var death_particles : CPUParticles2D
+@export var target: Target
+@export var animation_player : AnimationPlayer
+@export var animated_sprite: AnimatedSprite2D
+
+@export var attack_animation_player : AnimationPlayer
+var dead := false
+
+var attacks : Array[String] = ["Middle Down Dash", "Sideward Dash", "Left Down Dash", "Right Down Dash", "Left Diagonal Dash", "Right Diagonal Dash"]
+var amount_of_attacks = 0
+var current_attack : String
+
+var reset_pos : Vector2
+var current_pos : Vector2
+@onready var hp = max_hp
+@export var hp_bar : HPBar
+var tween : Tween
+
+var upper_left : Vector2
+var upper_right : Vector2
+var bottom_left : Vector2 
+var bottom_right : Vector2
+var bottom_middle : Vector2
+var upper_middle : Vector2
+var middle : Vector2
+
+@export var blink_timer : Timer
+
+func _ready() -> void:
+	reset_pos = get_global_transform().origin
+	current_pos = reset_pos
+	set_corners()
+	
+	if target:
+		target.player = player
+	hp_bar.update_max_value(max_hp)
+	animation_player.play("default")
+	start_down_dash()
+	
+func set_corners():
+	upper_left = Vector2(reset_pos.x - 220, reset_pos.y)
+	upper_right = Vector2(reset_pos.x + 220, reset_pos.y)
+	bottom_left = Vector2(reset_pos.x - 220, reset_pos.y + 128)
+	bottom_right = Vector2(reset_pos.x + 220, reset_pos.y + 128)
+	bottom_middle = Vector2(0, reset_pos.y + 128)
+	upper_middle = reset_pos
+	middle = Vector2(reset_pos.x, reset_pos.y + 64)
+
+func reset_tween():
+	if tween:
+		tween.kill()
+	tween = create_tween()
+
+func start_down_dash():
+	current_attack = "Middle Down Dash"
+	position = upper_middle
+	blink(2, 0.75)
+	attack_animation_player.play("Middle Down Dash")
+
+func down_dash():
+	
+	animation_player.play("down_dash")
+	reset_tween()
+	tween.tween_property(self, "position", bottom_middle, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+func start_left_down_dash():
+	reset_tween()
+	tween.tween_property(self, "position", upper_left, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	position = upper_left
+	blink(2, 0.75)
+	attack_animation_player.play("Left Down Dash")
+
+func left_down_dash():
+	animation_player.play("down_dash")
+	reset_tween()
+	tween.tween_property(self, "position", bottom_left, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+func start_right_down_dash():
+	position = upper_right
+	blink(2, 0.75)
+	attack_animation_player.play("Right Down Dash")
+
+func right_down_dash():
+	animation_player.play("down_dash")
+	reset_tween()
+	tween.tween_property(self, "position", bottom_right, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+func start_left_diagonal_dash():
+	position = upper_left
+	blink(1, 0.75)
+	attack_animation_player.play("Left Diagonal Dash")
+
+func left_diagonal_dash():
+	animation_player.play("left_diagonal_dash")
+	reset_tween()
+	tween.tween_property(self, "position", bottom_right, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	
+func start_right_diagonal_dash():
+	current_attack = "Right Diagonal Dash"
+	position = upper_right
+	blink(1, 0.75)
+	attack_animation_player.play("Right Diagonal Dash")
+
+func right_diagonal_dash():
+	animation_player.play("right_diagonal_dash")
+	reset_tween()
+	tween.tween_property(self, "position", bottom_left, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+func start_sideward_dash():
+	position = bottom_left
+	blink(3, 0.75)
+	attack_animation_player.play("Sideward Dash")
+	
+func sideward_dash():
+	animation_player.play("dash")
+	reset_tween()
+	tween.tween_property(self, "position", bottom_right, 0.25).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+
+func play_slash():
+	if current_attack != "Right Diagonal Dash":
+		animation_player.play("slash_right")
+	else:
+		animation_player.play("slash_left")
+	%CooldownTimer.start()
+
+func slash_wave():
+	play_slash()
+#	create slash waves here, then at the end of slash, pick random attack
+
+func blink(amount: int, duration: float):
+	reset_tween()
+	var blink_amount = amount
+	blink_timer.wait_time = duration
+	blink_timer.start()
+	while blink_amount > 0:
+		tween.tween_property(animated_sprite, "self_modulate", Color.INDIAN_RED, duration / (2.0 * float(amount))).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.tween_property(animated_sprite, "self_modulate", Color.WHITE, 1.0 * duration / (2.0 * float(amount))).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		blink_amount -= 1
+
+## Picks a random attack to carry out
+func pick_attack():
+	var rng = RandomNumberGenerator.new()
+	var temp_attack = current_attack
+	while temp_attack == current_attack:
+		current_attack = attacks[rng.randi_range(0, attacks.size() - 1)]
+
+	match current_attack:
+		"Middle Down Dash":
+			start_down_dash()
+		"Sideward Dash":
+			start_sideward_dash()
+		"Left Diagonal Dash":
+			start_left_diagonal_dash()
+		"Right Diagonal Dash":
+			start_right_diagonal_dash()
+		"Left Down Dash":
+			start_left_down_dash()
+		"Right Down Dash":
+			start_right_down_dash()
+	
+	if current_attack != "Right Diagonal Dash":
+		animation_player.play("sheath_right")
+	else:
+		animation_player.play("sheath_left")
+		
+func take_damage(dmg:int):
+	hp -= dmg
+	hp_bar.update_hp_bar(dmg)
+	if hp <= 0:
+		queue_delete()
+
+
+## Follows Up on what attack to do/ Change This To Whatever Current Attack Is
+func _on_timer_timeout() -> void:
+	match current_attack:
+		"Middle Down Dash":
+			down_dash()
+		"Sideward Dash":
+			sideward_dash()
+		"Left Diagonal Dash":
+			left_diagonal_dash()
+		"Right Diagonal Dash":
+			right_diagonal_dash()
+		"Left Down Dash":
+			left_down_dash()
+		"Right Down Dash":
+			right_down_dash()
+
+## Picks next attack after cooldown/ tengu breathing time ends
+## Cooldown starts after any dash animatione ends (0.25 seconds after dash animation starts)
+func _on_cooldown_timer_timeout() -> void:
+	pick_attack()
+	
+
+func queue_delete():
+	pass

@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwiubvm405d0f"]
+
+[ext_resource type="PackedScene" uid="uid://d3xx74a3ve12i" path="res://projectile/base_projectile/projectile.tscn" id="1_ofmyj"]
+[ext_resource type="Texture2D" uid="uid://dftdwgkrlssmd" path="res://assets/tengu_sprites/swordWave-Sheet.png" id="2_6yva5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gedgv"]
+atlas = ExtResource("2_6yva5")
+region = Rect2(0, 0, 43, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjeaf"]
+atlas = ExtResource("2_6yva5")
+region = Rect2(43, 0, 43, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uf5e5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gedgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjeaf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mgyhn"]
+radius = 12.0
+height = 46.0
+
+[node name="WaveSlash" instance=ExtResource("1_ofmyj")]
+collision_mask = 2
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_uf5e5")
+frame_progress = 0.308096
+
+[node name="Hitbox" parent="." index="2"]
+position = Vector2(9, 1)
+shape = SubResource("CapsuleShape2D_mgyhn")

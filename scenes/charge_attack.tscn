@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bnlifh735vl2u" path="res://assets/sprites/sickleSPIN-Sheet.png" id="1_2qssx"]
 [ext_resource type="Script" path="res://scenes/charge_attack.gd" id="1_wf3ip"]
-[ext_resource type="AudioStream" uid="uid://c8fvs8uvdmx42" path="res://assets/music/player/Throw.mp3" id="2_ml4ij"]
+[ext_resource type="AudioStream" uid="uid://denrro0w73t0c" path="res://assets/music/player/KnifeThrow.mp3" id="2_v6ugw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v436n"]
 atlas = ExtResource("1_2qssx")
@@ -48,9 +48,8 @@ script = ExtResource("1_wf3ip")
 sfx = NodePath("Throw")
 
 [node name="Throw" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_ml4ij")
-volume_db = -25.0
-pitch_scale = 1.3
+stream = ExtResource("2_v6ugw")
+volume_db = -15.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5misa")

@@ -110,6 +110,7 @@ color_ramp = ExtResource("8_qiqe6")
 stream = ExtResource("9_vk62o")
 volume_db = -25.0
 pitch_scale = 0.9
+max_polyphony = 5
 
 [node name="Cooldown" type="Timer" parent="."]
 unique_name_in_owner = true

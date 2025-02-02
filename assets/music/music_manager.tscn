@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxwg8m787wxod"]
+
+[ext_resource type="Script" path="res://assets/music/music_manager.gd" id="1_pk17l"]
+[ext_resource type="AudioStream" uid="uid://bs4smq8kj6kn" path="res://assets/music/player/KnifeHit.mp3" id="2_htgjd"]
+
+[node name="MusicManager" type="Node2D"]
+script = ExtResource("1_pk17l")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." groups=["sfx"]]
+stream = ExtResource("2_htgjd")
+volume_db = -20.0
+pitch_scale = 0.7
+max_polyphony = 5

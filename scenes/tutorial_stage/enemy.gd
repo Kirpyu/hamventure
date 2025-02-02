@@ -37,9 +37,10 @@ func queue_delete():
 	if target:
 		target.remove_from_group("targets")
 		target.dead = true
-
+	
 	if death_particles:
 		death_particles.emitting = true
+	player.stop_grapple()
 	if dynamic_label:
 		match get_tree().get_nodes_in_group("enemy").size():
 			0:

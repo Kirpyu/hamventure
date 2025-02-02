@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=4 uid="uid://jm7xvak3wukq"]
+[gd_scene load_steps=28 format=4 uid="uid://jm7xvak3wukq"]
 
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_7ar5q"]
+[ext_resource type="PackedScene" uid="uid://dxwg8m787wxod" path="res://assets/music/music_manager.tscn" id="1_ck8jx"]
 [ext_resource type="Texture2D" uid="uid://byvv7n2m5mkvs" path="res://assets/snake_sprites/StoneBrick.png" id="1_cx6nw"]
 [ext_resource type="Texture2D" uid="uid://dcfwalia5owxs" path="res://assets/sprites/bgPalette1.png" id="1_ei8k6"]
 [ext_resource type="Texture2D" uid="uid://bj5tckhrx78kk" path="res://assets/snake_sprites/StoneBrick(1).png" id="2_b7nnm"]
@@ -80,6 +81,8 @@ size = Vector2(41, 64)
 
 [node name="tutorial_stage" type="Node2D"]
 
+[node name="MusicManager" parent="." instance=ExtResource("1_ck8jx")]
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_base_offset = Vector2(400, 100)
 scroll_base_scale = Vector2(0.4, 0.4)
@@ -136,7 +139,8 @@ offset_top = 21.0
 offset_right = 640.0
 offset_bottom = 77.0
 theme = ExtResource("6_5vapt")
-text = "Use shift or jump to get
+text = "Use shift to dash
+or space to jump
 over small gaps
 Double jump to get over
 larger gaps"
@@ -381,6 +385,7 @@ color_ramp = SubResource("Gradient_eymhw")
 [node name="Enemy3" parent="Destructables" node_paths=PackedStringArray("target", "dynamic_label") instance=ExtResource("17_sl5vo")]
 position = Vector2(421, -180)
 flip = true
+max_hp = 100
 target = NodePath("Target")
 dynamic_label = NodePath("../../Labels/DynamicLabel")
 

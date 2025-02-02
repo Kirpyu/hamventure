@@ -30,6 +30,7 @@ func _on_area_entered(area: Area2D) -> void:
 		#else:
 			#player.grapple_speed = area.grapple_speed	
 		area.take_damage(damage)
+		MusicManager.play_hit()
 		
 		
 	if spinning == false:
