@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtmoe607d8tc2"]
+[gd_scene load_steps=7 format=3 uid="uid://dtmoe607d8tc2"]
 
 [ext_resource type="Texture2D" uid="uid://csaodklvt21cu" path="res://assets/start_splash.jpg" id="1_02w5r"]
 [ext_resource type="Script" path="res://hud/start_menu.gd" id="1_7i74s"]
 [ext_resource type="Theme" uid="uid://0knhqsfqlrhj" path="res://scenes/boss_levels/default_theme.tres" id="2_0hjpf"]
 [ext_resource type="PackedScene" uid="uid://jm7xvak3wukq" path="res://scenes/tutorial_stage/tutorial_stage.tscn" id="2_54grs"]
+[ext_resource type="PackedScene" uid="uid://bk8dr2nfmj46s" path="res://scenes/boss_levels/tengu_boss_level.tscn" id="3_0n48r"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_bc7g0"]
 
 [node name="StartMenu" type="Control"]
@@ -15,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7i74s")
 tutorial_scene = ExtResource("2_54grs")
+secret_scene = ExtResource("3_0n48r")
 
 [node name="StartSplash" type="Sprite2D" parent="."]
 texture = ExtResource("1_02w5r")
@@ -68,5 +70,12 @@ theme_override_fonts/font = ExtResource("3_bc7g0")
 theme_override_font_sizes/font_size = 8
 text = "QUIT"
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "SECRET BUTTOn"
+
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

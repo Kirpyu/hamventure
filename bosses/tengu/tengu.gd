@@ -6,6 +6,7 @@ extends Area2D
 @export var target: Target
 @export var animation_player : AnimationPlayer
 @export var animated_sprite: AnimatedSprite2D
+@export var clone : bool
 
 @export var attack_animation_player : AnimationPlayer
 var dead := false
@@ -37,9 +38,15 @@ func _ready() -> void:
 	
 	if target:
 		target.player = player
-	hp_bar.update_max_value(max_hp)
+		
+	if hp_bar:
+		hp_bar.update_max_value(max_hp)
 	animation_player.play("default")
 	start_down_dash()
+	
+	if clone:
+		hide()
+		process_mode = PROCESS_MODE_DISABLED
 
 func set_corners():
 	upper_left = Vector2(reset_pos.x - 220, reset_pos.y)
@@ -130,15 +137,13 @@ func play_slash():
 func slash_wave():
 	play_slash()
 	match current_attack:
-		"Left Down Slash":
+		"Left Down Dash":
 			fire_projectile(bottom_left, false)
-			print("hi")
-		"Right Down Slash":
+		"Right Down Dash":
 			fire_projectile(bottom_right, true)
-		"Middle Down Slash":
+		"Middle Down Dash":
 			fire_projectile(bottom_middle, true)
 			fire_projectile(bottom_middle, false)
-	print(current_attack)
 func blink(amount: int, duration: float):
 	reset_tween()
 	var blink_amount = amount
@@ -177,7 +182,8 @@ func pick_attack():
 		
 func take_damage(dmg:int):
 	hp -= dmg
-	hp_bar.update_hp_bar(dmg)
+	if hp_bar:
+		hp_bar.update_hp_bar(dmg)
 	if hp <= 0:
 		queue_delete()
 

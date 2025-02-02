@@ -123,3 +123,8 @@ func init_sound(sound: AudioStreamPlayer2D):
 
 func stop_grapple():
 	emit_signal("drop_grapple")
+
+var damage = 25
+func _on_main_attack_box_body_entered(body: Node2D) -> void:
+	if body is Player:
+		body.take_damage(damage)
