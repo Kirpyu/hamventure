@@ -11,4 +11,4 @@ func _physics_process(_delta: float) -> void:
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 	$Area2D/CollisionShape2D.call_deferred("queue_free")
 	$Area2D.call_deferred("queue_free")
-	%TransitionScreen.transition_screen()
+	get_tree().change_scene_to_packed(first_scene)

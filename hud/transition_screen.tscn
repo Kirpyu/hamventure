@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dal5goi7vyb8u"]
-
-[ext_resource type="Script" path="res://hud/transition.gd" id="1_i8gpa"]
-
-[node name="TransitionScreen" type="ColorRect"]
-process_mode = 3
-color = Color(0, 0, 0, 1)
-script = ExtResource("1_i8gpa")

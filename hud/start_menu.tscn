@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dtmoe607d8tc2"]
+[gd_scene load_steps=7 format=3 uid="uid://dtmoe607d8tc2"]
 
+[ext_resource type="Texture2D" uid="uid://csaodklvt21cu" path="res://assets/start_splash.jpg" id="1_02w5r"]
 [ext_resource type="Script" path="res://hud/start_menu.gd" id="1_7i74s"]
 [ext_resource type="Theme" uid="uid://0knhqsfqlrhj" path="res://scenes/boss_levels/default_theme.tres" id="2_0hjpf"]
 [ext_resource type="PackedScene" uid="uid://jm7xvak3wukq" path="res://scenes/tutorial_stage/tutorial_stage.tscn" id="2_54grs"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_bc7g0"]
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://ryvpdspotnwj" path="res://scenes/boss_levels/snake_boss_level.tscn" id="3_dr5qo"]
 [ext_resource type="Texture2D" uid="uid://bi3in5k1u7wxk" path="res://hud/splash_art.png" id="4_4ic1l"]
 [ext_resource type="AudioStream" uid="uid://ss1s2486gfi6" path="res://assets/music/MainMenu.mp3" id="4_gwu26"]
@@ -13,6 +15,8 @@
 
 [sub_resource type="Gradient" id="Gradient_vmx1i"]
 colors = PackedColorArray(0.984314, 0.945098, 0.611765, 1, 1, 1, 1, 0.380392)
+=======
+>>>>>>> parent of 72c7e21 (finished game)
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -25,14 +29,8 @@ script = ExtResource("1_7i74s")
 tutorial_scene = ExtResource("2_54grs")
 secret_scene = ExtResource("3_dr5qo")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_gwu26")
-volume_db = -20.0
-autoplay = true
-parameters/looping = true
-
 [node name="StartSplash" type="Sprite2D" parent="."]
-texture = ExtResource("4_4ic1l")
+texture = ExtResource("1_02w5r")
 centered = false
 
 [node name="HSplitContainer" type="HSplitContainer" parent="StartSplash"]
@@ -55,10 +53,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -416.0
-offset_top = -77.0
-offset_right = -361.0
-offset_bottom = -23.0
+offset_left = -114.0
+offset_top = 43.0
+offset_right = -59.0
+offset_bottom = 97.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
@@ -89,55 +87,6 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "SECRET BUTTOn"
 
-[node name="ButtonHover" type="AudioStreamPlayer2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(5560, 5615.24)
-rotation = 0.482927
-scale = Vector2(100, 100)
-stream = ExtResource("7_rt48g")
-
-[node name="ButtonClick" type="AudioStreamPlayer2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(606, 389)
-rotation = 0.241464
-scale = Vector2(10, 10)
-stream = ExtResource("7_rrumh")
-volume_db = -15.0
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-light_mask = 2
-position = Vector2(606, 389)
-rotation = 0.241464
-scale = Vector2(10, 10)
-amount = 250
-randomness = 0.64
-emission_shape = 1
-emission_sphere_radius = 128.0
-spread = 45.15
-gravity = Vector2(0, 10)
-initial_velocity_min = 1.1
-initial_velocity_max = 1.45
-angular_velocity_min = -289.71
-angular_velocity_max = 418.29
-radial_accel_max = 10.0
-scale_amount_min = 0.0
-scale_amount_max = 3.5
-color = Color(0.982849, 0.943672, 0.612889, 1)
-color_ramp = SubResource("Gradient_vmx1i")
-
-[node name="TransitionScreen" parent="." instance=ExtResource("9_7t36s")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = -96.0
-offset_top = -39.0
-offset_right = 1331.0
-offset_bottom = 788.0
-mouse_filter = 2
-mouse_force_pass_scroll_events = false
-target_scene = ExtResource("2_54grs")
-
-[connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="mouse_entered" from="VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
