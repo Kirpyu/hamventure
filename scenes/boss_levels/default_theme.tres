@@ -1,24 +1,23 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://0knhqsfqlrhj"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://0knhqsfqlrhj"]
 
 [ext_resource type="FontFile" uid="uid://br8mswfeovwbs" path="res://assets/fonts/Sta.Toasty_font (1).ttf" id="1_j774d"]
 [ext_resource type="FontFile" uid="uid://c53kogtyjwsss" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_mri5c"]
-[ext_resource type="Texture2D" uid="uid://bf1fvlfx3kh7s" path="res://assets/sprites/button-boss.png" id="2_emyda"]
+[ext_resource type="StyleBox" uid="uid://dj74tqy44usfg" path="res://resources/theme/button_raised.tres" id="2_s6j8j"]
+[ext_resource type="StyleBox" uid="uid://d3jogw7gcjgqh" path="res://resources/theme/button_pressed.tres" id="3_hncy3"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ofof4"]
-texture = ExtResource("2_emyda")
-texture_margin_left = 2.0
-texture_margin_top = 3.0
-texture_margin_right = 2.0
-texture_margin_bottom = 3.0
-region_rect = Rect2(0, 0, 48, 48)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5qicq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jqg8n"]
 
 [resource]
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 Button/constants/h_separation = 0
 Button/font_sizes/font_size = 8
 Button/fonts/font = ExtResource("1_mri5c")
-Button/styles/normal = SubResource("StyleBoxTexture_ofof4")
+Button/styles/focus = SubResource("StyleBoxEmpty_5qicq")
+Button/styles/hover = ExtResource("2_s6j8j")
+Button/styles/normal = ExtResource("2_s6j8j")
+Button/styles/pressed = ExtResource("3_hncy3")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)

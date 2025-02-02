@@ -18,7 +18,6 @@ var current_attack : String
 var reset_pos : Vector2
 var current_pos : Vector2
 @onready var hp = max_hp
-@export var hp_bar : HPBar
 var tween : Tween
 
 var upper_left : Vector2
@@ -40,7 +39,7 @@ func _ready() -> void:
 	if target:
 		target.player = player
 		
-	if hp_bar:
+	for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
 		hp_bar.update_max_value(max_hp)
 	animation_player.play("default")
 	start_down_dash()
@@ -212,12 +211,17 @@ func match_attack():
 func take_damage(dmg:int):
 	if !clone:
 		hp -= dmg
-		if hp_bar:
+		for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
 			hp_bar.update_hp_bar(dmg)
 		if hp <= max_hp / 2 and !is_second_phase:
 			second_phase()
 		if hp <= 0:
-			pause_screen.pause(true, "You Win")
+			animation_player.play("tired")
+			%BlinkTimer.stop()
+			%CooldownTimer.stop()
+			current_attack = ""
+			
+			pause_screen.pause(true, "Well done")
 
 var is_second_phase := false
 

@@ -37,6 +37,7 @@ signal drop_grapple
 @export var animation_tree: AnimationTree
 
 func _ready() -> void:
+	current_hp = max_hp
 	for hitbox in %AttackBox.get_children():
 		attack_hitboxes[hitbox.name] = hitbox
 	get_closest_target()
@@ -105,6 +106,7 @@ func take_damage(damage: int):
 	set_collision_layer_value(2, false)
 	current_hp -= damage
 	hp_bar.update_hp_bar(damage)
+	%GetHit.play()
 	
 	if current_hp <= 0 and !invulnerable:
 		pause_screen.pause(true, "YOU LOSE")

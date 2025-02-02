@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://56fq2frqgvb8"]
+[gd_scene load_steps=53 format=3 uid="uid://56fq2frqgvb8"]
 
 [ext_resource type="Script" path="res://bosses/tengu/tengu.gd" id="1_gm0bo"]
 [ext_resource type="Texture2D" uid="uid://e54sk85k54qr" path="res://assets/tengu_sprites/TenguDash-Sheet.png" id="2_0v18i"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://whrayhg1rpb7" path="res://assets/tengu_sprites/Tengu_Attack1-Sheet.png" id="5_mpq1u"]
 [ext_resource type="Texture2D" uid="uid://ckq22mtdw1m3g" path="res://assets/tengu_sprites/Tengu_Tiredidle-Sheet.png" id="6_btkvl"]
 [ext_resource type="Script" path="res://bosses/outline.gd" id="7_8jmya"]
+[ext_resource type="AudioStream" uid="uid://dcxco7qo8ho10" path="res://assets/music/GuardianOfTheForest.mp3" id="11_gicbi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4jico"]
 atlas = ExtResource("2_0v18i")
@@ -1135,7 +1136,7 @@ _data = {
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_gm0bo")
-max_hp = 300
+max_hp = 350
 target = NodePath("Target")
 animation_player = NodePath("AnimationPlayer")
 animated_sprite = NodePath("AnimatedSprite2D")
@@ -1171,6 +1172,12 @@ one_shot = true
 unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
+
+[node name="BossTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_gicbi")
+volume_db = -10.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

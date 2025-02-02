@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://bk8dr2nfmj46s"]
+[gd_scene load_steps=47 format=4 uid="uid://bk8dr2nfmj46s"]
 
 [ext_resource type="Texture2D" uid="uid://cjxxxd66np5qu" path="res://assets/tengu_sprites/TenguBG.png" id="1_miskg"]
 [ext_resource type="PackedScene" uid="uid://dxwg8m787wxod" path="res://assets/music/music_manager.tscn" id="1_n6ulq"]
@@ -23,6 +23,8 @@
 [ext_resource type="PackedScene" uid="uid://d33fe2ttfku2y" path="res://bosses/base_enemy/base_enemy.tscn" id="19_tdei8"]
 [ext_resource type="Script" path="res://bosses/base_enemy/grappling_block.gd" id="20_3xkot"]
 [ext_resource type="Script" path="res://bosses/outline.gd" id="20_xt7pp"]
+[ext_resource type="Script" path="res://hud/transition.gd" id="24_4kdya"]
+[ext_resource type="PackedScene" uid="uid://ryvpdspotnwj" path="res://scenes/boss_levels/snake_boss_level.tscn" id="25_u6mcm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfphf"]
 atlas = ExtResource("17_13yg8")
@@ -1255,14 +1257,14 @@ grapple_speed = 4.0
 [node name="Clone" parent="." node_paths=PackedStringArray("attack_animation_player") instance=ExtResource("4_3fg45")]
 unique_name_in_owner = true
 position = Vector2(0, -148)
+max_hp = 100000000
 clone = true
 attack_animation_player = NodePath("../CloneAttacks/MainAnimationPlayer")
 
-[node name="Tengu" parent="." node_paths=PackedStringArray("attack_animation_player", "hp_bar", "pick_attack_timer", "pause_screen", "rest_timer") instance=ExtResource("4_3fg45")]
+[node name="Tengu" parent="." node_paths=PackedStringArray("attack_animation_player", "pick_attack_timer", "pause_screen", "rest_timer") instance=ExtResource("4_3fg45")]
 position = Vector2(0, -148)
-max_hp = 500
+max_hp = 1
 attack_animation_player = NodePath("../MainAttacks/MainAnimationPlayer")
-hp_bar = NodePath("../CanvasLayer/EnemyHUD/MarginContainer/Control/TextureProgressBar")
 pick_attack_timer = NodePath("../CanvasLayer/PickAttackTimer")
 pause_screen = NodePath("../CanvasLayer/PauseScreen")
 rest_timer = NodePath("../RestTimer")
@@ -1390,7 +1392,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("11_dn36w")
 theme_override_font_sizes/font_size = 26
-text = "SNAKE"
+text = "TENGU"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/EnemyHUD"]
@@ -1459,12 +1461,25 @@ script = ExtResource("13_e6okc")
 
 [node name="PauseScreen" parent="CanvasLayer" instance=ExtResource("14_bau46")]
 visible = false
+restart_scene = null
 
 [node name="CountdownTimer" parent="CanvasLayer" instance=ExtResource("15_tbr8i")]
+do_countdown = true
 metadata/_edit_use_anchors_ = true
 
 [node name="PickAttackTimer" type="Timer" parent="CanvasLayer"]
 one_shot = true
+
+[node name="TransitionScreen" type="ColorRect" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+offset_left = -371.0
+offset_top = -300.0
+offset_right = 419.0
+offset_bottom = 184.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("24_4kdya")
+target_scene = ExtResource("25_u6mcm")
 
 [connection signal="body_entered" from="MainAttacks/MainAttackBox" to="Player" method="_on_main_attack_box_body_entered"]
 [connection signal="body_entered" from="CloneAttacks/MainAttackBox" to="Player" method="_on_main_attack_box_body_entered"]
