@@ -1198,6 +1198,7 @@ pitch_scale = 2.5
 unique_name_in_owner = true
 stream = ExtResource("14_wt1to")
 volume_db = -20.0
+stream_paused = true
 max_polyphony = 5
 
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_timer_timeout"]

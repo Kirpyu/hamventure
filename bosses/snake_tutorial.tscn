@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cdu1su7v2atex"]
+[gd_scene load_steps=28 format=4 uid="uid://cdu1su7v2atex"]
 
 [ext_resource type="Script" path="res://bosses/snake_tutorial.gd" id="1_pfwj3"]
 [ext_resource type="PackedScene" uid="uid://d33fe2ttfku2y" path="res://bosses/base_enemy/base_enemy.tscn" id="1_rrc1q"]
@@ -20,7 +20,6 @@
 [ext_resource type="AudioStream" uid="uid://dtd7gd6puvj36" path="res://assets/music/Tutorial.mp3" id="17_8yn3t"]
 [ext_resource type="Script" path="res://hud/transition.gd" id="17_12ihp"]
 [ext_resource type="AudioStream" uid="uid://fi4dyvcm1vva" path="res://assets/music/ButtonClick.mp3" id="18_ug6gp"]
-[ext_resource type="PackedScene" uid="uid://ryvpdspotnwj" path="res://scenes/boss_levels/snake_boss_level.tscn" id="18_xx7ds"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eeqxn"]
 texture = ExtResource("4_06why")
@@ -391,7 +390,6 @@ offset_right = 908.0
 offset_bottom = 199.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("17_12ihp")
-target_scene = ExtResource("18_xx7ds")
 metadata/_edit_use_anchors_ = true
 
 [connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_button_button_down"]

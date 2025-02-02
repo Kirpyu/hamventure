@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://bk8dr2nfmj46s"]
+[gd_scene load_steps=46 format=4 uid="uid://bk8dr2nfmj46s"]
 
 [ext_resource type="Texture2D" uid="uid://cjxxxd66np5qu" path="res://assets/tengu_sprites/TenguBG.png" id="1_miskg"]
 [ext_resource type="PackedScene" uid="uid://dxwg8m787wxod" path="res://assets/music/music_manager.tscn" id="1_n6ulq"]
@@ -24,7 +24,6 @@
 [ext_resource type="Script" path="res://bosses/base_enemy/grappling_block.gd" id="20_3xkot"]
 [ext_resource type="Script" path="res://bosses/outline.gd" id="20_xt7pp"]
 [ext_resource type="Script" path="res://hud/transition.gd" id="24_4kdya"]
-[ext_resource type="PackedScene" uid="uid://ryvpdspotnwj" path="res://scenes/boss_levels/snake_boss_level.tscn" id="25_u6mcm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfphf"]
 atlas = ExtResource("17_13yg8")
@@ -1461,7 +1460,6 @@ script = ExtResource("13_e6okc")
 
 [node name="PauseScreen" parent="CanvasLayer" instance=ExtResource("14_bau46")]
 visible = false
-restart_scene = null
 
 [node name="CountdownTimer" parent="CanvasLayer" instance=ExtResource("15_tbr8i")]
 do_countdown = true
@@ -1479,7 +1477,6 @@ offset_right = 419.0
 offset_bottom = 184.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("24_4kdya")
-target_scene = ExtResource("25_u6mcm")
 
 [connection signal="body_entered" from="MainAttacks/MainAttackBox" to="Player" method="_on_main_attack_box_body_entered"]
 [connection signal="body_entered" from="CloneAttacks/MainAttackBox" to="Player" method="_on_main_attack_box_body_entered"]
