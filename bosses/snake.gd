@@ -68,7 +68,7 @@ func take_damage(dmg: int):
 		for hp_bar in get_tree().get_nodes_in_group("hp_bar"):
 			hp_bar.update_hp_bar(dmg)
 		if current_hp <= 0:
-			pause_screen.pause(true, "you dont suck")
+			pause_screen.pause(true, "You Win")
 
 func look_at_player() -> Vector2:
 	return (player.global_position - %Target.global_position).normalized()

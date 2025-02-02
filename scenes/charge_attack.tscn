@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5tugofgsamwj"]
+[gd_scene load_steps=10 format=3 uid="uid://c5tugofgsamwj"]
 
 [ext_resource type="Texture2D" uid="uid://bnlifh735vl2u" path="res://assets/sprites/sickleSPIN-Sheet.png" id="1_2qssx"]
 [ext_resource type="Script" path="res://scenes/charge_attack.gd" id="1_wf3ip"]
 [ext_resource type="AudioStream" uid="uid://denrro0w73t0c" path="res://assets/music/player/KnifeThrow.mp3" id="2_v6ugw"]
+[ext_resource type="PackedScene" uid="uid://d1ryx1b5o8lho" path="res://assets/sounds/hit_sound.tscn" id="4_ystnv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v436n"]
 atlas = ExtResource("1_2qssx")
@@ -41,11 +42,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixfs7"]
 radius = 11.0
 
-[node name="ChargeAttack" type="Area2D" node_paths=PackedStringArray("sfx")]
+[node name="ChargeAttack" type="Area2D" node_paths=PackedStringArray("sfx", "hit_sfx")]
 collision_layer = 0
 collision_mask = 22
 script = ExtResource("1_wf3ip")
 sfx = NodePath("Throw")
+hit_sfx = NodePath("HitSound")
 
 [node name="Throw" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_v6ugw")
@@ -74,6 +76,8 @@ wait_time = 0.05
 wait_time = 10.0
 one_shot = true
 autostart = true
+
+[node name="HitSound" parent="." instance=ExtResource("4_ystnv")]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -2,6 +2,7 @@ extends Projectile
 
 @export var flipped: bool
 
+
 func _ready() -> void:
 	#global_position.y = 20
 	sprite.play("default")

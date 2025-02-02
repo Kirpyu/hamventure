@@ -34,7 +34,7 @@ height = 42.0
 collision_mask = 2
 script = ExtResource("2_pdkr6")
 flipped = false
-max_speed = 250.0
+max_speed = 100.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_uf5e5")

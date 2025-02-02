@@ -11,6 +11,7 @@ var direction: Vector2 = Vector2.ZERO
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox = %Hitbox
 @export var sfx : AudioStreamPlayer2D
+@export var hit_sfx : AudioStreamPlayer2D
 
 func _ready() -> void:
 	MusicManager.init_sound(sfx)
@@ -30,8 +31,7 @@ func _on_area_entered(area: Area2D) -> void:
 		#else:
 			#player.grapple_speed = area.grapple_speed	
 		area.take_damage(damage)
-		MusicManager.play_hit()
-		
+		MusicManager.init_sound(hit_sfx)
 		
 	if spinning == false:
 		%ReturnTimer.start()
@@ -58,7 +58,7 @@ func _on_body_entered(body: Node2D) -> void:
 		queue_free()
 		body.has_sickle = true
 		body.state_machine.grapple_attacking = false
-
+	
 func _on_tick_timer_timeout() -> void:
 	if hitbox.disabled == true:
 		hitbox.set_deferred("disabled", false)

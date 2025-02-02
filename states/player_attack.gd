@@ -6,7 +6,7 @@ class_name PlayerAttack
 @export var jump_time : float = 0.1
 var jump_timer = 0;
 
-@export var charge_timer : float = 0.25
+@export var charge_timer : float = 0.3
 var current_charge : float = 0
 
 func Enter():

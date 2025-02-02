@@ -7,12 +7,12 @@ extends Area2D
 @export var animation_player : AnimationPlayer
 @export var animated_sprite: AnimatedSprite2D
 @export var clone : bool
-
+var clone_node
 @export var attack_animation_player : AnimationPlayer
 var dead := false
 
 var attacks : Array[String] = ["Middle Down Dash", "Sideward Dash", "Left Down Dash", "Right Down Dash", "Left Diagonal Dash", "Right Diagonal Dash"]
-var amount_of_attacks = 0
+var amount_of_attacks := 0
 var current_attack : String
 
 var reset_pos : Vector2
@@ -36,6 +36,7 @@ func _ready() -> void:
 	current_pos = reset_pos
 	set_corners()
 	
+	
 	if target:
 		target.player = player
 		
@@ -45,8 +46,11 @@ func _ready() -> void:
 	start_down_dash()
 	
 	if clone:
-		hide()
-		process_mode = PROCESS_MODE_DISABLED
+		animated_sprite.modulate = Color(0, 0, 0, 1)
+		%Hurtbox.set_deferred("disabled", true)
+		pause()
+	else:
+		clone_node = %Clone
 
 func set_corners():
 	upper_left = Vector2(reset_pos.x - 220, reset_pos.y)
@@ -55,7 +59,7 @@ func set_corners():
 	bottom_right = Vector2(reset_pos.x + 220, reset_pos.y + 128)
 	bottom_middle = Vector2(0, reset_pos.y + 128)
 	upper_middle = reset_pos
-	middle = Vector2(reset_pos.x, reset_pos.y + 64)
+	middle = Vector2(reset_pos.x, reset_pos.y + 52)
 
 func reset_tween():
 	if tween:
@@ -144,23 +148,47 @@ func slash_wave():
 		"Middle Down Dash":
 			fire_projectile(bottom_middle, true)
 			fire_projectile(bottom_middle, false)
+
 func blink(amount: int, duration: float):
 	reset_tween()
 	var blink_amount = amount
-	blink_timer.wait_time = duration
+	blink_timer.wait_time = .75
 	blink_timer.start()
 	while blink_amount > 0:
 		tween.tween_property(animated_sprite, "self_modulate", Color.INDIAN_RED, duration / (2.0 * float(amount))).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(animated_sprite, "self_modulate", Color.WHITE, 1.0 * duration / (2.0 * float(amount))).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		blink_amount -= 1
 
+@export var pick_attack_timer : Timer
+## Bandaid Fix: Created Cooldown Timer
 ## Picks a random attack to carry out
 func pick_attack():
-	var rng = RandomNumberGenerator.new()
-	var temp_attack = current_attack
-	while temp_attack == current_attack:
-		current_attack = attacks[rng.randi_range(0, attacks.size() - 1)]
+	if !clone and pick_attack_timer.is_stopped():
+		pick_attack_timer.start()
+		amount_of_attacks += 1
+		if amount_of_attacks >= 5:
+			amount_of_attacks = 0
+			rest()
+			return
 
+		var temp_attack = current_attack
+		while temp_attack == current_attack:
+			current_attack = attacks[randi_range(0, attacks.size() - 1)]
+			if is_second_phase and clone_node.visible == true:
+				var clone_attack = current_attack
+				while current_attack == clone_attack:
+					current_attack = attacks[randi_range(0, attacks.size() - 1)]
+				clone_node.current_attack = clone_attack
+				clone_node.match_attack()
+				match_attack()
+			else:
+				match_attack()
+
+var count: int = 0
+func match_attack():
+	attack_animation_player.play(&"RESET")
+	attack_animation_player.advance(0)
+	count += 1
 	match current_attack:
 		"Middle Down Dash":
 			start_down_dash()
@@ -179,13 +207,31 @@ func pick_attack():
 		animation_player.play("sheath_right")
 	else:
 		animation_player.play("sheath_left")
-		
+
+@export var pause_screen : PauseScreen
 func take_damage(dmg:int):
-	hp -= dmg
-	if hp_bar:
-		hp_bar.update_hp_bar(dmg)
-	if hp <= 0:
-		queue_delete()
+	if !clone:
+		hp -= dmg
+		if hp_bar:
+			hp_bar.update_hp_bar(dmg)
+		if hp <= max_hp / 2 and !is_second_phase:
+			second_phase()
+		if hp <= 0:
+			pause_screen.pause(true, "You Win")
+
+var is_second_phase := false
+
+func second_phase():
+	is_second_phase = true
+	%Clone.is_second_phase = true
+
+@export var rest_timer : Timer
+func rest():
+	if !clone:
+		clone_node.pause()
+		animation_player.play("tired") 
+		position = middle
+		rest_timer.start()
 
 
 ## Follows Up on what attack to do/ Change This To Whatever Current Attack Is
@@ -213,9 +259,31 @@ func _on_cooldown_timer_timeout() -> void:
 func fire_projectile(pos : Vector2, flipped: bool):
 	var b = wave_slash_projectile.instantiate()
 	b.global_position = pos + Vector2(0, 12)
+	if is_second_phase:
+		b.max_speed = 250
 	if flipped:
 		b.flipped = true
 	get_tree().get_first_node_in_group("projectile_node").add_child(b)
 
 func queue_delete():
+	pass
+
+func _on_rest_timer_timeout() -> void:
+	if !clone and is_second_phase:
+		animation_player.play("sheath_right")
+		await clone_node.unpause()
+		pick_attack()
+	elif !clone:
+		pick_attack()
+
+func pause():
+	current_attack = ""
+	hide()
+	
+
+func unpause():
+	show()
+	pick_attack()
+
+func _on_start_attack() -> void:
 	pass
